@@ -1,101 +1,93 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgalarMC Sunucusu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgalarMC</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #1e1e2f, #2a2a40);
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      padding: 0;
+      background: linear-gradient(135deg, #0a0f2c, #1b2b5b);
+      font-family: 'Segoe UI', sans-serif;
       color: #fff;
       text-align: center;
-      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 60px 20px;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 20px;
-      text-shadow: 1px 1px 4px #00000099;
+      color: #4ab7ff;
     }
 
     p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-      color: #dcdcdc;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
     }
 
-    .button {
-      background-color: #444;
-      border: none;
-      color: white;
-      padding: 12px 24px;
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      margin: 10px;
       font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: #fff;
       cursor: pointer;
-      border-radius: 6px;
-      transition: background-color 0.4s ease, transform 0.2s ease;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+      text-decoration: none;
     }
 
-    .button:hover {
-      background-color: #555;
-      transform: scale(1.03);
+    .btn:hover {
+      background-color: #2980b9;
     }
 
-    .button.copied {
-      background-color: #007BFF !important;
-      transition: background-color 0.5s ease;
-    }
-
-    .copy-text {
-      user-select: all;
-      display: none;
+    .copied {
+      background-color: #2ecc71 !important;
     }
 
     footer {
-      margin-top: 60px;
+      margin-top: 40px;
       font-size: 0.9rem;
-      color: #aaaaaa;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <h1>AgalarMC'ye Hoş Geldin!</h1>
+  <div class="container">
+    <h1>AgalarMC</h1>
+    <p>Sanayileşme, keşif ve güçlü bosslarla dolu bir Minecraft macerasına hoş geldin!</p>
 
-  <p>
-    Sanayileşmenin tam ortasında kurulu dev fabrikalar, otomasyon ağlarıyla dolu teknolojik yapılar, 
-    keşifler peşindeki oyuncular ve meydan okuyan güçlü boss'larla dolu bu evrende yerini al!
-  </p>
+    <!-- IP butonu -->
+    <button class="btn" onclick="copyIP(this)">Sunucu IP: agalarmc.com</button><br>
 
-  <button class="button" onclick="copyServerAddress(this)">Sunucu Adresini Kopyala</button>
-  <input type="text" class="copy-text" id="serverAddress" value="mc.agalarmc.com" readonly>
+    <!-- Diğer bağlantılar -->
+    <a class="btn" href="https://discord.gg/hrDYhfXD" target="_blank">Discord Sunucusu</a>
+    <a class="btn" href="https://drive.google.com/drive/folders/1Y9l6J_wdkyBcIhet_mpH7KFa9HQUg43d" target="_blank">Mod Paketi</a>
 
-  <footer>
-    &copy; 2025 AgalarMC. Tüm hakları saklıdır.
-  </footer>
+    <footer>&copy; 2025 AgalarMC</footer>
+  </div>
 
   <script>
-    function copyServerAddress(button) {
-      const copyText = document.getElementById("serverAddress");
-      copyText.style.display = "block"; // Bazı mobil tarayıcılar için
-      copyText.select();
-      copyText.setSelectionRange(0, 99999); // Mobil için
-      document.execCommand("copy");
-      copyText.style.display = "none";
+    function copyIP(button) {
+      const ip = "agalarmc.com";
+      navigator.clipboard.writeText(ip).then(() => {
+        const originalText = button.textContent;
+        button.textContent = "Kopyalandı!";
+        button.classList.add("copied");
 
-      // Butonu güncelle
-      const originalText = button.innerHTML;
-      button.innerHTML = "Kopyalandı!";
-      button.classList.add("copied");
-
-      setTimeout(() => {
-        button.innerHTML = originalText;
-        button.classList.remove("copied");
-      }, 1000);
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove("copied");
+        }, 1000);
+      });
     }
   </script>
 </body>
