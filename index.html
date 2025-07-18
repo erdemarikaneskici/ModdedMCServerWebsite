@@ -5,18 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AgalarMC</title>
 
-  <!-- Press Start 2P fontu (Minecraft benzeri, Türkçe destekli) -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
   <style>
+    /* Minecraftia fontu - Türkçe destekli */
+    @font-face {
+      font-family: 'Minecraftia';
+      src: url('https://cdn.jsdelivr.net/npm/minecraftia-extended@1.0.woff2') format('woff2'),
+           url('https://cdn.jsdelivr.net/npm/minecraftia-extended@1.0.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       background: linear-gradient(135deg, #0a0f2c, #1b2b5b);
       background-size: cover;
-      font-family: 'Press Start 2P', monospace;
+      font-family: 'Minecraftia', sans-serif;
       color: #fff;
       text-align: center;
     }
@@ -28,13 +33,13 @@
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 2.5rem;
       margin-bottom: 20px;
       color: #4ab7ff;
     }
 
     p {
-      font-size: 0.9rem;
+      font-size: 1rem;
       margin-bottom: 40px;
       line-height: 1.4;
     }
@@ -43,7 +48,7 @@
       display: inline-block;
       padding: 14px 28px;
       margin: 10px;
-      font-size: 0.75rem;
+      font-size: 1rem;
       border: none;
       border-radius: 8px;
       background-color: #3498db;
@@ -51,7 +56,7 @@
       cursor: pointer;
       transition: background-color 0.4s ease, color 0.4s ease;
       text-decoration: none;
-      font-family: 'Press Start 2P', monospace;
+      font-family: 'Minecraftia', sans-serif;
     }
 
     .btn:hover {
@@ -72,8 +77,8 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font-size: 0.75rem;
-      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      font-family: 'Minecraftia', sans-serif;
       box-shadow: 0 0 6px #000;
       margin-top: 30px;
     }
@@ -88,9 +93,9 @@
 
     footer {
       margin-top: 40px;
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       color: #aaa;
-      font-family: 'Press Start 2P', monospace;
+      font-family: 'Minecraftia', sans-serif;
     }
   </style>
 </head>
@@ -119,7 +124,6 @@
         const originalText = button.textContent;
         button.textContent = "Kopyalandı!";
         button.classList.add("copied");
-
         setTimeout(() => {
           button.textContent = originalText;
           button.classList.remove("copied");
