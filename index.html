@@ -1,81 +1,102 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgalarMC Sunucusu</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f5faff;
-      color: #002f5b;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #1e1e2f, #2a2a40);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #fff;
       text-align: center;
+      padding: 40px 20px;
     }
 
     h1 {
       font-size: 2.5rem;
-      margin-top: 30px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 4px #00000099;
     }
 
     p {
       font-size: 1.2rem;
-      margin-bottom: 30px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+      color: #dcdcdc;
     }
 
     .button {
-      display: block;
-      width: 250px;
-      margin: 10px auto;
-      padding: 15px 20px;
-      background-color: #0077ff;
+      background-color: #444;
+      border: none;
       color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: background-color 0.3s ease;
+      padding: 12px 24px;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.4s ease, transform 0.2s ease;
     }
 
     .button:hover {
-      background-color: #005fcc;
+      background-color: #555;
+      transform: scale(1.03);
     }
 
-    .ip-box {
-      background-color: #e6f0ff;
-      border: 2px dashed #0077ff;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      margin-bottom: 25px;
+    .button.copied {
+      background-color: #007BFF !important;
+      transition: background-color 0.5s ease;
+    }
+
+    .copy-text {
+      user-select: all;
+      display: none;
     }
 
     footer {
-      margin-top: 50px;
+      margin-top: 60px;
       font-size: 0.9rem;
-      color: #666;
+      color: #aaaaaa;
     }
   </style>
 </head>
 <body>
-  <h1>AgalarMC</h1>
-  <p>Teknoloji, keşif ve bosslarla dolu Minecraft deneyimi seni bekliyor!</p>
+  <h1>AgalarMC'ye Hoş Geldin!</h1>
 
-  <div class="ip-box">
-    Sunucu Adresi: <strong>agalarmc.com</strong>
-  </div>
+  <p>
+    Sanayileşmenin tam ortasında kurulu dev fabrikalar, otomasyon ağlarıyla dolu teknolojik yapılar, 
+    keşifler peşindeki oyuncular ve meydan okuyan güçlü boss'larla dolu bu evrende yerini al!
+  </p>
 
-  <a class="button" href="https://discord.gg/hrDYhfXD" target="_blank">Discord'a Katıl</a>
-  <a class="button" href="https://drive.google.com/drive/folders/1Y9l6J_wdkyBcIhet_mpH7KFa9HQUg43d" target="_blank">Mod Paketini İndir</a>
+  <button class="button" onclick="copyServerAddress(this)">Sunucu Adresini Kopyala</button>
+  <input type="text" class="copy-text" id="serverAddress" value="mc.agalarmc.com" readonly>
 
   <footer>
     &copy; 2025 AgalarMC. Tüm hakları saklıdır.
   </footer>
+
+  <script>
+    function copyServerAddress(button) {
+      const copyText = document.getElementById("serverAddress");
+      copyText.style.display = "block"; // Bazı mobil tarayıcılar için
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // Mobil için
+      document.execCommand("copy");
+      copyText.style.display = "none";
+
+      // Butonu güncelle
+      const originalText = button.innerHTML;
+      button.innerHTML = "Kopyalandı!";
+      button.classList.add("copied");
+
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.classList.remove("copied");
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
