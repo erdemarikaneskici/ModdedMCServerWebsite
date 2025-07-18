@@ -4,14 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AgalarMC</title>
+
+  <!-- Minecraft Font (Minecraftia) -->
+  <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       background: linear-gradient(135deg, #0a0f2c, #1b2b5b);
-      background-size: 100% 100%;
-      font-family: 'Segoe UI', sans-serif;
+      background-size: cover;
+      font-family: 'Minecraftia', monospace;
       color: #fff;
       text-align: center;
     }
@@ -23,13 +27,13 @@
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin-bottom: 20px;
       color: #4ab7ff;
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       margin-bottom: 40px;
     }
 
@@ -65,7 +69,6 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font-family: sans-serif;
       font-size: 1rem;
       box-shadow: 0 0 6px #000;
       margin-top: 30px;
@@ -81,7 +84,7 @@
 
     footer {
       margin-top: 40px;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #aaa;
     }
   </style>
@@ -91,14 +94,11 @@
     <h1>AgalarMC</h1>
     <p>Sanayileşme, keşif ve güçlü bosslarla dolu bir Minecraft macerasına hoş geldin!</p>
 
-    <!-- IP butonu -->
     <button class="btn" onclick="copyIP(this)">Sunucu IP: agalarmc.com</button><br>
 
-    <!-- Diğer bağlantılar -->
     <a class="btn" href="https://discord.gg/hrDYhfXD" target="_blank">Discord Sunucusu</a>
     <a class="btn" href="https://drive.google.com/drive/folders/1Y9l6J_wdkyBcIhet_mpH7KFa9HQUg43d" target="_blank">Mod Paketi</a>
 
-    <!-- Sunucu Durumu -->
     <div id="server-status">
       <div id="status-indicator"></div>
       <span id="status-text">Sunucu durumu kontrol ediliyor...</span>
@@ -144,7 +144,7 @@
     }
 
     checkServerStatus();
-    setInterval(checkServerStatus, 30000); // Her 30 saniyede bir kontrol et
+    setInterval(checkServerStatus, 30000);
   </script>
 </body>
 </html>
