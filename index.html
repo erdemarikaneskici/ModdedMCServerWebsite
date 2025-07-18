@@ -5,22 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>AgalarMC</title>
   
-  <style>
-  /* Minecraft Regular fontu @font-face ile dahil edildi */
-  @font-face {
-    font-family: 'Minecraft Regular';
-    src: url('https://unpkg.com/minecraft-font@1.0.0/dist/Minecraft-Regular.woff2') format('woff2'),
-         url('https://unpkg.com/minecraft-font@1.0.0/dist/Minecraft-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
+  <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
 
+  <style>
   html, body {
     margin:0; padding:0;
     height:100%;
     background: linear-gradient(135deg,#0a0f2c,#1b2b5b);
     background-size:cover;
-    font-family:'Minecraft Regular',sans-serif;
+    font-family:'Minecraftia', sans-serif;
     color:#fff;
     text-align:center;
   }
@@ -40,9 +33,10 @@
     line-height:1.4;
   }
   .btn {
-    display:inline-block;
+    display:block;
+    width:100%;
     padding:14px 28px;
-    margin:10px;
+    margin:10px 0;
     font-size:1rem;
     border:none;
     border-radius:8px;
@@ -51,7 +45,7 @@
     cursor:pointer;
     transition:background-color .4s ease,color .4s ease;
     text-decoration:none;
-    font-family:'Minecraft Regular',sans-serif;
+    font-family:'Minecraftia', sans-serif;
   }
   .btn:hover {background-color:#2980b9;}
   .copied {background-color:#fff !important; color:#3498db !important;}
@@ -64,7 +58,7 @@
     align-items:center;
     gap:10px;
     font-size:1rem;
-    font-family:'Minecraft Regular',sans-serif;
+    font-family:'Minecraftia', sans-serif;
     box-shadow:0 0 6px #000;
     margin-top:30px;
   }
@@ -79,7 +73,7 @@
     margin-top:40px;
     font-size:0.8rem;
     color:#aaa;
-    font-family:'Minecraft Regular',sans-serif;
+    font-family:'Minecraftia', sans-serif;
   }
   </style>
 </head>
@@ -88,7 +82,7 @@
     <h1>AgalarMC</h1>
     <p>Sanayileşme, keşif ve güçlü bosslarla dolu bir Minecraft macerasına hoş geldin!</p>
 
-    <button class="btn" onclick="copyIP(this)">Sunucu IP: agalarmc.com</button><br>
+    <button class="btn" onclick="copyIP(this)">Sunucu IP: agalarmc.com</button>
     <a class="btn" href="https://discord.gg/hrDYhfXD" target="_blank">Discord Sunucusu</a>
     <a class="btn" href="https://drive.google.com/…/1Y9l6J_wdkyBcIhet_mpH7KFa9HQUg43d" target="_blank">Mod Paketi</a>
 
