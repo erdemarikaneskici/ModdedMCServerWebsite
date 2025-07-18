@@ -1,35 +1,155 @@
-<!-- Sunucu durumu kutusu -->
-<div class="status" onclick="checkServerStatus()">
-  <div id="status-indicator" class="status-indicator"></div>
-  <span id="status-text">Sunucu durumu kontrol ediliyor...</span>
-</div>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgalarMC</title>
 
-<!-- Sayfanın sonunda (muhtemelen footer'dan hemen önce veya sonunda yer alan <script> bloğu) -->
-<script>
-  function checkServerStatus() {
-    const statusText = document.getElementById("status-text");
-    const statusIndicator = document.getElementById("status-indicator");
+  <!-- Press Start 2P fontu (Minecraft benzeri, Türkçe destekli) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-    statusText.textContent = "Durum kontrol ediliyor...";
-    statusIndicator.style.backgroundColor = "gray";
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #0a0f2c, #1b2b5b);
+      background-size: cover;
+      font-family: 'Press Start 2P', monospace;
+      color: #fff;
+      text-align: center;
+    }
 
-    fetch("https://api.mcsrvstat.us/2/agalarmc.com")
-      .then(res => res.json())
-      .then(data => {
-        if (data.online) {
-          statusText.textContent = "Sunucu açık";
-          statusIndicator.style.backgroundColor = "limegreen";
-        } else {
-          statusText.textContent = "Sunucu kapalı";
-          statusIndicator.style.backgroundColor = "crimson";
-        }
-      })
-      .catch(() => {
-        statusText.textContent = "Başlatılıyor veya erişim yok";
-        statusIndicator.style.backgroundColor = "gold";
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #4ab7ff;
+    }
+
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 40px;
+      line-height: 1.4;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      margin: 10px;
+      font-size: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      text-decoration: none;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    .copied {
+      background-color: #ffffff !important;
+      color: #3498db !important;
+    }
+
+    /* Sunucu durum göstergesi */
+    #server-status {
+      background-color: black;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      font-family: 'Press Start 2P', monospace;
+      box-shadow: 0 0 6px #000;
+      margin-top: 30px;
+    }
+
+    #status-indicator {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: gray;
+      transition: background-color 0.3s ease;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.7rem;
+      color: #aaa;
+      font-family: 'Press Start 2P', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AgalarMC</h1>
+    <p>Sanayileşme, keşif ve güçlü bosslarla dolu bir Minecraft macerasına hoş geldin!</p>
+
+    <button class="btn" onclick="copyIP(this)">Sunucu IP: agalarmc.com</button><br>
+
+    <a class="btn" href="https://discord.gg/hrDYhfXD" target="_blank">Discord Sunucusu</a>
+    <a class="btn" href="https://drive.google.com/drive/folders/1Y9l6J_wdkyBcIhet_mpH7KFa9HQUg43d" target="_blank">Mod Paketi</a>
+
+    <div id="server-status">
+      <div id="status-indicator"></div>
+      <span id="status-text">Sunucu durumu kontrol ediliyor...</span>
+    </div>
+
+    <footer>&copy; 2025 AgalarMC</footer>
+  </div>
+
+  <script>
+    function copyIP(button) {
+      const ip = "agalarmc.com";
+      navigator.clipboard.writeText(ip).then(() => {
+        const originalText = button.textContent;
+        button.textContent = "Kopyalandı!";
+        button.classList.add("copied");
+
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove("copied");
+        }, 1000);
       });
-  }
+    }
 
-  // Sayfa yüklenince kontrol et
-  checkServerStatus();
-</script>
+    async function checkServerStatus() {
+      const statusText = document.getElementById('status-text');
+      const indicator = document.getElementById('status-indicator');
+
+      try {
+        const response = await fetch('https://api.mcsrvstat.us/2/agalarmc.com');
+        const data = await response.json();
+
+        if (data.online) {
+          indicator.style.backgroundColor = 'limegreen';
+          statusText.textContent = 'Sunucu açık';
+        } else {
+          indicator.style.backgroundColor = 'crimson';
+          statusText.textContent = 'Sunucu kapalı';
+        }
+      } catch (e) {
+        indicator.style.backgroundColor = 'gold';
+        statusText.textContent = 'Sunucu başlatılıyor veya erişilemedi';
+      }
+    }
+
+    checkServerStatus();
+    setInterval(checkServerStatus, 30000);
+  </script>
+</body>
+</html>
