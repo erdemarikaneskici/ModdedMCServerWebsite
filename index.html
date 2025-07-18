@@ -1,113 +1,34 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgalarMC</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Press Start 2P', cursive;
-      background: linear-gradient(to bottom right, #0d1117, #1a1f2b);
-      color: white;
-      text-align: center;
-      padding: 40px 20px;
-    }
-    h1 {
-      color: #4fc3f7;
-    }
-    .button {
-      background-color: #42a5f5;
-      color: white;
-      padding: 12px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-family: 'Press Start 2P', cursive;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .button:hover {
-      background-color: #2196f3;
-    }
-    #server-status {
-      background: black;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 12px;
-      font-family: 'Press Start 2P', cursive;
-      box-shadow: 0 0 8px #000;
-      margin-top: 30px;
-      border: none;
-      cursor: pointer;
-    }
-    #status-indicator {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: gray;
-      transition: background 0.3s ease;
-    }
-    footer {
-      margin-top: 40px;
-      color: gray;
-      font-size: 10px;
-    }
-  </style>
-</head>
-<body>
-  <h1>AgalarMC</h1>
-  <p>Sanayileşme, keşif ve güçlü bosslarla dolu bir Minecraft macerasına hoş geldin!</p>
+<!-- Sunucu Durumu Gösterici (Orijinaline Sadık + Yenileme Özelliği) -->
+<div class="status-box" onclick="checkServerStatus()">
+  <div id="status-indicator" class="status-indicator"></div>
+  <span id="status-text">Sunucu durumu kontrol ediliyor...</span>
+</div>
 
-  <div>
-    <button class="button" onclick="navigator.clipboard.writeText('agalarmc.com')">Sunucu IP: agalarmc.com</button>
-  </div>
-  <div>
-    <a href="https://discord.gg/YOUR_DISCORD_LINK" target="_blank"><button class="button">Discord Sunucusu</button></a>
-    <a href="https://modrinth.com/modpack/YOUR_MODPACK_LINK" target="_blank"><button class="button">Mod Paketi</button></a>
-  </div>
+<script>
+  async function checkServerStatus() {
+    const statusText = document.getElementById('status-text');
+    const statusIndicator = document.getElementById('status-indicator');
 
-  <!-- Sunucu durumu düğmesi -->
-  <button id="server-status" onclick="checkServerStatus()">
-    <div id="status-indicator"></div>
-    <span id="status-text">Sunucu durumu kontrol ediliyor...</span>
-  </button>
+    statusText.textContent = 'Durum kontrol ediliyor...';
+    statusIndicator.style.backgroundColor = 'gray';
 
-  <footer>© 2025 AgalarMC</footer>
+    try {
+      const response = await fetch('https://api.mcsrvstat.us/2/agalarmc.com');
+      const data = await response.json();
 
-  <script>
-    async function checkServerStatus() {
-      const t = document.getElementById("status-text");
-      const ind = document.getElementById("status-indicator");
-      t.textContent = "Durum kontrol ediliyor...";
-      ind.style.backgroundColor = "gray";
-      try {
-        const resp = await fetch("https://api.mcsrvstat.us/2/agalarmc.com");
-        const d = await resp.json();
-        if (d.online) {
-          ind.style.backgroundColor = "limegreen";
-          t.textContent = "Sunucu açık";
-        } else {
-          ind.style.backgroundColor = "crimson";
-          t.textContent = "Sunucu kapalı";
-        }
-      } catch {
-        ind.style.backgroundColor = "gold";
-        t.textContent = "Başlatılıyor veya erişim yok";
+      if (data.online) {
+        statusText.textContent = 'Sunucu açık';
+        statusIndicator.style.backgroundColor = 'limegreen';
+      } else {
+        statusText.textContent = 'Sunucu kapalı';
+        statusIndicator.style.backgroundColor = 'crimson';
       }
+    } catch (e) {
+      statusText.textContent = 'Başlatılıyor veya erişim yok';
+      statusIndicator.style.backgroundColor = 'gold';
     }
+  }
 
-    // İlk yüklemede kontrol et, sonra 30 saniyede bir
-    checkServerStatus();
-    setInterval(checkServerStatus, 30000);
-  </script>
-</body>
-</html>
+  checkServerStatus(); // Sayfa ilk yüklendiğinde kontrol et
+  setInterval(checkServerStatus, 30000); // 30 saniyede bir yenile
+</script>
