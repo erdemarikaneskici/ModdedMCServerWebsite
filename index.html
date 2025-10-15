@@ -19,7 +19,6 @@
       overflow: hidden;
     }
 
-    /* Düzgün fade-in arka plan */
     body::before {
       content: "";
       position: fixed;
@@ -27,7 +26,11 @@
       background: var(--bg-image) no-repeat center center/cover;
       z-index: -2;
       opacity: 0;
-      transition: opacity 0.8s ease-in-out;
+      animation: fadeIn 0.8s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
     body::after {
@@ -216,27 +219,13 @@
 
     function setTheme(id) {
       const t = themes[id];
-      const bodyBefore = document.body;
-      // Fade-out -> arka plan değiştir -> fade-in
-      document.body.style.setProperty('--bg-image', t.bg);
-      const before = document.querySelector('body::before');
-      // opacity üzerinden fade-in
-      document.body.style.setProperty('--bg-opacity', '0');
-      setTimeout(() => {
-        document.body.style.setProperty('--bg-opacity', '1');
-      }, 50);
+      document.documentElement.style.setProperty('--bg-image', t.bg);
       document.documentElement.style.setProperty('--primary-color', t.color);
       document.documentElement.style.setProperty('--overlay-gradient', t.gradient);
     }
 
-    // Sayfa açılır açılmaz ana ekran arka planını uygula
+    // Sayfa açılır açılmaz ana ekran temasını uygula
     document.addEventListener("DOMContentLoaded", () => {
-      const body = document.body;
-      const before = document.querySelector('body::before');
-      // Opacity 1 ile fade-in
-      setTimeout(() => {
-        body.style.setProperty('--bg-opacity', '1');
-      }, 50);
       setTheme('home');
     });
 
