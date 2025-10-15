@@ -17,18 +17,17 @@
       color: #fff;
       text-align: center;
       overflow: hidden;
-      position: relative;
     }
 
-    /* Yeni arka plan div'i */
-    #bg {
+    /* Düzgün fade-in arka plan */
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
+      background: var(--bg-image) no-repeat center center/cover;
       z-index: -2;
-      background-size: cover;
-      background-position: center;
-      transition: opacity 0.4s ease-in-out, background-image 0.4s ease-in-out;
-      opacity: 1;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
     }
 
     body::after {
@@ -44,6 +43,7 @@
     :root {
       --primary-color: #3498db;
       --overlay-gradient: 135deg, #0a0f2cbb, #1b2b5bbb;
+      --bg-image: url('images/menu.jpg');
     }
 
     .screen {
@@ -148,9 +148,6 @@
 </head>
 <body>
 
-  <!-- Arka plan div'i -->
-  <div id="bg"></div>
-
   <!-- Ana ekran -->
   <div class="screen active" id="home">
     <h1>AgalarMC</h1>
@@ -211,8 +208,6 @@
       }
     };
 
-    const bgDiv = document.getElementById('bg');
-
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -221,18 +216,27 @@
 
     function setTheme(id) {
       const t = themes[id];
-      // Eski arka planı yavaşça gizle
-      bgDiv.style.opacity = 0;
+      const bodyBefore = document.body;
+      // Fade-out -> arka plan değiştir -> fade-in
+      document.body.style.setProperty('--bg-image', t.bg);
+      const before = document.querySelector('body::before');
+      // opacity üzerinden fade-in
+      document.body.style.setProperty('--bg-opacity', '0');
       setTimeout(() => {
-        bgDiv.style.backgroundImage = t.bg;
-        bgDiv.style.opacity = 1;
-      }, 300);
+        document.body.style.setProperty('--bg-opacity', '1');
+      }, 50);
       document.documentElement.style.setProperty('--primary-color', t.color);
       document.documentElement.style.setProperty('--overlay-gradient', t.gradient);
     }
 
     // Sayfa açılır açılmaz ana ekran arka planını uygula
     document.addEventListener("DOMContentLoaded", () => {
+      const body = document.body;
+      const before = document.querySelector('body::before');
+      // Opacity 1 ile fade-in
+      setTimeout(() => {
+        body.style.setProperty('--bg-opacity', '1');
+      }, 50);
       setTheme('home');
     });
 
