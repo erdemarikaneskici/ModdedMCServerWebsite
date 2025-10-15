@@ -17,20 +17,18 @@
       color: #fff;
       text-align: center;
       overflow: hidden;
+      position: relative;
     }
 
-    body::before {
-      content: "";
+    /* Yeni arka plan div'i */
+    #bg {
       position: fixed;
       inset: 0;
-      background: var(--bg-image) no-repeat center center/cover;
       z-index: -2;
-      opacity: 0;
-      animation: fadeIn 0.8s forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
+      background-size: cover;
+      background-position: center;
+      transition: opacity 0.4s ease-in-out, background-image 0.4s ease-in-out;
+      opacity: 1;
     }
 
     body::after {
@@ -46,7 +44,6 @@
     :root {
       --primary-color: #3498db;
       --overlay-gradient: 135deg, #0a0f2cbb, #1b2b5bbb;
-      --bg-image: url('images/menu.jpg');
     }
 
     .screen {
@@ -151,6 +148,9 @@
 </head>
 <body>
 
+  <!-- Arka plan div'i -->
+  <div id="bg"></div>
+
   <!-- Ana ekran -->
   <div class="screen active" id="home">
     <h1>AgalarMC</h1>
@@ -211,6 +211,8 @@
       }
     };
 
+    const bgDiv = document.getElementById('bg');
+
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -219,12 +221,17 @@
 
     function setTheme(id) {
       const t = themes[id];
-      document.documentElement.style.setProperty('--bg-image', t.bg);
+      // Eski arka planı yavaşça gizle
+      bgDiv.style.opacity = 0;
+      setTimeout(() => {
+        bgDiv.style.backgroundImage = t.bg;
+        bgDiv.style.opacity = 1;
+      }, 300);
       document.documentElement.style.setProperty('--primary-color', t.color);
       document.documentElement.style.setProperty('--overlay-gradient', t.gradient);
     }
 
-    // Sayfa açılır açılmaz ana ekran temasını uygula
+    // Sayfa açılır açılmaz ana ekran arka planını uygula
     document.addEventListener("DOMContentLoaded", () => {
       setTheme('home');
     });
