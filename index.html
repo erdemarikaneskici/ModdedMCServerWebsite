@@ -13,11 +13,35 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: linear-gradient(135deg, #0a0f2c, #1b2b5b);
       font-family: 'Press Start 2P', monospace;
       color: #fff;
       text-align: center;
       overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: var(--bg-image) no-repeat center center/cover;
+      z-index: -2;
+      transition: background-image 0.8s ease-in-out;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(var(--overlay-gradient));
+      z-index: -1;
+      transition: background 0.8s ease-in-out;
+      opacity: 0.85;
+    }
+
+    :root {
+      --primary-color: #3498db;
+      --overlay-gradient: 135deg, #0a0f2cbb, #1b2b5bbb;
+      --bg-image: url('menu.jpg');
     }
 
     .screen {
@@ -40,7 +64,8 @@
     h1 {
       font-size: 2.2rem;
       margin-bottom: 30px;
-      color: #4ab7ff;
+      color: var(--primary-color);
+      text-shadow: 0 0 8px #000;
     }
 
     p {
@@ -48,6 +73,7 @@
       margin-bottom: 50px;
       line-height: 1.5;
       max-width: 800px;
+      text-shadow: 0 0 5px #000;
     }
 
     .btn {
@@ -57,24 +83,27 @@
       font-size: 0.9rem;
       border: none;
       border-radius: 10px;
-      background-color: #3498db;
+      background-color: var(--primary-color);
       color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s;
       text-decoration: none;
       font-family: 'Press Start 2P', monospace;
+      box-shadow: 0 0 12px #0008;
     }
     .btn:hover {
-      background-color: #2980b9;
+      background-color: #fff;
+      color: var(--primary-color);
       transform: scale(1.05);
     }
+
     .copied {
       background-color: #ffffff !important;
-      color: #3498db !important;
+      color: var(--primary-color) !important;
     }
 
-    #server-status {
-      background-color: black;
+    #server-status-vanilla, #server-status-modded {
+      background-color: #00000099;
       color: white;
       padding: 12px 20px;
       border-radius: 14px;
@@ -86,7 +115,7 @@
       margin-top: 40px;
     }
 
-    #status-indicator {
+    [id^="status-indicator"] {
       width: 16px;
       height: 16px;
       border-radius: 50%;
@@ -97,21 +126,20 @@
     footer {
       margin-top: 50px;
       font-size: 0.8rem;
-      color: #aaa;
+      color: #ccc;
+      text-shadow: 0 0 4px #000;
     }
 
     .back-btn {
       margin-top: 50px;
       font-size: 0.75rem;
-      background-color: #555;
+      background-color: #444;
     }
 
-    /* Mobilde tekrar küçültelim */
     @media (max-width: 768px) {
       h1 { font-size: 1.5rem; }
       p { font-size: 0.8rem; }
       .btn { font-size: 0.7rem; padding: 14px 24px; }
-      #server-status { font-size: 0.7rem; }
       footer { font-size: 0.6rem; }
     }
   </style>
@@ -122,7 +150,7 @@
   <div class="screen active" id="home">
     <h1>AgalarMC</h1>
     <button class="btn" onclick="showScreen('vanilla')">Vanilla+</button>
-    <button class="btn" onclick="showScreen('modded')">Modded</button>
+    <button class="btn" onclick="showScreen('modded')">Create</button>
   </div>
 
   <!-- Vanilla+ ekranı -->
@@ -142,11 +170,11 @@
     <footer>&copy; 2025 AgalarMC</footer>
   </div>
 
-  <!-- Modded ekranı -->
+  <!-- Create ekranı -->
   <div class="screen" id="modded">
-    <h1>AgalarMC - Modded</h1>
-    <p>Sanayileşme, silahlar, boss savaşları ve keşiflerle dolu gelişmiş bir deneyim.</p>
-    <button class="btn" onclick="copyIP(this, 'modded.example.com')">Sunucu IP: modded.example.com</button><br>
+    <h1>AgalarMC - Create</h1>
+    <p>Sanayileşme, makineler, savaşlar ve maceralarla dolu gelişmiş bir deneyim.</p>
+    <button class="btn" onclick="copyIP(this, 'create.example.com')">Sunucu IP: create.example.com</button><br>
     <a class="btn" href="https://discord.gg/placeholder" target="_blank">Discord Sunucusu</a>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
 
@@ -160,9 +188,35 @@
   </div>
 
   <script>
+    const themes = {
+      home: {
+        bg: "url('menu.jpg')",
+        color: "#3498db",
+        gradient: "135deg, #0a0f2ccc, #1b2b5bcc"
+      },
+      vanilla: {
+        bg: "url('vanilla.jpg')",
+        color: "#3ddc97",
+        gradient: "135deg, #083030cc, #0b4a3ccc"
+      },
+      modded: {
+        bg: "url('create.jpg')",
+        color: "#d76b00",
+        gradient: "135deg, #3b1a00cc, #7a3a00cc"
+      }
+    };
+
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+      setTheme(id);
+    }
+
+    function setTheme(id) {
+      const t = themes[id];
+      document.documentElement.style.setProperty('--bg-image', t.bg);
+      document.documentElement.style.setProperty('--primary-color', t.color);
+      document.documentElement.style.setProperty('--overlay-gradient', t.gradient);
     }
 
     function copyIP(button, ip) {
@@ -197,10 +251,10 @@
     }
 
     checkServerStatus('vanilla', 'vanilla.example.com');
-    checkServerStatus('modded', 'modded.example.com');
+    checkServerStatus('modded', 'create.example.com');
     setInterval(() => {
       checkServerStatus('vanilla', 'vanilla.example.com');
-      checkServerStatus('modded', 'modded.example.com');
+      checkServerStatus('modded', 'create.example.com');
     }, 30000);
   </script>
 </body>
