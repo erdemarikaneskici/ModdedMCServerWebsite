@@ -40,7 +40,7 @@
     h1 {
       font-size: 2.2rem;
       margin-bottom: 30px;
-      color: #71ff4a;
+      color: #4ab7ff;
     }
 
     p {
@@ -50,22 +50,24 @@
       max-width: 800px;
     }
 
+    /* Liquid glass button */
     .btn {
       display: inline-block;
       padding: 20px 36px;
       margin: 15px;
       font-size: 0.9rem;
-      border: none;
-      border-radius: 10px;
-      background-color: #3498db;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
       color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
       text-decoration: none;
       font-family: 'Press Start 2P', monospace;
     }
     .btn:hover {
-      background-color: #2980b9;
+      background: rgba(255,255,255,0.15);
       transform: scale(1.05);
     }
     .copied {
@@ -73,22 +75,17 @@
       color: #3498db !important;
     }
 
+    /* Sunucu durumu küçük yuvarlak gösterge */
     #server-status {
-      background-color: black;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 14px;
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.9rem;
-      box-shadow: 0 0 6px #000;
-      margin-top: 40px;
+      gap: 10px;
+      font-size: 0.75rem;
+      margin-top: 30px;
     }
-
-    #status-indicator {
-      width: 16px;
-      height: 16px;
+    .status-indicator {
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background-color: gray;
       transition: background-color 0.3s ease;
@@ -103,10 +100,9 @@
     .back-btn {
       margin-top: 50px;
       font-size: 0.75rem;
-      background-color: #555;
+      background-color: rgba(0,0,0,0.3);
     }
 
-    /* Mobilde tekrar küçültelim */
     @media (max-width: 768px) {
       h1 { font-size: 1.5rem; }
       p { font-size: 0.8rem; }
@@ -123,6 +119,7 @@
     <h1>AgalarMC</h1>
     <button class="btn" onclick="showScreen('vanilla')">Vanilla+</button>
     <button class="btn" onclick="showScreen('modded')">Modded</button>
+    <a class="btn" href="https://discord.gg/placeholder" target="_blank">Discord Sunucusu</a>
   </div>
 
   <!-- Vanilla+ ekranı -->
@@ -130,11 +127,10 @@
     <h1>AgalarMC - Vanilla+</h1>
     <p>Vanilla deneyimini hafif eklentilerle zenginleştir, PvE ve keşfi birleştir.</p>
     <button class="btn" onclick="copyIP(this, 'vanilla.example.com')">Sunucu IP: vanilla.example.com</button><br>
-    <a class="btn" href="https://discord.gg/placeholder" target="_blank">Discord Sunucusu</a>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
 
-    <div id="server-status-vanilla">
-      <div id="status-indicator-vanilla"></div>
+    <div id="server-status-vanilla" class="server-status">
+      <div class="status-indicator" id="status-indicator-vanilla"></div>
       <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
     </div>
 
@@ -147,11 +143,10 @@
     <h1>AgalarMC - Modded</h1>
     <p>Sanayileşme, silahlar, boss savaşları ve keşiflerle dolu gelişmiş bir deneyim.</p>
     <button class="btn" onclick="copyIP(this, 'modded.example.com')">Sunucu IP: modded.example.com</button><br>
-    <a class="btn" href="https://discord.gg/placeholder" target="_blank">Discord Sunucusu</a>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
 
-    <div id="server-status-modded">
-      <div id="status-indicator-modded"></div>
+    <div id="server-status-modded" class="server-status">
+      <div class="status-indicator" id="status-indicator-modded"></div>
       <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
     </div>
 
