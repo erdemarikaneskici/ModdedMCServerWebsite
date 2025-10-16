@@ -28,9 +28,7 @@
       animation: fadeIn 0.8s forwards;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+    @keyframes fadeIn { to { opacity: 1; } }
 
     body::after {
       content: "";
@@ -128,7 +126,7 @@
       background-color: #444;
     }
 
-    /* Sunucu durumu butonu */
+    /* Sunucu durumu butonu (CMD tarzı) */
     .btn.server-btn {
       background-color: #00000099;
       color: white;
@@ -139,7 +137,7 @@
       justify-content: center;
       font-size: 0.9rem;
       box-shadow: 0 0 6px #000;
-      gap: 8px;
+      gap: 10px;
       transition: transform 0.1s ease, background-color 0.2s ease;
     }
 
@@ -148,43 +146,22 @@
       background-color: #111111bb;
     }
 
-    /* Sunucu indikatörleri */
-    [id^="status-indicator"] {
+    /* Daire indikatör buton içinde */
+    .status-indicator {
       width: 16px;
       height: 16px;
       border-radius: 50%;
       background-color: gray;
       display: inline-block;
-      margin-right: 10px;
-      vertical-align: middle;
     }
 
     /* Mobil uyumluluk */
     @media (max-width: 600px) {
-      h1 {
-        font-size: clamp(1.5rem, 5vw, 2rem);
-        margin-bottom: 20px;
-      }
-
-      p {
-        font-size: clamp(0.8rem, 3.5vw, 1rem);
-        margin-bottom: 30px;
-        padding: 0 10px;
-      }
-
-      .btn {
-        padding: 14px 24px;
-        font-size: clamp(0.7rem, 3vw, 0.9rem);
-        gap: 8px;
-      }
-
-      .screen {
-        padding: 10px;
-      }
-
-      footer {
-        font-size: 0.7rem;
-      }
+      h1 { font-size: clamp(1.5rem, 5vw, 2rem); margin-bottom: 20px; }
+      p { font-size: clamp(0.8rem, 3.5vw, 1rem); margin-bottom: 30px; padding: 0 10px; }
+      .btn { padding: 14px 24px; font-size: clamp(0.7rem, 3vw, 0.9rem); gap: 8px; }
+      .screen { padding: 10px; }
+      footer { font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -219,13 +196,11 @@
     <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">Sunucu IP: oyna.agalarmc.com</button><br>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
 
-    <!-- Sunucu durumu butonu ve indikatör -->
-    <div id="server-status-vanilla">
-      <div id="status-indicator-vanilla"></div>
-      <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
-        <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
-      </button>
-    </div>
+    <!-- Sunucu durumu butonu (daire ile) -->
+    <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
+      <span class="status-indicator" id="status-indicator-vanilla"></span>
+      <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
+    </button>
 
     <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
     <footer>&copy; 2025 AgalarMC</footer>
@@ -240,13 +215,11 @@
     <button class="btn" onclick="copyIP(this, 'create.agalarmc.com')">Sunucu IP: create.agalarmc.com</button><br>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
 
-    <!-- Sunucu durumu butonu ve indikatör -->
-    <div id="server-status-modded">
-      <div id="status-indicator-modded"></div>
-      <button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
-        <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
-      </button>
-    </div>
+    <!-- Sunucu durumu butonu (daire ile) -->
+    <button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
+      <span class="status-indicator" id="status-indicator-modded"></span>
+      <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
+    </button>
 
     <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
     <footer>&copy; 2025 AgalarMC</footer>
@@ -262,70 +235,4 @@
       vanilla: {
         bg: "url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",
         color: "#3ddc97",
-        gradient: "135deg, #083030cc, #0b4a3ccc"
-      },
-      modded: {
-        bg: "url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",
-        color: "#d76b00",
-        gradient: "135deg, #3b1a00cc, #7a3a00cc"
-      }
-    };
-
-    function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      setTheme(id);
-    }
-
-    function setTheme(id) {
-      const t = themes[id];
-      document.documentElement.style.setProperty('--bg-image', t.bg);
-      document.documentElement.style.setProperty('--primary-color', t.color);
-      document.documentElement.style.setProperty('--overlay-gradient', t.gradient);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => setTheme('home'));
-
-    function copyIP(button, ip) {
-      navigator.clipboard.writeText(ip).then(() => {
-        const originalText = button.textContent;
-        button.textContent = "Kopyalandı!";
-        button.classList.add("copied");
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.classList.remove("copied");
-        }, 1000);
-      });
-    }
-
-    async function checkServerStatus(serverId, address) {
-      const statusText = document.getElementById(`status-text-${serverId}`);
-      const indicator = document.getElementById(`status-indicator-${serverId}`);
-      try {
-        const response = await fetch(`https://api.mcsrvstat.us/2/${address}`);
-        const data = await response.json();
-        if (data.online) {
-          statusText.textContent = 'Sunucu açık';
-          if (indicator) indicator.style.backgroundColor = 'limegreen';
-        } else {
-          statusText.textContent = 'Sunucu kapalı';
-          if (indicator) indicator.style.backgroundColor = 'crimson';
-        }
-      } catch {
-        statusText.textContent = 'Sunucu başlatılıyor veya erişilemedi';
-        if (indicator) indicator.style.backgroundColor = 'gold';
-      }
-    }
-
-    // İlk kontrol
-    checkServerStatus('vanilla', 'oyna.agalarmc.com');
-    checkServerStatus('modded', 'create.agalarmc.com');
-
-    // Sunucu kontrolünü 10 saniyede bir yap
-    setInterval(() => {
-      checkServerStatus('vanilla', 'oyna.agalarmc.com');
-      checkServerStatus('modded', 'create.agalarmc.com');
-    }, 10000); // 10 saniye
-  </script>
-</body>
-</html>
+        gradient: "135
