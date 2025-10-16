@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AgalarMC</title>
 
-  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
   <style>
@@ -39,13 +38,13 @@
       inset: 0;
       background: linear-gradient(var(--overlay-gradient));
       z-index: -1;
-      transition: background 0.8s ease-in-out;
       opacity: 0.85;
+      transition: background 0.8s ease-in-out;
     }
 
     :root {
       --primary-color: #3498db;
-      --overlay-gradient: 135deg, #0a0f2cbb, #1b2b5bbb;
+      --overlay-gradient: 135deg, #0a0f2ccc, #1b2b5bcc;
       --bg-image: url('images/menu.jpg');
     }
 
@@ -61,6 +60,7 @@
       pointer-events: none;
       padding: 20px;
     }
+
     .screen.active {
       opacity: 1;
       pointer-events: all;
@@ -76,13 +76,16 @@
     p {
       font-size: 1rem;
       margin-bottom: 50px;
-      line-height: 1.5;
       max-width: 800px;
       text-shadow: 0 0 5px #000;
+      line-height: 1.6;
     }
 
     .btn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       padding: 20px 36px;
       margin: 15px;
       font-size: 0.9rem;
@@ -91,15 +94,27 @@
       background-color: var(--primary-color);
       color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s;
       text-decoration: none;
       font-family: 'Press Start 2P', monospace;
+      transition: all 0.3s ease;
       box-shadow: 0 0 12px #0008;
     }
+
     .btn:hover {
       background-color: #fff;
       color: var(--primary-color);
       transform: scale(1.05);
+    }
+
+    .btn img {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .btn.discord img {
+      border-radius: 50%;
     }
 
     .copied {
@@ -125,7 +140,6 @@
       height: 16px;
       border-radius: 50%;
       background-color: gray;
-      transition: background-color 0.3s ease;
     }
 
     footer {
@@ -140,30 +154,35 @@
       font-size: 0.75rem;
       background-color: #444;
     }
-
-    @media (max-width: 768px) {
-      h1 { font-size: 1.5rem; }
-      p { font-size: 0.8rem; }
-      .btn { font-size: 0.7rem; padding: 14px 24px; }
-      footer { font-size: 0.6rem; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Ana ekran -->
+  <!-- Ana menü -->
   <div class="screen active" id="home">
     <h1>AgalarMC</h1>
-    <button class="btn" onclick="showScreen('vanilla')">Vanilla+</button>
-    <button class="btn" onclick="showScreen('modded')">Create</button>
+
+    <button class="btn" onclick="showScreen('vanilla')">
+      <img src="images/vanillalogo.png" alt="Vanilla+">
+      Vanilla+
+    </button>
+
+    <button class="btn" onclick="showScreen('modded')">
+      <img src="images/createlogo.png" alt="Create">
+      Create
+    </button>
+
+    <a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank">
+      <img src="images/discord.jpg" alt="Discord">
+      Discord Sunucusu
+    </a>
   </div>
 
-  <!-- Vanilla+ ekranı -->
+  <!-- Vanilla+ alt menü -->
   <div class="screen" id="vanilla">
     <h1>AgalarMC - Vanilla+</h1>
     <p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
     <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">Sunucu IP: oyna.agalarmc.com</button><br>
-    <a class="btn" href="https://discord.gg/wkUvFRTHr9" target="_blank">Discord Sunucusu</a>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
 
     <div id="server-status-vanilla">
@@ -175,12 +194,11 @@
     <footer>&copy; 2025 AgalarMC</footer>
   </div>
 
-  <!-- Create ekranı -->
+  <!-- Create alt menü -->
   <div class="screen" id="modded">
     <h1>AgalarMC - Create</h1>
     <p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
     <button class="btn" onclick="copyIP(this, 'create.agalarmc.com')">Sunucu IP: create.agalarmc.com</button><br>
-    <a class="btn" href="https://discord.gg/wkUvFRTHr9" target="_blank">Discord Sunucusu</a>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
 
     <div id="server-status-modded">
@@ -224,10 +242,7 @@
       document.documentElement.style.setProperty('--overlay-gradient', t.gradient);
     }
 
-    // Sayfa açılır açılmaz ana ekran temasını uygula
-    document.addEventListener("DOMContentLoaded", () => {
-      setTheme('home');
-    });
+    document.addEventListener("DOMContentLoaded", () => setTheme('home'));
 
     function copyIP(button, ip) {
       navigator.clipboard.writeText(ip).then(() => {
@@ -260,11 +275,11 @@
       }
     }
 
-    checkServerStatus('vanilla', 'vanilla.example.com');
-    checkServerStatus('modded', 'create.example.com');
+    checkServerStatus('vanilla', 'oyna.agalarmc.com');
+    checkServerStatus('modded', 'create.agalarmc.com');
     setInterval(() => {
-      checkServerStatus('vanilla', 'vanilla.example.com');
-      checkServerStatus('modded', 'create.example.com');
+      checkServerStatus('vanilla', 'oyna.agalarmc.com');
+      checkServerStatus('modded', 'create.agalarmc.com');
     }, 30000);
   </script>
 </body>
