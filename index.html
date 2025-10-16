@@ -148,6 +148,17 @@
       background-color: #111111bb;
     }
 
+    /* Sunucu indikatörleri */
+    [id^="status-indicator"] {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: gray;
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
     /* Mobil uyumluluk */
     @media (max-width: 600px) {
       h1 {
@@ -204,12 +215,17 @@
     <h1>AgalarMC - Vanilla+</h1>
     <p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
 
-    <!-- IP ve durum butonu -->
-    <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
-      <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
-    </button><br>
-
+    <!-- IP kopyalama butonu -->
+    <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">Sunucu IP: oyna.agalarmc.com</button><br>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
+
+    <!-- Sunucu durumu butonu ve indikatör -->
+    <div id="server-status-vanilla">
+      <div id="status-indicator-vanilla"></div>
+      <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
+        <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
+      </button>
+    </div>
 
     <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
     <footer>&copy; 2025 AgalarMC</footer>
@@ -220,12 +236,17 @@
     <h1>AgalarMC - Create</h1>
     <p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
 
-    <!-- IP ve durum butonu -->
-    <button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
-      <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
-    </button><br>
-
+    <!-- IP kopyalama butonu -->
+    <button class="btn" onclick="copyIP(this, 'create.agalarmc.com')">Sunucu IP: create.agalarmc.com</button><br>
     <a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
+
+    <!-- Sunucu durumu butonu ve indikatör -->
+    <div id="server-status-modded">
+      <div id="status-indicator-modded"></div>
+      <button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
+        <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
+      </button>
+    </div>
 
     <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
     <footer>&copy; 2025 AgalarMC</footer>
