@@ -25,6 +25,18 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 .btn.server-btn:active {transform:scale(0.95); background-color:#111111bb;}
 .status-indicator {width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block;}
 @media (max-width:600px){h1{font-size:clamp(1.5rem,5vw,2rem); margin-bottom:20px;} p{font-size:clamp(0.8rem,3.5vw,1rem); margin-bottom:30px; padding:0 10px;} .btn{padding:14px 24px; font-size:clamp(0.7rem,3vw,0.9rem); gap:8px;} .screen{padding:10px;} footer{font-size:0.7rem;}}
+
+/* ==== Launcher bölümü ==== */
+.launcher-section {margin-top:30px; transition: all 0.4s ease;}
+.launcher-btn {display:flex; align-items:center; justify-content:center; gap:12px; background-color:#00000099; color:#fff; border:none; border-radius:14px; padding:16px 30px; font-size:0.9rem; cursor:pointer; box-shadow:0 0 8px #0008; transition:transform 0.3s ease;}
+.launcher-btn:hover {transform:scale(1.05); background-color:#111111cc;}
+.launcher-btn img {width:50px; height:50px; border-radius:50%; object-fit:cover;}
+.launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease;}
+.launcher-drawer.open {max-height:200px;}
+.launcher-drawer-content {display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:20px;}
+.launcher-option {display:flex; flex-direction:column; align-items:center; gap:8px; text-decoration:none; color:#fff; font-size:0.8rem; transition:transform 0.3s ease;}
+.launcher-option img {width:48px; height:48px;}
+.launcher-option:hover {transform:scale(1.1);}
 </style>
 </head>
 <body>
@@ -44,6 +56,32 @@ Create
 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord">
 Discord Sunucusu
 </a>
+
+<!-- === Launcher ve yardım düğmeleri === -->
+<div class="launcher-section">
+  <button id="launcherBtn" class="launcher-btn">
+    <img src="images/launcher.png" alt="Launcher">
+    <span>LAUNCHER</span>
+  </button>
+
+  <div id="launcherDrawer" class="launcher-drawer">
+    <div class="launcher-drawer-content">
+      <a href="https://launcher-files.modrinth.com/versions/latest/windows/Modrinth%20App_x64-setup.exe" class="launcher-option" target="_blank">
+        <img src="images/modrinth.png" alt="Modrinth">
+        <span>Modrinth</span>
+      </a>
+      <a id="prismLink" href="#" class="launcher-option" target="_blank">
+        <img src="images/prism.png" alt="Prism">
+        <span>Prism</span>
+      </a>
+    </div>
+  </div>
+
+  <button class="launcher-btn" style="margin-top:20px;">
+    <img src="images/yardim.png" alt="Yardım">
+    <span>SUNUCUYA NASIL KATILIRIM?</span>
+  </button>
+</div>
 </div>
 
 <!-- Vanilla+ Menü -->
@@ -122,6 +160,22 @@ statusText.textContent='Sunucu başlatılıyor veya erişilemedi'; if(indicator)
 checkServerStatus('vanilla','oyna.agalarmc.com');
 checkServerStatus('modded','create.agalarmc.com');
 setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com'); checkServerStatus('modded','create.agalarmc.com');},10000);
+
+// === Launcher Çekmece ===
+const launcherBtn=document.getElementById("launcherBtn");
+const launcherDrawer=document.getElementById("launcherDrawer");
+launcherBtn.addEventListener("click",()=>{
+launcherDrawer.classList.toggle("open");
+});
+
+// === Prism en güncel sürüm linki ===
+fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest')
+.then(res=>res.json())
+.then(data=>{
+const asset=data.assets.find(a=>a.name.includes('mingw-w64-setup.exe'));
+if(asset){document.getElementById('prismLink').href=asset.browser_download_url;}
+})
+.catch(err=>console.error('Prism sürümü alınamadı:',err));
 </script>
 
 </body>
