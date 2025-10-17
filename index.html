@@ -59,25 +59,25 @@ Discord Sunucusu
 
 <div class="launcher-section">
 <button id="launcherBtn" class="btn">
-<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher">
+<img src="images/launcher.png" alt="Launcher" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png'">
 Launcher
 </button>
 
 <div id="launcherDrawer" class="launcher-drawer">
 <div class="launcher-drawer-content">
 <a id="modrinthLink" class="launcher-option" target="_blank">
-<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth">
+<img src="images/modrinth.png" alt="Modrinth" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png'">
 <span>Modrinth</span>
 </a>
 <a id="prismLink" class="launcher-option" target="_blank">
-<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism">
+<img src="images/prism.png" alt="Prism" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png'">
 <span>Prism</span>
 </a>
 </div>
 </div>
 
 <button class="btn" style="margin-top:12px;">
-<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım">
+<img src="images/yardim.png" alt="Yardım" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png'">
 Sunucuya Nasıl Katılırım?
 </button>
 </div>
@@ -157,23 +157,29 @@ const launcherBtn=document.getElementById("launcherBtn");
 const launcherDrawer=document.getElementById("launcherDrawer");
 launcherBtn.addEventListener("click",()=>{launcherDrawer.classList.toggle("open");});
 
-// ✅ Modrinth link (doğru güncel indirme)
-document.getElementById('modrinthLink').href = 'https://launcher-files.modrinth.com/versions/latest/windows/Modrinth%20App%20Setup%20x64.exe';
+// --- Modrinth link ---
+document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
 
-// ✅ Prism link (GitHub en son release)
-fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest')
-.then(res=>res.json())
-.then(data=>{
-  const asset=data.assets.find(a=>a.name.includes('mingw-w64-setup.exe'));
-  if(asset){
-    document.getElementById('prismLink').href=asset.browser_download_url;
-  } else {
-    document.getElementById('prismLink').href='https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest';
+// --- Prism link ---
+const prismEl = document.getElementById('prismLink');
+prismEl.addEventListener('click', async (e) => {
+  e.preventDefault();
+  prismEl.querySelector('span').textContent = 'Kontrol ediliyor...';
+  try {
+    const resp = await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');
+    if (!resp.ok) throw new Error('GitHub API hatası');
+    const data = await resp.json();
+    const asset = (data.assets || []).find(a => /mingw-w64-setup\.exe/i.test(a.name));
+    if (asset) {
+      window.location.href = asset.browser_download_url;
+    } else {
+      window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener');
+    }
+  } catch {
+    window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener');
+  } finally {
+    prismEl.querySelector('span').textContent = 'Prism';
   }
-})
-.catch(err=>{
-  console.error('Prism sürümü alınamadı:',err);
-  document.getElementById('prismLink').href='https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest';
 });
 </script>
 </body>
