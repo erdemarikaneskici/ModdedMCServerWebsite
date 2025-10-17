@@ -13,33 +13,77 @@ html, body {
 }
 body::before {
   content:""; position:fixed; inset:0;
-  background: var(--bg-image) no-repeat center center/cover; z-index:-2;
-  opacity:0; animation:fadeIn 0.8s forwards;
+  background: var(--bg-image) no-repeat center center/cover;
+  z-index:-2; opacity:0; animation:fadeIn 0.8s forwards;
 }
 @keyframes fadeIn { to { opacity:1; } }
 body::after {
   content:""; position:fixed; inset:0;
-  background:linear-gradient(var(--overlay-gradient)); z-index:-1;
-  opacity:0.85; transition:background 0.8s ease-in-out;
+  background:linear-gradient(var(--overlay-gradient));
+  z-index:-1; opacity:0.85; transition:background 0.8s ease-in-out;
 }
 :root {
   --primary-color:#3498db;
   --overlay-gradient:135deg, #0a0f2ccc, #1b2b5bcc;
   --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
 }
-.screen {position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px;}
-.screen.active {opacity:1; pointer-events:all;}
-h1 {font-size:2.2rem; margin-bottom:30px; color:var(--primary-color); text-shadow:0 0 8px #000;}
-p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
-.btn {display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:20px 36px; margin:15px; font-size:0.9rem; border:none; border-radius:10px; background-color:var(--primary-color); color:#fff; cursor:pointer; text-decoration:none; font-family:'Press Start 2P', monospace; transition: all 0.3s ease; box-shadow:0 0 12px #0008;}
-.btn:hover {background-color:#fff; color:var(--primary-color); transform:scale(1.05);}
-.btn img {width:28px; height:28px; object-fit:cover; border-radius:6px;}
+
+/* Genel buton ve ekran stilleri */
+.screen {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  opacity:0; transition:opacity 0.6s ease;
+  pointer-events:none; padding:20px;
+}
+.screen.active { opacity:1; pointer-events:all; }
+h1 { font-size:2.2rem; margin-bottom:30px; color:var(--primary-color); text-shadow:0 0 8px #000;}
+p { font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:12px;
+  padding:20px 36px; margin:15px;
+  font-size:0.9rem; border:none; border-radius:10px;
+  background-color:var(--primary-color); color:#fff;
+  cursor:pointer; text-decoration:none; font-family:'Press Start 2P', monospace;
+  transition: all 0.3s ease; box-shadow:0 0 12px #0008;
+}
+.btn:hover { background-color:#fff; color:var(--primary-color); transform:scale(1.05);}
+.btn img { width:28px; height:28px; object-fit:cover; border-radius:6px;}
 .btn.discord img {border-radius:50%;}
 .copied {background-color:#fff !important; color:var(--primary-color) !important;}
 .back-btn {margin-top:50px; font-size:0.75rem; background-color:#444;}
-.btn.server-btn {background-color:#00000099; color:white; padding:12px 20px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; font-size:0.9rem; box-shadow:0 0 6px #000; gap:10px; transition: transform 0.1s ease, background-color 0.2s ease;}
-.btn.server-btn:active {transform:scale(0.95); background-color:#111111bb;}
-.status-indicator {width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block;}
+.btn.server-btn {
+  background-color:#00000099; color:white;
+  padding:12px 20px; border-radius:14px;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:0.9rem; box-shadow:0 0 6px #000; gap:10px;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+.btn.server-btn:active { transform:scale(0.95); background-color:#111111bb; }
+.status-indicator { width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block; }
+
+/* Launcher drawer */
+.launcher-section { display:flex; flex-direction:column; align-items:center; }
+#launcherBtn {
+  position:relative; z-index:2;
+  transition: width 0.25s ease, transform 0.25s ease;
+}
+.launcher-drawer {
+  max-height:0; overflow:hidden; transition:max-height 0.4s ease;
+  display:flex; justify-content:center;
+  gap:40px; margin-top:10px;
+}
+.launcher-drawer.open { max-height:120px; }
+.launcher-option {
+  display:inline-flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; text-decoration:none; background:#1565C0; padding:10px 16px; border-radius:8px;
+  transition: transform 0.2s ease; color:#fff;
+}
+.launcher-option img { width:28px; height:28px; border-radius:6px; }
+.launcher-option:hover { transform:scale(1.05); }
+.launcher-option span { font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff; }
+
+/* Responsive */
 @media (max-width:600px){
   h1{font-size:clamp(1.5rem,5vw,2rem); margin-bottom:20px;}
   p{font-size:clamp(0.8rem,3.5vw,1rem); margin-bottom:30px; padding:0 10px;}
@@ -47,22 +91,6 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   .screen{padding:10px;}
   footer{font-size:0.7rem;}
 }
-
-/* Launcher drawer */
-.launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease;}
-#launcherBtn {margin-bottom:5px;}
-.launcher-drawer {
-  max-height:0; overflow:hidden; transition:max-height 0.4s ease, width 0.3s ease; width:200px; background-color:#1a2f6b; border-radius:8px;
-}
-.launcher-drawer.open {max-height:120px;}
-.launcher-drawer-content {display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:10px;}
-.launcher-option {
-  display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-decoration:none;
-  background-color:#0b1f4a; padding:10px 12px; border-radius:6px;
-}
-.launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff;}
-.launcher-option img {width:28px; height:28px; border-radius:6px;}
-.launcher-option:hover {transform:scale(1.05);}
 </style>
 </head>
 <body>
@@ -77,21 +105,20 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   <a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank">
     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord"> Discord Sunucusu
   </a>
+
   <div class="launcher-section">
     <button id="launcherBtn" class="btn">
-      <img src="images/launcher.png" alt="Launcher" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png'"> Launcher
+      <img src="images/launcher.png" alt="Launcher"> Launcher
     </button>
     <div id="launcherDrawer" class="launcher-drawer">
-      <div class="launcher-drawer-content">
-        <a id="modrinthLink" class="launcher-option" target="_blank">
-          <img src="images/modrinth.png" alt="Modrinth">
-          <span>Modrinth</span>
-        </a>
-        <a id="prismLink" class="launcher-option" target="_blank">
-          <img src="images/prism.png" alt="Prism">
-          <span>Prism</span>
-        </a>
-      </div>
+      <a id="modrinthLink" class="launcher-option" target="_blank" href="https://modrinth.com/app">
+        <img src="images/modrinth.png" alt="Modrinth">
+        <span>Modrinth</span>
+      </a>
+      <a id="prismLink" class="launcher-option" target="_blank" href="https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest">
+        <img src="images/prism.png" alt="Prism">
+        <span>Prism</span>
+      </a>
     </div>
     <button class="btn" style="margin-top:15px;">
       <img src="images/yardim.png" alt="Yardım"> Sunucuya Nasıl Katılırım?
@@ -99,17 +126,13 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   </div>
 </div>
 
-<!-- Vanilla Menü -->
+<!-- Vanilla+ Menü -->
 <div class="screen" id="vanilla">
   <h1>AgalarMC - Vanilla+</h1>
   <p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
-  <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
-    <img src="images/ip.png" alt="IP Icon"> Sunucu IP: oyna.agalarmc.com
-  </button><br>
-  <a class="btn" href="https://drive.google.com/placeholder" target="_blank">
-    <img src="images/mods.png" alt="Mods Icon"> Mod Paketi
-  </a>
-  <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
+  <button class="btn"><img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com</button><br>
+  <a class="btn" href="https://drive.google.com/placeholder" target="_blank"><img src="images/mods.png" alt="Mod"> Mod Paketi</a>
+  <button class="btn server-btn" onclick="checkServerStatus('vanilla','oyna.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-vanilla"></span>
     <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
   </button>
@@ -121,13 +144,9 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 <div class="screen" id="modded">
   <h1>AgalarMC - Create</h1>
   <p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
-  <button class="btn" onclick="copyIP(this, 'create.agalarmc.com')">
-    <img src="images/ip.png" alt="IP Icon"> Sunucu IP: create.agalarmc.com
-  </button><br>
-  <a class="btn" href="https://drive.google.com/placeholder" target="_blank">
-    <img src="images/mods.png" alt="Mods Icon"> Mod Paketi
-  </a>
-  <button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
+  <button class="btn"><img src="images/ip.png" alt="IP"> Sunucu IP: create.agalarmc.com</button><br>
+  <a class="btn" href="https://drive.google.com/placeholder" target="_blank"><img src="images/mods.png" alt="Mod"> Mod Paketi</a>
+  <button class="btn server-btn" onclick="checkServerStatus('modded','create.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-modded"></span>
     <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
   </button>
@@ -153,62 +172,36 @@ function setTheme(id){
   document.documentElement.style.setProperty('--overlay-gradient',t.gradient);
 }
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
-function copyIP(button,ip){
-  navigator.clipboard.writeText(ip).then(()=>{
-    const originalText=button.textContent;
-    button.textContent="Kopyalandı!";
-    button.classList.add("copied");
-    setTimeout(()=>{button.textContent=originalText; button.classList.remove("copied");},1000);
-  });
-}
-async function checkServerStatus(serverId,address){
+
+function checkServerStatus(serverId,address){
   const statusText=document.getElementById(`status-text-${serverId}`);
   const indicator=document.getElementById(`status-indicator-${serverId}`);
-  try{
-    const response=await fetch(`https://api.mcsrvstat.us/2/${address}`);
-    const data=await response.json();
-    if(data.online){statusText.textContent='Sunucu açık'; if(indicator)indicator.style.backgroundColor='limegreen';}
-    else{statusText.textContent='Sunucu kapalı'; if(indicator)indicator.style.backgroundColor='crimson';}
-  }catch{statusText.textContent='Sunucu başlatılıyor veya erişilemedi'; if(indicator)indicator.style.backgroundColor='gold';}
+  fetch(`https://api.mcsrvstat.us/2/${address}`)
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.online){statusText.textContent='Sunucu açık'; indicator.style.backgroundColor='limegreen';}
+    else{statusText.textContent='Sunucu kapalı'; indicator.style.backgroundColor='crimson';}
+  }).catch(()=>{
+    statusText.textContent='Sunucu başlatılıyor veya erişilemedi';
+    indicator.style.backgroundColor='gold';
+  });
 }
 checkServerStatus('vanilla','oyna.agalarmc.com');
 checkServerStatus('modded','create.agalarmc.com');
 setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com'); checkServerStatus('modded','create.agalarmc.com');},10000);
 
-// Launcher drawer toggle with grow effect
+/* Launcher drawer toggle ve animasyon */
 const launcherBtn=document.getElementById("launcherBtn");
 const launcherDrawer=document.getElementById("launcherDrawer");
-const originalWidth = launcherDrawer.offsetWidth;
+const originalWidth = launcherBtn.offsetWidth;
+
 launcherBtn.addEventListener("click",()=>{
-  if(!launcherDrawer.classList.contains("open")){
-    launcherDrawer.style.width = originalWidth*1.2 + "px"; // biraz genişle
-    launcherDrawer.classList.add("open");
-    setTimeout(()=>{launcherDrawer.style.width = originalWidth + "px";},100); // hemen orijinal genişlik
+  launcherDrawer.classList.toggle("open");
+  if(launcherDrawer.classList.contains("open")){
+    launcherBtn.style.width = originalWidth * 1.15 + "px"; // biraz genişlet
   } else {
-    launcherDrawer.classList.remove("open");
-    launcherDrawer.style.width = originalWidth*1.2 + "px"; // tekrar biraz büyü
-    setTimeout(()=>{launcherDrawer.style.width = originalWidth + "px";},300); // sonra daralt
+    launcherBtn.style.width = originalWidth + "px"; // geri orijinal boy
   }
-});
-
-// Modrinth link
-document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
-
-// Prism link
-const prismEl = document.getElementById('prismLink');
-prismEl.addEventListener('click', async (e) => {
-  e.preventDefault();
-  prismEl.querySelector('span').textContent = 'Kontrol ediliyor...';
-  try {
-    const resp = await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');
-    if (!resp.ok) throw new Error('GitHub API hatası');
-    const data = await resp.json();
-    const asset = (data.assets || []).find(a => /mingw-w64-setup\.exe/i.test(a.name));
-    if (asset) window.location.href = asset.browser_download_url;
-    else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener');
-  } catch {
-    window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener');
-  } finally { prismEl.querySelector('span').textContent = 'Prism'; }
 });
 </script>
 </body>
