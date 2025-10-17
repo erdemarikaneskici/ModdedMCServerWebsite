@@ -22,7 +22,9 @@ body::after {
   --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
   --drawer-color:#1b3a5b;
 }
-.screen {position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px;}
+.screen {
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px;
+}
 .screen.active {opacity:1; pointer-events:all;}
 h1 {font-size:2.2rem; margin-bottom:30px; color:var(--primary-color); text-shadow:0 0 8px #000;}
 p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
@@ -53,7 +55,9 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 
 /* Launcher drawer */
 .launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease;}
-#launcherBtn {position:relative; z-index:2; transition: width 0.3s ease;}
+#launcherBtn {
+  position:relative; z-index:2; width:auto; transition: width 0.3s ease;
+}
 .launcher-drawer {
   max-height:0; overflow:hidden; transition:max-height 0.4s ease; 
   background-color:var(--drawer-color); border-radius:0 0 10px 10px;
@@ -62,7 +66,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 }
 .launcher-drawer.open {max-height:100px;}
 .launcher-drawer-content {
-  display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:10px;
+  display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:0;
   width:100%;
 }
 .launcher-option {
@@ -157,30 +161,26 @@ async function checkServerStatus(serverId,address){
     else{statusText.textContent='Sunucu kapalı'; if(indicator)indicator.style.backgroundColor='crimson';}
   }catch{statusText.textContent='Sunucu başlatılıyor veya erişilemedi'; if(indicator)indicator.style.backgroundColor='gold';}
 }
-checkServerStatus('vanilla','oyna.agalarmc.com');
-checkServerStatus('modded','create.agalarmc.com');
-setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com'); checkServerStatus('modded','create.agalarmc.com');},10000);
 
-// Launcher button animation
-const launcherBtn=document.getElementById("launcherBtn");
-const launcherDrawer=document.getElementById("launcherDrawer");
+const launcherBtn = document.getElementById("launcherBtn");
+const launcherDrawer = document.getElementById("launcherDrawer");
+const originalWidth = launcherBtn.offsetWidth;
 
-launcherBtn.addEventListener("click",()=>{
-  if(!launcherDrawer.classList.contains('open')){
-    launcherBtn.style.width="115%";
-    launcherDrawer.classList.add('open');
-    setTimeout(()=>{launcherBtn.style.width="100%";},300);
+launcherBtn.addEventListener("click", () => {
+  if (!launcherDrawer.classList.contains("open")) {
+    // Açılmadan önce genişlet
+    launcherBtn.style.width = originalWidth * 1.2 + "px";
+    setTimeout(()=> launcherDrawer.classList.add("open"), 50);
   } else {
-    launcherBtn.style.width="115%";
-    setTimeout(()=>{
-      launcherDrawer.classList.remove('open');
-      launcherBtn.style.width="100%";
-    },300);
+    launcherDrawer.classList.remove("open");
+    // Kapanırken tekrar orijinal genişliğe dön
+    setTimeout(()=> launcherBtn.style.width = originalWidth + "px", 300);
   }
 });
 
-// Links
+// Modrinth link
 document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
+// Prism link
 const prismEl = document.getElementById('prismLink');
 prismEl.addEventListener('click', async (e) => {
   e.preventDefault();
@@ -190,11 +190,16 @@ prismEl.addEventListener('click', async (e) => {
     if (!resp.ok) throw new Error('GitHub API hatası');
     const data = await resp.json();
     const asset = (data.assets || []).find(a => /mingw-w64-setup\.exe/i.test(a.name));
-    if (asset) { window.location.href = asset.browser_download_url; } 
-    else { window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest','_blank','noopener'); }
+    if (asset) {
+      window.location.href = asset.browser_download_url;
+    } else {
+      window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener');
+    }
   } catch {
-    window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest','_blank','noopener');
-  } finally { prismEl.querySelector('span').textContent = 'Prism'; }
+    window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener');
+  } finally {
+    prismEl.querySelector('span').textContent = 'Prism';
+  }
 });
 </script>
 </body>
