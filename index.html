@@ -112,6 +112,7 @@ Sunucuya Nasıl Katılırım?
 </div>
 
 <script>
+// Tema ve ekran geçişleri
 const themes = {
 home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"#3498db",gradient:"135deg, #0a0f2ccc, #1b2b5bcc"},
 vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#3ddc97",gradient:"135deg, #083030cc, #0b4a3ccc"},
@@ -130,6 +131,7 @@ document.documentElement.style.setProperty('--overlay-gradient',t.gradient);
 }
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
 
+// Sunucu IP kopyalama
 function copyIP(button,ip){
 navigator.clipboard.writeText(ip).then(()=>{
 const originalText=button.textContent;
@@ -138,6 +140,8 @@ button.classList.add("copied");
 setTimeout(()=>{button.textContent=originalText; button.classList.remove("copied");},1000);
 });
 }
+
+// Sunucu durumu
 async function checkServerStatus(serverId,address){
 const statusText=document.getElementById(`status-text-${serverId}`);
 const indicator=document.getElementById(`status-indicator-${serverId}`);
@@ -155,18 +159,4 @@ setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com'); checkServerSt
 // Launcher drawer toggle
 const launcherBtn=document.getElementById("launcherBtn");
 const launcherDrawer=document.getElementById("launcherDrawer");
-launcherBtn.addEventListener("click",()=>{launcherDrawer.classList.toggle("open");});
-
-// Modrinth link (en güncel Windows x64)
-document.getElementById('modrinthLink').href = 'https://launcher-files.modrinth.com/versions/latest/windows/Modrinth%20App_x64-setup.exe';
-
-// Prism link (GitHub en son release)
-fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest')
-.then(res=>res.json())
-.then(data=>{
-const asset=data.assets.find(a=>a.name.includes('mingw-w64-setup.exe'));
-if(asset){document.getElementById('prismLink').href=asset.browser_download_url;}
-}).catch(err=>console.error('Prism sürümü alınamadı:',err));
-</script>
-</body>
-</html>
+launcherBtn.addEventListener("click",()=>{launcherDrawer.classList.toggle
