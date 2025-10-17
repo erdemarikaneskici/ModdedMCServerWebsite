@@ -53,17 +53,14 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 
 /* Launcher drawer */
 .launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease;}
-#launcherBtn {position:relative; z-index:2;}
+#launcherBtn {position:relative; z-index:2; transition: width 0.3s ease;}
 .launcher-drawer {
-  max-height:0; overflow:hidden; transition:max-height 0.5s ease, width 0.3s ease, transform 0.3s ease;
-  background-color:var(--drawer-color); border-radius:10px;
-  display:flex; justify-content:center; align-items:center; width:0;
+  max-height:0; overflow:hidden; transition:max-height 0.4s ease; 
+  background-color:var(--drawer-color); border-radius:0 0 10px 10px;
+  display:flex; justify-content:center; align-items:center; width:100%;
   flex-direction:column; gap:10px; padding:0;
 }
-.launcher-drawer.open {
-  max-height:100px;
-  width:115%;
-}
+.launcher-drawer.open {max-height:100px;}
 .launcher-drawer-content {
   display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:10px;
   width:100%;
@@ -119,34 +116,6 @@ Sunucuya Nasıl Katılırım?
 </div>
 </div>
 
-<!-- Vanilla+ Menü -->
-<div class="screen" id="vanilla">
-<h1>AgalarMC - Vanilla+</h1>
-<p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
-<button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">Sunucu IP: oyna.agalarmc.com</button><br>
-<a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
-<button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
-<span class="status-indicator" id="status-indicator-vanilla"></span>
-<span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
-</button>
-<button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
-<footer>&copy; 2025 AgalarMC</footer>
-</div>
-
-<!-- Create Menü -->
-<div class="screen" id="modded">
-<h1>AgalarMC - Create</h1>
-<p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
-<button class="btn" onclick="copyIP(this, 'create.agalarmc.com')">Sunucu IP: create.agalarmc.com</button><br>
-<a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
-<button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
-<span class="status-indicator" id="status-indicator-modded"></span>
-<span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
-</button>
-<button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
-<footer>&copy; 2025 AgalarMC</footer>
-</div>
-
 <script>
 const themes = {
 home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"#3498db",gradient:"135deg, #0a0f2ccc, #1b2b5bcc"},
@@ -192,28 +161,26 @@ checkServerStatus('vanilla','oyna.agalarmc.com');
 checkServerStatus('modded','create.agalarmc.com');
 setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com'); checkServerStatus('modded','create.agalarmc.com');},10000);
 
-// Launcher drawer toggle
+// Launcher button animation
 const launcherBtn=document.getElementById("launcherBtn");
 const launcherDrawer=document.getElementById("launcherDrawer");
 
 launcherBtn.addEventListener("click",()=>{
   if(!launcherDrawer.classList.contains('open')){
-    launcherDrawer.style.width="115%";
+    launcherBtn.style.width="115%";
     launcherDrawer.classList.add('open');
-    setTimeout(()=>{launcherDrawer.style.width="100%";},300);
+    setTimeout(()=>{launcherBtn.style.width="100%";},300);
   } else {
-    launcherDrawer.style.width="115%";
+    launcherBtn.style.width="115%";
     setTimeout(()=>{
       launcherDrawer.classList.remove('open');
-      launcherDrawer.style.width="100%";
+      launcherBtn.style.width="100%";
     },300);
   }
 });
 
-// Modrinth link
+// Links
 document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
-
-// Prism link
 const prismEl = document.getElementById('prismLink');
 prismEl.addEventListener('click', async (e) => {
   e.preventDefault();
