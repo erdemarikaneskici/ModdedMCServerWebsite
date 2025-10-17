@@ -141,17 +141,18 @@ function setTheme(id){
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
 
 // IP kopyalama fonksiyonu
-function copyIP(button, ip){
-  navigator.clipboard.writeText(ip).then(()=>{
-    const originalText = button.textContent;
-    button.textContent = "Kopyalandı!";
-    button.classList.add("copied");
-    setTimeout(()=>{
-      button.textContent = originalText;
-      button.classList.remove("copied");
-    }, 1000);
-  });
+function copyIP(button, ip) {
+	const originalHTML = button.innerHTML; // ikon + metin dahil sakla
+	navigator.clipboard.writeText(ip).then(() => {
+		button.innerHTML = '<span>Kopyalandı!</span>';
+		button.classList.add("copied");
+		setTimeout(() => {
+			button.innerHTML = originalHTML; // ikon ve metni geri yükle
+			button.classList.remove("copied");
+		}, 1000);
+	});
 }
+
 
 // Sunucu durumu kontrolü
 async function checkServerStatus(serverId,address){
