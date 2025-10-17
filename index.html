@@ -1,168 +1,169 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AgalarMC</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<style>
-html, body {margin:0; padding:0; height:100%; font-family:'Press Start 2P', monospace; color:#fff; text-align:center; overflow:hidden;}
-body::before {content:""; position:fixed; inset:0; background: var(--bg-image) no-repeat center center/cover; z-index:-2; opacity:0; animation:fadeIn 0.8s forwards;}
-@keyframes fadeIn { to { opacity:1; } }
-body::after {content:""; position:fixed; inset:0; background:linear-gradient(var(--overlay-gradient)); z-index:-1; opacity:0.85; transition:background 0.8s ease-in-out;}
-:root {--primary-color:#3498db; --overlay-gradient:135deg, #0a0f2ccc, #1b2b5bcc; --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');}
-.screen {position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px;}
-.screen.active {opacity:1; pointer-events:all;}
-h1 {font-size:2.2rem; margin-bottom:30px; color:var(--primary-color); text-shadow:0 0 8px #000;}
-p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
-.btn {display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:20px 36px; margin:15px; font-size:0.9rem; border:none; border-radius:10px; background-color:var(--primary-color); color:#fff; cursor:pointer; text-decoration:none; font-family:'Press Start 2P', monospace; transition: all 0.3s ease; box-shadow:0 0 12px #0008;}
-.btn:hover {background-color:#fff; color:var(--primary-color); transform:scale(1.05);}
-.btn img {width:28px; height:28px; object-fit:cover; border-radius:50%;}
-.copied {background-color:#fff !important; color:var(--primary-color) !important;}
-.back-btn {margin-top:50px; font-size:0.75rem; background-color:#444;}
-.btn.server-btn {background-color:#00000099; color:white; padding:12px 20px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; font-size:0.9rem; box-shadow:0 0 6px #000; gap:10px; transition: transform 0.1s ease, background-color 0.2s ease;}
-.btn.server-btn:active {transform:scale(0.95); background-color:#111111bb;}
-.status-indicator {width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block;}
-@media (max-width:600px){h1{font-size:clamp(1.5rem,5vw,2rem); margin-bottom:20px;} p{font-size:clamp(0.8rem,3.5vw,1rem); margin-bottom:30px; padding:0 10px;} .btn{padding:14px 24px; font-size:clamp(0.7rem,3vw,0.9rem); gap:8px;} .screen{padding:10px;} footer{font-size:0.7rem;}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgalarMC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #0a0a0a;
+      background-image: url("images/menu.jpg");
+      background-size: cover;
+      background-position: center;
+      font-family: 'Press Start 2P', cursive;
+      color: white;
+      text-align: center;
+    }
 
-/* Launcher drawer */
-.launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease;}
-.launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%;}
-.launcher-drawer.open {max-height:120px;}
-.launcher-drawer-content {display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:10px;}
-.launcher-option {display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-decoration:none;}
-.launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff;}
-.launcher-option img {width:28px; height:28px; border-radius:6px;}
-.launcher-option:hover {transform:scale(1.05);}
-</style>
+    .container {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #00bfff;
+      margin-bottom: 50px;
+      text-shadow: 0 0 10px #00bfff;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+      box-shadow: 0 0 14px rgba(0, 123, 255, 0.7);
+    }
+
+    .button img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* Çekmece animasyonu */
+    .drawer {
+      max-height: 0;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      margin-top: 10px;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+      opacity: 0;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .drawer.open {
+      max-height: 200px;
+      opacity: 1;
+    }
+
+    .drawer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 0;
+      gap: 12px;
+    }
+
+    .drawer-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+    }
+
+    .drawer-button img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+
+    .drawer-button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(0, 123, 255, 0.7);
+    }
+
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>AgalarMC</h1>
 
-<div class="screen active" id="home">
-<h1>AgalarMC</h1>
+    <!-- Launcher Ana Düğmesi -->
+    <button id="launcherButton" class="button">
+      <img src="images/launcher.png" alt="Launcher">Launcher
+    </button>
 
-<button class="btn" onclick="showScreen('vanilla')">
-<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillalogo.png" alt="Vanilla+">
-Vanilla+
-</button>
+    <!-- Çekmece -->
+    <div id="drawer" class="drawer">
+      <div class="drawer-content">
+        <button class="drawer-button" id="modrinthButton">
+          <img src="images/modrinth.png" alt="Modrinth">Modrinth
+        </button>
+        <button class="drawer-button" id="prismButton">
+          <img src="images/prism.png" alt="Prism">Prism
+        </button>
+      </div>
+    </div>
 
-<button class="btn" onclick="showScreen('modded')">
-<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png" alt="Create">
-Create
-</button>
+    <!-- Yardım Düğmesi -->
+    <button class="button">
+      <img src="images/yardim.png" alt="Yardım">Sunucuya nasıl katılırım?
+    </button>
+  </div>
 
-<a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank">
-<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord">
-Discord Sunucusu
-</a>
+  <script>
+    const launcherButton = document.getElementById('launcherButton');
+    const drawer = document.getElementById('drawer');
+    const modrinthButton = document.getElementById('modrinthButton');
+    const prismButton = document.getElementById('prismButton');
 
-<div class="launcher-section">
-<button id="launcherBtn" class="btn">
-<img src="images/launcher.png" alt="Launcher" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png'">
-Launcher
-</button>
+    launcherButton.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
 
-<div id="launcherDrawer" class="launcher-drawer">
-<div class="launcher-drawer-content">
-<a id="modrinthLink" class="launcher-option" target="_blank" href="https://modrinth.com/app">
-<img src="images/modrinth.png" alt="Modrinth" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png'">
-<span>Modrinth</span>
-</a>
-<a id="prismLink" class="launcher-option" target="_blank">
-<img src="images/prism.png" alt="Prism" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png'">
-<span>Prism</span>
-</a>
-</div>
-</div>
+    // Modrinth doğrudan siteye gider
+    modrinthButton.addEventListener('click', () => {
+      window.open('https://modrinth.com/app', '_blank');
+    });
 
-<button class="btn" style="margin-top:12px;">
-<img src="images/yardim.png" alt="Yardım" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png'">
-Sunucuya Nasıl Katılırım?
-</button>
-</div>
-</div>
-
-<!-- Vanilla+ Menü -->
-<div class="screen" id="vanilla">
-<h1>AgalarMC - Vanilla+</h1>
-<p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
-<button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">Sunucu IP: oyna.agalarmc.com</button><br>
-<a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
-<button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
-<span class="status-indicator" id="status-indicator-vanilla"></span>
-<span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
-</button>
-<button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
-<footer>&copy; 2025 AgalarMC</footer>
-</div>
-
-<!-- Create Menü -->
-<div class="screen" id="modded">
-<h1>AgalarMC - Create</h1>
-<p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
-<button class="btn" onclick="copyIP(this, 'create.agalarmc.com')">Sunucu IP: create.agalarmc.com</button><br>
-<a class="btn" href="https://drive.google.com/placeholder" target="_blank">Mod Paketi</a>
-<button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
-<span class="status-indicator" id="status-indicator-modded"></span>
-<span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
-</button>
-<button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
-<footer>&copy; 2025 AgalarMC</footer>
-</div>
-
-<script>
-const themes = {
-home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"#3498db",gradient:"135deg, #0a0f2ccc, #1b2b5bcc"},
-vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#3ddc97",gradient:"135deg, #083030cc, #0b4a3ccc"},
-modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"#d76b00",gradient:"135deg, #3b1a00cc, #7a3a00cc"}
-};
-function showScreen(id){
-document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-setTheme(id);
-}
-function setTheme(id){
-const t=themes[id];
-document.documentElement.style.setProperty('--bg-image',t.bg);
-document.documentElement.style.setProperty('--primary-color',t.color);
-document.documentElement.style.setProperty('--overlay-gradient',t.gradient);
-}
-document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
-
-function copyIP(button,ip){
-navigator.clipboard.writeText(ip).then(()=>{
-const originalText=button.textContent;
-button.textContent="Kopyalandı!";
-button.classList.add("copied");
-setTimeout(()=>{button.textContent=originalText; button.classList.remove("copied");},1000);
-});
-}
-async function checkServerStatus(serverId,address){
-const statusText=document.getElementById(`status-text-${serverId}`);
-const indicator=document.getElementById(`status-indicator-${serverId}`);
-try{
-const response=await fetch(`https://api.mcsrvstat.us/2/${address}`);
-const data=await response.json();
-if(data.online){statusText.textContent='Sunucu açık'; if(indicator)indicator.style.backgroundColor='limegreen';}
-else{statusText.textContent='Sunucu kapalı'; if(indicator)indicator.style.backgroundColor='crimson';}
-}catch{statusText.textContent='Sunucu başlatılıyor veya erişilemedi'; if(indicator)indicator.style.backgroundColor='gold';}
-}
-checkServerStatus('vanilla','oyna.agalarmc.com');
-checkServerStatus('modded','create.agalarmc.com');
-setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com'); checkServerStatus('modded','create.agalarmc.com');},10000);
-
-// Launcher drawer toggle
-const launcherBtn=document.getElementById("launcherBtn");
-const launcherDrawer=document.getElementById("launcherDrawer");
-launcherBtn.addEventListener("click",()=>{launcherDrawer.classList.toggle("open");});
-
-// Prism son Windows setup .exe doğrudan indirme
-fetch('https://api.github.com/repos/PrismLauncher/PrismLauncher/releases/latest')
-.then(res=>res.json())
-.then(data=>{
-const asset=data.assets.find(a=>a.name.includes('windows') && a.name.endsWith('setup.exe'));
-if(asset){document.getElementById('prismLink').href=asset.browser_download_url;}
-}).catch(err=>console.error('Prism sürümü alınamadı:',err));
-</script>
+    // Prism doğrudan en son Windows setup dosyasını indirir
+    prismButton.addEventListener('click', () => {
+      window.location.href = 'https://github.com/PrismLauncher/PrismLauncher/releases/latest/download/PrismLauncher-Windows-MSVC-Setup.exe';
+    });
+  </script>
 </body>
 </html>
