@@ -20,7 +20,7 @@ body::after {
   --primary-color:#3498db; 
   --overlay-gradient:135deg, #0a0f2ccc, #1b2b5bcc; 
   --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
-  --drawer-color:#1b3a5b; /* koyu mavi çekmece */
+  --drawer-color:#1b3a5b;
 }
 .screen {position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px;}
 .screen.active {opacity:1; pointer-events:all;}
@@ -56,13 +56,13 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 #launcherBtn {position:relative; z-index:2;}
 .launcher-drawer {
   max-height:0; overflow:hidden; transition:max-height 0.5s ease, width 0.3s ease, transform 0.3s ease;
-  background-color:var(--drawer-color); border-radius:10px; margin-top:-12px;
+  background-color:var(--drawer-color); border-radius:10px;
   display:flex; justify-content:center; align-items:center; width:0;
   flex-direction:column; gap:10px; padding:0;
 }
 .launcher-drawer.open {
   max-height:100px;
-  width:115%; /* genişleme efekti %15 */
+  width:115%;
 }
 .launcher-drawer-content {
   display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:10px;
@@ -70,8 +70,8 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 }
 .launcher-option {
   display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-decoration:none;
-  background-color:var(--primary-color); border-radius:8px; padding:10px 20px;
-  transition:transform 0.2s ease;
+  background-color:var(--drawer-color); border-radius:8px; padding:10px 20px;
+  outline:none; border:none; transition:transform 0.2s ease;
 }
 .launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff;}
 .launcher-option img {width:28px; height:28px; border-radius:6px;}
@@ -112,7 +112,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 </div>
 </div>
 
-<button class="btn" style="margin-top:12px;">
+<button class="btn" style="margin-top:15px;">
 <img src="images/yardim.png" alt="Yardım" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png'">
 Sunucuya Nasıl Katılırım?
 </button>
@@ -197,9 +197,17 @@ const launcherBtn=document.getElementById("launcherBtn");
 const launcherDrawer=document.getElementById("launcherDrawer");
 
 launcherBtn.addEventListener("click",()=>{
-  launcherDrawer.style.width="115%"; // biraz genişleme
-  launcherDrawer.classList.toggle("open");
-  setTimeout(()=>{launcherDrawer.style.width="100%";},200); // animasyondan sonra normal boyut
+  if(!launcherDrawer.classList.contains('open')){
+    launcherDrawer.style.width="115%";
+    launcherDrawer.classList.add('open');
+    setTimeout(()=>{launcherDrawer.style.width="100%";},300);
+  } else {
+    launcherDrawer.style.width="115%";
+    setTimeout(()=>{
+      launcherDrawer.classList.remove('open');
+      launcherDrawer.style.width="100%";
+    },300);
+  }
 });
 
 // Modrinth link
@@ -224,4 +232,3 @@ prismEl.addEventListener('click', async (e) => {
 </script>
 </body>
 </html>
-
