@@ -156,10 +156,10 @@ function copyIP(button, ip) {
 
 // Sunucu durumu kontrolü
 async function checkServerStatus(serverId,address){
-  const statusText=document.getElementById(status-text-${serverId});
-  const indicator=document.getElementById(status-indicator-${serverId});
+  const statusText=document.getElementById(`status-text-${serverId}`);
+  const indicator=document.getElementById(`status-indicator-${serverId}`);
   try{
-    const response=await fetch(https://api.mcsrvstat.us/2/${address});
+    const response=await fetch(`https://api.mcsrvstat.us/2/${address}`);
     const data=await response.json();
     if(data.online){statusText.textContent='Sunucu açık'; if(indicator)indicator.style.backgroundColor='limegreen';}
     else{statusText.textContent='Sunucu kapalı'; if(indicator)indicator.style.backgroundColor='crimson';}
