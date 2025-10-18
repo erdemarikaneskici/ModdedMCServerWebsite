@@ -17,36 +17,33 @@ body::after {content:""; position:fixed; inset:0; background:linear-gradient(var
   --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
   --modpaketi-color: #2b8f57;
   --modpaketi-btn-color: #2fa666;
+  --launcher-link-color: #3498db;
 }
 
 .screen {position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; padding:20px; box-sizing:border-box; text-align:center;}
 .screen.active {opacity:1; pointer-events:all;}
 
-/* Tüm UI'yi %15 küçült */
-.ui-container {transform: scale(0.85); transform-origin: center center; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+/* Tüm UI %15 küçült */
+.ui-container {transform: scale(0.85); transform-origin: center center; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;}
 
-h1 {font-size:2.2rem; margin-bottom:30px; color:var(--primary-color); text-shadow:0 0 8px #000;}
-p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
+/* Menüler daha aşağıda */
+.screen.active h1, .screen.active p, .screen.active .btn {margin-top:0;}
 
-.btn {display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:20px 36px; margin:15px; font-size:0.9rem; border:none; border-radius:10px; background-color:var(--primary-color); color:#fff; cursor:pointer; text-decoration:none; font-family:'Press Start 2P', monospace; transition: all 0.3s ease; box-shadow:0 0 12px #0008;}
+/* Yazı ve butonlar */
+h1 {font-size:2.2rem; margin-bottom:20px; color:var(--primary-color); text-shadow:0 0 8px #000;}
+p {font-size:1rem; margin-bottom:40px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
+.btn {display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:20px 36px; margin:10px; font-size:0.9rem; border:none; border-radius:10px; background-color:var(--primary-color); color:#fff; cursor:pointer; text-decoration:none; font-family:'Press Start 2P', monospace; transition: all 0.3s ease; box-shadow:0 0 12px #0008;}
 .btn:hover {background-color:#fff; color:var(--primary-color); transform:scale(1.05);}
 .btn img {width:28px; height:28px; object-fit:cover; border-radius:6px;}
 .btn.discord img {border-radius:50%;}
 .copied {background-color:#fff !important; color:var(--primary-color) !important;}
-.back-btn {margin-top:50px; font-size:0.75rem; background-color:#444;}
+.back-btn {margin-top:40px; font-size:0.75rem; background-color:#444;}
 .btn.server-btn {background-color:#00000099; color:white; padding:12px 20px; border-radius:14px; display:inline-flex; align-items:center; justify-content:center; font-size:0.9rem; box-shadow:0 0 6px #000; gap:10px; transition: transform 0.1s ease, background-color 0.2s ease;}
 .btn.server-btn:active {transform:scale(0.95); background-color:#111111bb;}
 .status-indicator {width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block;}
-footer{margin-top:30px; font-size:0.8rem;}
+footer{margin-top:20px; font-size:0.8rem;}
 
-@media (max-width:600px){
-  h1{font-size:clamp(1.5rem,5vw,2rem); margin-bottom:20px;}
-  p{font-size:clamp(0.8rem,3.5vw,1rem); margin-bottom:30px; padding:0 10px;}
-  .btn{padding:14px 24px; font-size:clamp(0.7rem,3vw,0.9rem); gap:8px;}
-  footer{font-size:0.7rem;}
-}
-
-/* Launcher drawer ve modpaketi */
+/* Mod Paketi ve Launcher */
 .launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease;}
 .launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%;}
 .launcher-drawer.open {max-height:300px;}
@@ -72,8 +69,11 @@ footer{margin-top:30px; font-size:0.8rem;}
 .modpaketi-grid .dusuk { grid-area: dusuk; }
 .modpaketi-grid .patates { grid-area: patates; }
 
+/* Mod Paketi ve Launcher renkleri */
 #modPaketiBtn { background-color: var(--modpaketi-btn-color) !important; }
 
+/* Modrinth & Prism renk */
+.launcher-option#modrinthLink, .launcher-option#prismLink {background-color: var(--launcher-link-color);}
 </style>
 </head>
 <body>
@@ -107,7 +107,7 @@ footer{margin-top:30px; font-size:0.8rem;}
         </a>
       </div>
     </div>
-    <button class="btn" style="margin-top:15px;" onclick="window.location.href='https://agalarmc.com/yardim';">
+    <button class="btn" style="margin-top:10px;" onclick="window.location.href='https://agalarmc.com/yardim';">
       <img src="images/yardim.png" alt="Yardım"> Sunucuya Nasıl Katılırım?
     </button>
   </div>
@@ -181,6 +181,7 @@ const themes = {
   vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#3ddc97",gradient:"135deg, #083030cc, #0b4a3ccc"},
   modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"#d76b00",gradient:"135deg, #3b1a00cc, #7a3a00cc"}
 };
+
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -207,7 +208,7 @@ function copyIP(button, ip) {
 	});
 }
 
-// Sunucu durumu kontrolü
+// Sunucu durumu
 async function checkServerStatus(serverId,address){
   const statusText=document.getElementById(`status-text-${serverId}`);
   const indicator=document.getElementById(`status-indicator-${serverId}`);
@@ -228,13 +229,11 @@ setInterval(()=>{
   checkServerStatus('modded','create.agalarmc.com');
 },10000);
 
-// Launcher drawer
+// Launcher toggle
 document.getElementById("launcherBtn").addEventListener("click",()=>{document.getElementById("launcherDrawer").classList.toggle("open");});
 
-// Modrinth link
+// Modrinth & Prism
 document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
-
-// Prism link
 document.getElementById('prismLink').addEventListener('click', async (e) => {
   e.preventDefault();
   const prismEl = document.getElementById('prismLink');
@@ -250,7 +249,7 @@ document.getElementById('prismLink').addEventListener('click', async (e) => {
   finally { prismEl.querySelector('span').textContent = 'Prism'; }
 });
 
-// Vanilla+ Mod Paketi toggle
+// Mod Paketi toggle
 document.getElementById("modPaketiBtn").addEventListener("click", () => {
   document.getElementById("modPaketiDrawer").classList.toggle("open");
 });
