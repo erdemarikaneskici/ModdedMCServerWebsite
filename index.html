@@ -8,7 +8,7 @@
 <style>
 html, body {
   margin:0; padding:0; height:100%; font-family:'Press Start 2P', monospace;
-  color:#fff; text-align:center; overflow:hidden; transform: scale(0.9); transform-origin: top center;
+  color:#fff; text-align:center; overflow-x:hidden; overflow-y:auto;
 }
 body::before {
   content:""; position:fixed; inset:0;
@@ -26,18 +26,22 @@ body::after {
   --overlay-gradient:135deg, #0a0f2ccc, #1b2b5bcc;
   --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
 }
+
+/* Genel ekran ayarları */
 .screen {
-  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px;
+  min-height:100vh; width:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px; box-sizing:border-box;
 }
 .screen.active {opacity:1; pointer-events:all;}
 h1 {font-size:2.2rem; margin-bottom:30px; color:var(--primary-color); text-shadow:0 0 8px #000;}
-p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
+p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6; word-wrap:break-word;}
 .btn {
   display:inline-flex; align-items:center; justify-content:center; gap:12px;
-  padding:20px 36px; margin:15px; font-size:0.9rem; border:none; border-radius:10px;
+  padding:20px 36px; margin:10px; font-size:0.9rem; border:none; border-radius:10px;
   background-color:var(--primary-color); color:#fff; cursor:pointer; text-decoration:none;
   font-family:'Press Start 2P', monospace; transition: all 0.3s ease; box-shadow:0 0 12px #0008;
+  flex-wrap:wrap;
 }
 .btn:hover {background-color:#fff; color:var(--primary-color); transform:scale(1.05);}
 .btn img {width:28px; height:28px; object-fit:cover; border-radius:6px;}
@@ -49,6 +53,22 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   box-shadow:0 0 6px #000; gap:10px; transition: transform 0.1s ease, background-color 0.2s ease;}
 .btn.server-btn:active {transform:scale(0.95); background-color:#111111bb;}
 .status-indicator {width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block;}
+
+/* Mod paketi ve drawer */
+.launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease; z-index:2;}
+.launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%; z-index:2;}
+.launcher-drawer.open {max-height:300px;}
+.launcher-drawer-content {display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:10px;}
+.launcher-option {
+  display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  text-decoration:none; background-color:#1a2b5b; padding:10px; border-radius:8px;
+  min-width:120px; flex:1 1 120px; word-wrap:break-word;
+}
+.launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff; text-align:center;}
+.launcher-option small {font-size:0.65rem; color:#fff; text-align:center;}
+.launcher-option img {width:48px; height:48px; border-radius:6px;}
+.launcher-option:hover {transform:scale(1.05);}
+
 @media (max-width:600px){
   h1{font-size:clamp(1.5rem,5vw,2rem); margin-bottom:20px;}
   p{font-size:clamp(0.8rem,3.5vw,1rem); margin-bottom:30px; padding:0 10px;}
@@ -56,21 +76,6 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   .screen{padding:10px;}
   footer{font-size:0.7rem;}
 }
-
-/* Launcher drawer */
-.launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease; z-index:2;}
-.launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%; z-index:2;}
-.launcher-drawer.open {max-height:200px;}
-.launcher-drawer-content {display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:10px;}
-.launcher-option {
-  display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-  text-decoration:none; background-color:#1a2b5b; padding:10px; border-radius:8px; min-width:120px;
-  flex:1 1 120px;
-}
-.launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff;}
-.launcher-option small {font-size:0.65rem; color:#fff;}
-.launcher-option img {width:48px; height:48px; border-radius:6px;}
-.launcher-option:hover {transform:scale(1.05);}
 </style>
 </head>
 <body>
@@ -87,7 +92,6 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   <a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank">
     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord"> Discord Sunucusu
   </a>
-  
   <div class="launcher-section">
     <button id="launcherBtn" class="btn">
       <img src="images/launcher.png" alt="Launcher" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png'"> Launcher
@@ -116,11 +120,11 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   <p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
   <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
     <img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
-  </button><br>
+  </button>
 
   <div class="launcher-section">
     <button id="modPaketiBtn" class="btn" style="background-color:#2fa666;">
-      <img src="images/mods.png" alt="Mod Paketi" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png'">
+      <img src="images/mods.png" alt="Mod Paketi">
       Mod Paketi
     </button>
     <div id="modPaketiDrawer" class="launcher-drawer">
@@ -158,7 +162,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   <p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
   <button class="btn" onclick="copyIP(this, 'create.agalarmc.com')">
     <img src="images/ip.png" alt="IP"> Sunucu IP: create.agalarmc.com
-  </button><br>
+  </button>
   <a class="btn" href="https://drive.google.com/placeholder" target="_blank">
     <img src="images/mods.png" alt="Mod"> Mod Paketi
   </a>
@@ -190,31 +194,28 @@ function setTheme(id){
 }
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
 
-// IP kopyalama fonksiyonu
+// IP kopyalama
 function copyIP(button, ip) {
   const originalHTML = button.innerHTML;
   navigator.clipboard.writeText(ip).then(() => {
     button.innerHTML = '<span>Kopyalandı!</span>';
     button.classList.add("copied");
-    setTimeout(() => {
-      button.innerHTML = originalHTML;
-      button.classList.remove("copied");
-    }, 1000);
+    setTimeout(() => { button.innerHTML = originalHTML; button.classList.remove("copied"); }, 1000);
   });
 }
 
-// Sunucu durumu kontrolü
+// Sunucu durumu kontrol
 async function checkServerStatus(serverId,address){
   const statusText=document.getElementById(`status-text-${serverId}`);
   const indicator=document.getElementById(`status-indicator-${serverId}`);
   try{
     const response=await fetch(`https://api.mcsrvstat.us/2/${address}`);
     const data=await response.json();
-    if(data.online){statusText.textContent='Sunucu açık'; if(indicator)indicator.style.backgroundColor='limegreen';}
-    else{statusText.textContent='Sunucu kapalı'; if(indicator)indicator.style.backgroundColor='crimson';}
+    if(data.online){statusText.textContent='Sunucu açık'; indicator.style.backgroundColor='limegreen';}
+    else{statusText.textContent='Sunucu kapalı'; indicator.style.backgroundColor='crimson';}
   }catch{
     statusText.textContent='Sunucu başlatılıyor veya erişilemedi';
-    if(indicator)indicator.style.backgroundColor='gold';
+    indicator.style.backgroundColor='gold';
   }
 }
 checkServerStatus('vanilla','oyna.agalarmc.com');
@@ -224,8 +225,9 @@ setInterval(()=>{
   checkServerStatus('modded','create.agalarmc.com');
 },10000);
 
-// Launcher drawer toggle
+// Drawer toggle
 document.getElementById("launcherBtn").addEventListener("click",()=>{document.getElementById("launcherDrawer").classList.toggle("open");});
+document.getElementById("modPaketiBtn").addEventListener("click",()=>{document.getElementById("modPaketiDrawer").classList.toggle("open");});
 
 // Modrinth link
 document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
@@ -245,10 +247,6 @@ prismEl.addEventListener('click', async (e) => {
   } catch { window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener'); }
   finally { prismEl.querySelector('span').textContent = 'Prism'; }
 });
-
-// Vanilla+ Mod Paketi drawer toggle
-document.getElementById("modPaketiBtn").addEventListener("click",()=>{document.getElementById("modPaketiDrawer").classList.toggle("open");});
 </script>
-
 </body>
 </html>
