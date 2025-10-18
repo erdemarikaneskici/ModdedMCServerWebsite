@@ -16,7 +16,7 @@
             text-align:center;
             overflow:hidden;
             background:#000;
-            transform:scale(0.85);
+            transform:scale(0.8);
             transform-origin:top center;
         }
         body::before {
@@ -58,6 +58,8 @@
             pointer-events:none;
             padding:10px;
             max-width:100%;
+            width:100%;
+            box-sizing:border-box;
         }
         .screen.active {
             opacity:1;
@@ -65,8 +67,9 @@
         }
         h1, .title-img {
             margin-bottom:30px;
-            max-width:90%;
+            max-width:95%;
             height:auto;
+            transform:scale(1.15);
         }
         .btn {
             display:inline-flex;
@@ -124,6 +127,7 @@
             display:flex;
             flex-direction:column;
             align-items:center;
+            width:100%;
         }
         .launcher-drawer {
             max-height:0;
@@ -132,14 +136,17 @@
             width:100%;
         }
         .launcher-drawer.open {
-            max-height:220px;
+            max-height:280px;
         }
         .launcher-drawer-content {
             display:flex;
             justify-content:center;
-            gap:30px;
+            gap:20px;
             flex-wrap:wrap;
             margin-top:10px;
+            padding:10px;
+            width:100%;
+            box-sizing:border-box;
         }
         .launcher-option {
             display:flex;
@@ -150,20 +157,22 @@
             background-color:#2b8f57;
             padding:14px 18px;
             border-radius:8px;
-            width:150px;
+            width:140px;
             min-height:120px;
             color:white;
             transition:transform 0.2s ease;
-            font-size:0.85rem;
+            font-size:0.8rem;
             text-align:center;
+            box-sizing:border-box;
         }
         .launcher-option small {
             font-size:0.6rem;
             margin-top:4px;
+            line-height:1.2;
         }
         .launcher-option img {
-            width:50px;
-            height:50px;
+            width:45px;
+            height:45px;
             border-radius:6px;
         }
         .launcher-option:hover {
@@ -174,18 +183,27 @@
             grid-template-areas:
                 "standart standart"
                 "dusuk patates";
-            gap:20px;
+            gap:15px;
             justify-content:center;
             margin-top:10px;
+            width:100%;
+            max-width:400px;
         }
         .modpack-grid .standart {
             grid-area:standart;
+            width:100%;
+            max-width:300px;
+            margin:0 auto;
         }
         .modpack-grid .dusuk {
             grid-area:dusuk;
+            width:100%;
+            max-width:180px;
         }
         .modpack-grid .patates {
             grid-area:patates;
+            width:100%;
+            max-width:180px;
         }
         footer {
             margin-top:20px;
@@ -194,25 +212,53 @@
         }
         @media (max-width:600px){
             html, body {
-                transform:scale(0.75);
+                transform:scale(0.7);
                 overflow:auto;
             }
             .screen {
-                padding:20px;
+                padding:15px;
+            }
+            .title-img {
+                transform:scale(1.1);
+                max-width:90%;
             }
             .launcher-drawer-content {
-                gap:15px;
+                gap:12px;
             }
             .launcher-option {
-                width:130px;
-                min-height:110px;
+                width:120px;
+                min-height:100px;
                 font-size:0.7rem;
+                padding:12px 15px;
             }
             .launcher-option small {
                 font-size:0.55rem;
             }
             .modpack-grid {
-                gap:15px;
+                gap:12px;
+                max-width:320px;
+            }
+            .modpack-grid .standart {
+                max-width:250px;
+            }
+            .modpack-grid .dusuk,
+            .modpack-grid .patates {
+                max-width:150px;
+            }
+        }
+        @media (max-width:400px){
+            html, body {
+                transform:scale(0.65);
+            }
+            .modpack-grid {
+                max-width:280px;
+            }
+            .modpack-grid .standart {
+                max-width:220px;
+            }
+            .modpack-grid .dusuk,
+            .modpack-grid .patates {
+                max-width:130px;
             }
         }
     </style>
