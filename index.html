@@ -7,228 +7,218 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 html, body {
-  margin:0; padding:0; height:100%; width:100%;
-  font-family:'Press Start 2P', monospace; color:#fff; text-align:center;
-  overflow:hidden; background:#000; transform:scale(0.85); transform-origin:top center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: url('images/menu.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Press Start 2P', cursive;
 }
-body::before {
-  content:""; position:fixed; inset:0; background:var(--bg-image) no-repeat center center/cover; z-index:-2; opacity:0; animation:fadeIn 0.8s forwards;
-}
-@keyframes fadeIn { to {opacity:1;} }
-body::after {
-  content:""; position:fixed; inset:0; background:linear-gradient(var(--overlay-gradient)); z-index:-1; opacity:0.85;
-}
-:root {
-  --primary-color:#3498db;
-  --overlay-gradient:135deg, #0a0f2ccc, #1b2b5bcc;
-  --bg-image:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
-}
-.screen {
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:10px; max-width:100%;
-}
-.screen.active {opacity:1; pointer-events:all;}
-h1, .title-img {margin-bottom:30px; max-width:90%; height:auto;}
-.btn {
-  display:inline-flex; align-items:center; justify-content:center; gap:12px;
-  padding:20px 36px; margin:10px; font-size:0.9rem; border:none; border-radius:10px;
-  background-color:var(--primary-color); color:#fff; cursor:pointer;
-  text-decoration:none; font-family:'Press Start 2P', monospace;
-  transition:all 0.3s ease; box-shadow:0 0 12px #0008;
-}
-.btn:hover {background-color:#fff; color:var(--primary-color); transform:scale(1.05);}
-.btn img {width:28px; height:28px; border-radius:6px;}
-.btn.discord img {border-radius:50%;}
-.btn.server-btn {background-color:#0009; padding:12px 20px; border-radius:14px;}
-.btn.server-btn:active {transform:scale(0.95); background-color:#111c;}
-.btn.back-btn {margin-top:30px; font-size:0.7rem; background-color:#444;}
-.status-indicator {width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block;}
-.launcher-section {display:flex; flex-direction:column; align-items:center;}
-.launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%;}
-.launcher-drawer.open {max-height:220px;}
-.launcher-drawer-content {display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:10px;}
-.launcher-option {
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-decoration:none; background-color:#2b8f57; padding:14px 18px;
-  border-radius:8px; width:150px; min-height:120px; color:white;
-  transition:transform 0.2s ease; font-size:0.85rem; text-align:center;
-}
-.launcher-option small {font-size:0.6rem; margin-top:4px;}
-.launcher-option img {width:50px; height:50px; border-radius:6px;}
-.launcher-option:hover {transform:scale(1.05);}
-.modpack-grid {
-  display:grid;
-  grid-template-areas:
-    "standart standart"
-    "dusuk patates";
-  gap:20px;
-  justify-content:center;
-  margin-top:10px;
-}
-.modpack-grid .standart {grid-area:standart;}
-.modpack-grid .dusuk {grid-area:dusuk;}
-.modpack-grid .patates {grid-area:patates;}
-footer {margin-top:20px; font-size:0.7rem; color:#ddd;}
 
-@media (max-width:600px){
-  html, body {transform:scale(0.75); overflow:auto;}
-  .screen {padding:20px;}
-  .launcher-drawer-content {gap:15px;}
-  .launcher-option {width:130px; min-height:110px; font-size:0.7rem;}
-  .launcher-option small {font-size:0.55rem;}
-  .modpack-grid {gap:15px;}
+/* Genel ölçek */
+.overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.85);
+}
+
+/* Menü */
+.menu {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.menu button {
+  display: inline-block;
+  margin: 8px;
+  padding: 16px 28px;
+  font-size: 11px;
+  background-color: #1f4e1f;
+  color: #fff;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu button:hover {
+  background-color: #3f7f3f;
+  transform: scale(1.05);
+}
+
+/* Özel düğmeler */
+#copyIP {
+  background-color: #4CAF50;
+  border-color: #5cd65c;
+}
+
+#howToJoin {
+  background-color: #0056b3;
+  border-color: #007bff;
+}
+
+/* Launcher opsiyonları */
+.launcher-options {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.launcher-options button {
+  background-color: #007bff;
+  border: 2px solid #00a2ff;
+  color: white;
+  font-size: 10px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  width: 160px;
+  text-align: center;
+}
+
+.launcher-options button img {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Modpaket opsiyonları */
+.modpack-options-grid {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modpack-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1e4e1e;
+  border: 2px solid #388e3c;
+  border-radius: 10px;
+  color: white;
+  width: 160px;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.modpack-option:hover {
+  transform: scale(1.05);
+  background-color: #2e6e2e;
+}
+
+.modpack-option img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+}
+
+.modpack-option span {
+  font-size: 9px;
+  margin-bottom: 4px;
+}
+
+.modpack-option small {
+  font-size: 7px;
+  text-align: center;
+  line-height: 1.3;
+  color: #c9e6c9;
+}
+
+/* Piramit düzen */
+.modpack-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* Mobil optimizasyon */
+@media (max-width: 768px) {
+  .overlay {
+    transform: scale(0.75);
+  }
+  .menu button {
+    font-size: 9px;
+    padding: 12px 20px;
+  }
+  .launcher-options button {
+    width: 140px;
+    font-size: 9px;
+  }
+  .modpack-option {
+    width: 140px;
+  }
 }
 </style>
 </head>
 <body>
-
-<!-- Ana Menü -->
-<div class="screen active" id="home">
-  <img class="title-img" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
-  <button class="btn" onclick="showScreen('vanilla')">
-    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillalogo.png" alt="Vanilla+"> Vanilla+
-  </button>
-  <button class="btn" onclick="showScreen('modded')">
-    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png" alt="Create"> Create
-  </button>
-  <a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank">
-    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord"> Discord Sunucusu
-  </a>
-  <div class="launcher-section">
-    <button id="launcherBtn" class="btn">
-      <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher"> Launcher
-    </button>
-    <div id="launcherDrawer" class="launcher-drawer">
-      <div class="launcher-drawer-content">
-        <a id="modrinthLink" class="launcher-option" style="background-color:#2980b9;" target="_blank">
-          <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth">
-          <span>Modrinth</span>
-        </a>
-        <a id="prismLink" class="launcher-option" style="background-color:#2980b9;" target="_blank">
-          <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism">
-          <span>Prism</span>
-        </a>
-      </div>
-    </div>
-    <button class="btn" style="margin-top:15px;background-color:#3498db;" onclick="window.location.href='https://agalarmc.com/yardim';">
-      <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım"> Sunucuya Nasıl Katılırım?
-    </button>
+<div class="overlay">
+  <div class="menu">
+    <button id="copyIP">IP Kopyala</button>
+    <button id="vanillaPlus">Vanilla+</button>
+    <button id="create">Create</button>
+    <button id="howToJoin">Nasıl Katılırım?</button>
   </div>
-</div>
 
-<!-- Vanilla+ -->
-<div class="screen" id="vanilla">
-  <img class="title-img" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillatitle.png" alt="Vanilla+">
-  <p>Görsel ve performans açısından geliştirilmiş, vanilla hissiyatını koruyan sunucumuz.</p>
-  <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
-    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
-  </button><br>
-  <div class="launcher-section">
-    <button id="modPaketiBtn" class="btn" style="background-color:#2fa666;">
-      <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod Paketi"> Mod Paketi
-    </button>
-    <div id="modPaketiDrawer" class="launcher-drawer">
-      <div class="launcher-drawer-content modpack-grid">
-        <a class="launcher-option standart">
-          <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png" alt="Standart">
-          <span>Standart</span>
-          <small>Ortalama ve iyi bilgisayarlar için.</small>
-        </a>
-        <a class="launcher-option dusuk">
-          <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png" alt="Düşük">
-          <span>Düşük</span>
-          <small>Zayıf sistemler için optimize edilmiş.</small>
-        </a>
-        <a class="launcher-option patates">
-          <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/patates.png" alt="Patates">
-          <span>Patates</span>
-          <small>Gerçekten patates bilgisayarlar için.</small>
-        </a>
+  <!-- Launcher opsiyonları -->
+  <div class="launcher-options" id="launcherOptions">
+    <button><img src="images/modrinth.png" alt="Modrinth">Modrinth</button>
+    <button><img src="images/prism.png" alt="Prism">Prism Launcher</button>
+  </div>
+
+  <!-- Modpaket opsiyonları -->
+  <div class="modpack-options-grid" id="modpackOptions">
+    <div class="modpack-option" id="standart">
+      <img src="images/standart.png" alt="Standart">
+      <span>Standart</span>
+      <small>Ortalama ve iyi bilgisayarlar için.</small>
+    </div>
+    <div class="modpack-row">
+      <div class="modpack-option" id="dusuk">
+        <img src="images/dusuk.png" alt="Düşük">
+        <span>Düşük</span>
+        <small>Patates olmasa da kötü bilgisayarlar için.</small>
+      </div>
+      <div class="modpack-option" id="patates">
+        <img src="images/patates.png" alt="Patates">
+        <span>Patates</span>
+        <small>Gerçekten patates bilgisayarlar için.</small>
       </div>
     </div>
   </div>
-  <button class="btn server-btn" onclick="checkServerStatus('vanilla','oyna.agalarmc.com')">
-    <span class="status-indicator" id="status-indicator-vanilla"></span>
-    <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
-  </button>
-  <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
-  <footer>&copy; 2025 AgalarMC</footer>
-</div>
-
-<!-- Create -->
-<div class="screen" id="modded">
-  <img class="title-img" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createtitle.png" alt="Create">
-  <p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
-  <button class="btn" onclick="copyIP(this,'create.agalarmc.com')">
-    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Sunucu IP: create.agalarmc.com
-  </button><br>
-  <a class="btn" href="https://drive.google.com/placeholder" target="_blank" style="background-color:#2fa666;">
-    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod"> Mod Paketi
-  </a>
-  <button class="btn server-btn" onclick="checkServerStatus('modded','create.agalarmc.com')">
-    <span class="status-indicator" id="status-indicator-modded"></span>
-    <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
-  </button>
-  <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
-  <footer>&copy; 2025 AgalarMC</footer>
 </div>
 
 <script>
-const themes={
-  home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"#3498db",gradient:"135deg,#0a0f2ccc,#1b2b5bcc"},
-  vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#3ddc97",gradient:"135deg,#083030cc,#0b4a3ccc"},
-  modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"#d76b00",gradient:"135deg,#3b1a00cc,#7a3a00cc"}
-};
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const t=themes[id];
-  document.documentElement.style.setProperty('--bg-image',t.bg);
-  document.documentElement.style.setProperty('--primary-color',t.color);
-  document.documentElement.style.setProperty('--overlay-gradient',t.gradient);
-}
-document.addEventListener("DOMContentLoaded",()=>showScreen('home'));
-function copyIP(btn,ip){
-  const orig=btn.innerHTML;
-  navigator.clipboard.writeText(ip).then(()=>{
-    btn.innerHTML='Kopyalandı!';
-    setTimeout(()=>btn.innerHTML=orig,1000);
-  });
-}
-async function checkServerStatus(id,addr){
-  const text=document.getElementById(`status-text-${id}`);
-  const ind=document.getElementById(`status-indicator-${id}`);
-  try{
-    const res=await fetch(`https://api.mcsrvstat.us/2/${addr}`);
-    const data=await res.json();
-    if(data.online){text.textContent='Sunucu açık'; ind.style.background='limegreen';}
-    else{text.textContent='Sunucu kapalı'; ind.style.background='crimson';}
-  }catch{ text.textContent='Sunucu başlatılıyor...'; ind.style.background='gold';}
-}
-checkServerStatus('vanilla','oyna.agalarmc.com');
-checkServerStatus('modded','create.agalarmc.com');
-setInterval(()=>{
-  checkServerStatus('vanilla','oyna.agalarmc.com');
-  checkServerStatus('modded','create.agalarmc.com');
-},10000);
+const copyIP = document.getElementById('copyIP');
+copyIP.addEventListener('click', () => {
+  navigator.clipboard.writeText('play.agalarmc.com');
+  alert('IP kopyalandı: play.agalarmc.com');
+});
 
-launcherBtn.onclick=()=>launcherDrawer.classList.toggle("open");
-modPaketiBtn.onclick=()=>modPaketiDrawer.classList.toggle("open");
+const vanillaBtn = document.getElementById('vanillaPlus');
+const launcherOptions = document.getElementById('launcherOptions');
+const modpackOptions = document.getElementById('modpackOptions');
+const createBtn = document.getElementById('create');
 
-document.getElementById('modrinthLink').href='https://modrinth.com/app';
-const prism=document.getElementById('prismLink');
-prism.addEventListener('click',async e=>{
-  e.preventDefault();
-  prism.querySelector('span').textContent='Kontrol...';
-  try{
-    const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');
-    const d=await r.json();
-    const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));
-    if(a)window.location=a.browser_download_url;
-    else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest');
-  }catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest');}
-  finally{prism.querySelector('span').textContent='Prism';}
+vanillaBtn.addEventListener('click', () => {
+  const visible = modpackOptions.style.display === 'flex';
+  modpackOptions.style.display = visible ? 'none' : 'flex';
+  launcherOptions.style.display = 'none';
+});
+
+createBtn.addEventListener('click', () => {
+  const visible = launcherOptions.style.display === 'flex';
+  launcherOptions.style.display = visible ? 'none' : 'flex';
+  modpackOptions.style.display = 'none';
 });
 </script>
 </body>
