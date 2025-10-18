@@ -51,7 +51,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 #modPaketiDrawer.open {max-height:350px;}
 #modPaketiDrawer .launcher-drawer-content {display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
 #modPaketiDrawer .launcher-option {
-  background-color:#2b8f57;
+  background-color:#2b8f57; /* vanilla+ yeşili tonlu */
   flex-direction:column;
   width:130px;
   padding:12px 8px;
@@ -107,10 +107,12 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 <div class="screen" id="vanilla">
   <h1>AgalarMC - Vanilla+</h1>
   <p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
+
   <!-- IP Kopyalama en üstte -->
   <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
     <img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
   </button><br>
+
   <!-- Mod Paketi Drawer -->
   <button class="btn" onclick="toggleModPaketiDrawer()">
     <img src="images/mods.png" alt="Mod"> Mod Paketi
