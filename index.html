@@ -6,7 +6,7 @@
 <title>AgalarMC</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-html, body {margin:0; padding:0; height:100%; font-family:'Press Start 2P', monospace; color:#fff; text-align:center; overflow:hidden;}
+html, body {margin:0; padding:0; height:100%; font-family:'Press Start 2P', monospace; color:#fff; text-align:center; overflow:hidden; transform:scale(0.85); transform-origin:top center;}
 body::before {content:""; position:fixed; inset:0; background: var(--bg-image) no-repeat center center/cover; z-index:-2; opacity:0; animation:fadeIn 0.8s forwards;}
 @keyframes fadeIn { to { opacity:1; } }
 body::after {content:""; position:fixed; inset:0; background:linear-gradient(var(--overlay-gradient)); z-index:-1; opacity:0.85; transition:background 0.8s ease-in-out;}
@@ -14,6 +14,8 @@ body::after {content:""; position:fixed; inset:0; background:linear-gradient(var
   --primary-color:#3498db;
   --overlay-gradient:135deg, #0a0f2ccc, #1b2b5bcc;
   --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
+  --modpaketi-color: #2b8f57;
+  --modpaketi-btn-color: #2fa666;
 }
 .screen {position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 0.6s ease; pointer-events:none; padding:20px; box-sizing:border-box;}
 .screen.active {opacity:1; pointer-events:all;}
@@ -41,10 +43,10 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 .launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%;}
 .launcher-drawer.open {max-height:300px;}
 .launcher-drawer-content {display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:10px;}
-.launcher-option {display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-decoration:none; background-color:#1a2b5b; padding:8px 12px; border-radius:8px;}
-.launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem;}
+.launcher-option {display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-decoration:none; background-color:var(--modpaketi-color); padding:8px 12px; border-radius:8px;}
+.launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff;}
 .launcher-option img {width:48px; height:48px; border-radius:6px;}
-.launcher-option small {font-size:0.65rem; display:block; text-align:center;}
+.launcher-option small {font-size:0.65rem; display:block; text-align:center; color:#fff;}
 .launcher-option:hover {transform:scale(1.05);}
 
 /* Vanilla+ Mod Paketi piramit */
@@ -62,6 +64,9 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 .modpaketi-grid .standart { grid-area: standart; }
 .modpaketi-grid .dusuk { grid-area: dusuk; }
 .modpaketi-grid .patates { grid-area: patates; }
+
+/* ModPaketi düğmesi yeşil */
+#modPaketiBtn { background-color: var(--modpaketi-btn-color) !important; }
 </style>
 </head>
 <body>
@@ -86,7 +91,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
       <div class="launcher-drawer-content">
         <a id="modrinthLink" class="launcher-option" target="_blank">
           <img src="images/modrinth.png" alt="Modrinth">
-          <span>Modrinth</span>
+          <span style="color:#fff;">Modrinth</span>
         </a>
         <a id="prismLink" class="launcher-option" target="_blank">
           <img src="images/prism.png" alt="Prism">
@@ -112,7 +117,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 
   <!-- Mod Paketi Drawer -->
   <div class="launcher-section">
-    <button id="modPaketiBtn" class="btn" style="background-color:#2fa666;">
+    <button id="modPaketiBtn" class="btn">
       <img src="images/mods.png" alt="Mod Paketi"> Mod Paketi
     </button>
     <div id="modPaketiDrawer" class="launcher-drawer">
