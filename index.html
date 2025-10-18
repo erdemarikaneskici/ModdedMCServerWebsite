@@ -46,15 +46,14 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 .launcher-option img {width:28px; height:28px; border-radius:6px;}
 .launcher-option:hover {transform:scale(1.05);}
 
-/* Vanilla+ Mod Paketi Drawer */
-.vanilla-modpaket-section {display:flex; flex-direction:column; align-items:center;}
-.vanilla-mod-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%;}
-.vanilla-mod-drawer.open {max-height:220px;}
-.vanilla-mod-drawer-content {display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:10px;}
-.vanilla-mod-option {display:flex; flex-direction:column; align-items:center; gap:6px; text-decoration:none; background-color:#1a2b5b; padding:10px; border-radius:8px; width:120px;}
-.vanilla-mod-option img {width:40px; height:40px; border-radius:6px;}
-.vanilla-mod-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff;}
-.vanilla-mod-option p {font-size:0.65rem; text-align:center; color:#fff; margin:0;}
+/* Vanilla+ mod paketi drawer */
+.vanilla-mod-drawer { max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%; }
+.vanilla-mod-drawer.open { max-height:200px; }
+.vanilla-mod-drawer-content { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:10px; }
+.vanilla-mod-option { display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; text-decoration:none; background-color:#2fa85f; padding:8px 12px; border-radius:8px; color:#fff; transition: transform 0.2s ease, background-color 0.2s ease; }
+.vanilla-mod-option:hover { transform: scale(1.05); background-color:#27a14d; }
+.vanilla-mod-option img { width:36px; height:36px; border-radius:6px; }
+.vanilla-mod-option p { font-size:0.65rem; text-align:center; margin:0; max-width:100px; line-height:1.2; }
 </style>
 </head>
 <body>
@@ -98,8 +97,11 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 <div class="screen" id="vanilla">
   <h1>AgalarMC - Vanilla+</h1>
   <p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
+
+  <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
+    <img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
+  </button>
   
-  <!-- Mod Paketi Butonu ve Açılır Menüsü -->
   <div class="vanilla-modpaket-section">
     <button id="vanillaModBtn" class="btn">
       <img src="images/mods.png" alt="Mod"> Mod Paketi
@@ -124,11 +126,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
       </div>
     </div>
   </div>
-  
-  <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
-    <img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
-  </button><br>
-  
+
   <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-vanilla"></span>
     <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
@@ -156,7 +154,6 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 </div>
 
 <script>
-// Temalar
 const themes = {
   home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"#3498db",gradient:"135deg, #0a0f2ccc, #1b2b5bcc"},
   vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#3ddc97",gradient:"135deg, #083030cc, #0b4a3ccc"},
@@ -175,20 +172,18 @@ function setTheme(id){
 }
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
 
-// IP kopyalama fonksiyonu
 function copyIP(button, ip) {
-	const originalHTML = button.innerHTML; // ikon + metin dahil sakla
+	const originalHTML = button.innerHTML;
 	navigator.clipboard.writeText(ip).then(() => {
 		button.innerHTML = '<span>Kopyalandı!</span>';
 		button.classList.add("copied");
 		setTimeout(() => {
-			button.innerHTML = originalHTML; // ikon ve metni geri yükle
+			button.innerHTML = originalHTML;
 			button.classList.remove("copied");
 		}, 1000);
 	});
 }
 
-// Sunucu durumu kontrolü
 async function checkServerStatus(serverId,address){
   const statusText=document.getElementById(`status-text-${serverId}`);
   const indicator=document.getElementById(`status-indicator-${serverId}`);
@@ -209,17 +204,13 @@ setInterval(()=>{
   checkServerStatus('modded','create.agalarmc.com');
 },10000);
 
-// Launcher drawer toggle
 const launcherBtn=document.getElementById("launcherBtn");
 const launcherDrawer=document.getElementById("launcherDrawer");
 launcherBtn.addEventListener("click",()=>{
   launcherDrawer.classList.toggle("open");
 });
 
-// Modrinth link
 document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
-
-// Prism link
 const prismEl = document.getElementById('prismLink');
 prismEl.addEventListener('click', async (e) => {
   e.preventDefault();
@@ -235,7 +226,6 @@ prismEl.addEventListener('click', async (e) => {
   finally { prismEl.querySelector('span').textContent = 'Prism'; }
 });
 
-// Vanilla+ Mod Paketi Drawer toggle
 const vanillaModBtn = document.getElementById("vanillaModBtn");
 const vanillaModDrawer = document.getElementById("vanillaModDrawer");
 vanillaModBtn.addEventListener("click", () => {
