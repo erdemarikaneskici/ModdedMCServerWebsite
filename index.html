@@ -52,7 +52,7 @@ p {font-size:1rem; margin-bottom:35px; max-width:800px; text-shadow:0 0 5px #000
 /* Launcher & Mod Paketi drawer */
 .launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease;}
 .launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%;}
-.launcher-drawer.open {max-height:300px;}
+.launcher-drawer.open {max-height:400px;}
 .launcher-drawer-content {display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:10px;}
 .launcher-option {display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; text-decoration:none; background-color:#1a2b5b; padding:10px; border-radius:8px; min-width:120px;}
 .launcher-option span, .launcher-option small {font-family:'Press Start 2P', monospace; text-align:center;}
@@ -60,6 +60,20 @@ p {font-size:1rem; margin-bottom:35px; max-width:800px; text-shadow:0 0 5px #000
 .launcher-option small {font-size:0.65rem; color:#ddd;}
 .launcher-option img {width:48px; height:48px; border-radius:6px;}
 .launcher-option:hover {transform:scale(1.05);}
+
+/* Mod Paketi grid piramit */
+.modpaketi-grid {
+  display: grid;
+  grid-template-areas:
+    "standart"
+    "dusuk patates";
+  grid-gap:15px;
+  justify-content:center;
+  align-items:center;
+}
+.modpaketi-grid .standart {grid-area:standart;}
+.modpaketi-grid .dusuk {grid-area:dusuk;}
+.modpaketi-grid .patates {grid-area:patates;}
 </style>
 </head>
 <body>
@@ -79,7 +93,7 @@ p {font-size:1rem; margin-bottom:35px; max-width:800px; text-shadow:0 0 5px #000
   </a>
   <div class="launcher-section">
     <button id="launcherBtn" class="btn">
-      <img src="images/launcher.png" alt="Launcher" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png'"> Launcher
+      <img src="images/launcher.png" alt="Launcher"> Launcher
     </button>
     <div id="launcherDrawer" class="launcher-drawer">
       <div class="launcher-drawer-content">
@@ -106,30 +120,33 @@ p {font-size:1rem; margin-bottom:35px; max-width:800px; text-shadow:0 0 5px #000
   <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
     <img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
   </button>
+
+  <!-- Mod Paketi drawer -->
   <div class="launcher-section">
     <button id="modPaketiBtn" class="btn" style="background-color:#2fa666;">
       <img src="images/mods.png" alt="Mod Paketi"> Mod Paketi
     </button>
     <div id="modPaketiDrawer" class="launcher-drawer">
-      <div class="launcher-drawer-content">
-        <a class="launcher-option" style="background-color:#2b8f57;">
-          <img src="images/patates.png" alt="Patates">
-          <span>Patates</span>
-          <small>Gerçekten patates bilgisayarlar için.</small>
-        </a>
-        <a class="launcher-option" style="background-color:#2b8f57;">
-          <img src="images/dusuk.png" alt="Düşük">
-          <span>Düşük</span>
-          <small>Patates olmasa da kötü bilgisayarlar için.</small>
-        </a>
-        <a class="launcher-option" style="background-color:#2b8f57;">
+      <div class="launcher-drawer-content modpaketi-grid">
+        <a class="launcher-option standart">
           <img src="images/standart.png" alt="Standart">
           <span>Standart</span>
           <small>Ortalama ve iyi bilgisayarlar için.</small>
         </a>
+        <a class="launcher-option dusuk">
+          <img src="images/dusuk.png" alt="Düşük">
+          <span>Düşük</span>
+          <small>Patates olmasa da kötü bilgisayarlar için.</small>
+        </a>
+        <a class="launcher-option patates">
+          <img src="images/patates.png" alt="Patates">
+          <span>Patates</span>
+          <small>Gerçekten patates bilgisayarlar için.</small>
+        </a>
       </div>
     </div>
   </div>
+
   <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-vanilla"></span>
     <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
