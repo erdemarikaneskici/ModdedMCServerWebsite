@@ -17,14 +17,14 @@ body::after {content:""; position:fixed; inset:0; background:linear-gradient(var
   --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
   --modpaketi-color: #2b8f57;
   --modpaketi-btn-color: #2fa666;
-  --launcher-link-color: #3498db;
+  --launcher-link-color: #1a5ea3;
 }
 
-/* Genel UI container */
+/* UI Container */
 .ui-container {
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate(-50%, -50%) scale(0.85); /* %15 küçültme ve tam ortalama */
+  transform: translate(-50%, -50%) scale(0.85);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,11 +35,11 @@ body::after {content:""; position:fixed; inset:0; background:linear-gradient(var
   text-align: center;
 }
 
-/* Menüler */
+/* Screen */
 .screen {display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; width:100%;}
 .screen:not(.active) {display:none;}
 
-/* Yazılar ve butonlar */
+/* Texts & Buttons */
 h1 {font-size:2.2rem; color:var(--primary-color); text-shadow:0 0 8px #000; margin:0;}
 p {font-size:1rem; text-shadow:0 0 5px #000; line-height:1.6; margin:10px 0;}
 .btn {display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:20px 36px; margin:10px; font-size:0.9rem; border:none; border-radius:10px; background-color:var(--primary-color); color:#fff; cursor:pointer; text-decoration:none; font-family:'Press Start 2P', monospace; transition: all 0.3s ease; box-shadow:0 0 12px #0008;}
@@ -53,13 +53,13 @@ p {font-size:1rem; text-shadow:0 0 5px #000; line-height:1.6; margin:10px 0;}
 .status-indicator {width:16px; height:16px; border-radius:50%; background-color:gray; display:inline-block;}
 footer{margin-top:20px; font-size:0.8rem;}
 
-/* Mod Paketi ve Launcher */
+/* Mod Paketi */
 .launcher-section {display:flex; flex-direction:column; align-items:center; transition: all 0.4s ease;}
 .launcher-drawer {max-height:0; overflow:hidden; transition:max-height 0.4s ease; width:100%;}
-.launcher-drawer.open {max-height:300px;}
+.launcher-drawer.open {max-height:500px;}
 .launcher-drawer-content {display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:10px;}
-.launcher-option {display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-decoration:none; background-color:var(--modpaketi-color); padding:8px 12px; border-radius:8px;}
-.launcher-option span, .launcher-option small {font-family:'Press Start 2P', monospace; color:#fff; text-align:center;}
+.launcher-option {display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-decoration:none; background-color:var(--modpaketi-color); padding:12px 16px; border-radius:8px; min-width:120px;}
+.launcher-option span, .launcher-option small {font-family:'Press Start 2P', monospace; color:#fff; text-align:center; word-wrap: break-word;}
 .launcher-option img {width:48px; height:48px; border-radius:6px;}
 .launcher-option:hover {transform:scale(1.05);}
 
@@ -81,9 +81,17 @@ footer{margin-top:20px; font-size:0.8rem;}
 
 /* Mod Paketi ve Launcher renkleri */
 #modPaketiBtn { background-color: var(--modpaketi-btn-color) !important; }
+.launcher-option#modrinthLink, .launcher-option#prismLink {background-color: #1a5ea3 !important;}
 
-/* Modrinth & Prism renk */
-.launcher-option#modrinthLink, .launcher-option#prismLink {background-color: var(--launcher-link-color);}
+/* Responsive */
+@media (max-width:600px){
+  .ui-container {transform: translate(-50%, -50%) scale(0.75);}
+  h1 {font-size:clamp(1.5rem,5vw,2rem);}
+  p {font-size:clamp(0.8rem,3.5vw,1rem);}
+  .btn {padding:14px 20px; font-size:clamp(0.7rem,3vw,0.9rem); gap:6px;}
+  .launcher-option img {width:36px; height:36px;}
+  .modpaketi-grid {grid-template-columns: repeat(2, 100px); gap:10px;}
+}
 </style>
 </head>
 <body>
@@ -130,33 +138,28 @@ footer{margin-top:20px; font-size:0.8rem;}
   <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
     <img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
   </button>
-
   <div class="launcher-section">
     <button id="modPaketiBtn" class="btn">
       <img src="images/mods.png" alt="Mod Paketi"> Mod Paketi
     </button>
     <div id="modPaketiDrawer" class="launcher-drawer">
-      <div class="launcher-drawer-content modpaketi-grid">
+      <div class="modpaketi-grid">
         <a class="launcher-option standart">
           <img src="images/standart.png" alt="Standart">
           <span>Standart</span>
-          <small>Ortalama ve iyi bilgisayarlar için.</small>
         </a>
         <a class="launcher-option dusuk">
           <img src="images/dusuk.png" alt="Düşük">
           <span>Düşük</span>
-          <small>Patates olmasa da kötü bilgisayarlar için.</small>
         </a>
         <a class="launcher-option patates">
           <img src="images/patates.png" alt="Patates">
           <span>Patates</span>
-          <small>Gerçekten patates bilgisayarlar için.</small>
         </a>
       </div>
     </div>
   </div>
-
-  <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
+  <button class="btn server-btn" onclick="checkServerStatus('vanilla','oyna.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-vanilla"></span>
     <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
   </button>
@@ -174,14 +177,12 @@ footer{margin-top:20px; font-size:0.8rem;}
   <a class="btn" href="https://drive.google.com/placeholder" target="_blank">
     <img src="images/mods.png" alt="Mod"> Mod Paketi
   </a>
-  <button class="btn server-btn" onclick="checkServerStatus('modded', 'create.agalarmc.com')">
+  <button class="btn server-btn" onclick="checkServerStatus('modded','create.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-modded"></span>
     <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
   </button>
   <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
   <footer>&copy; 2025 AgalarMC</footer>
-</div>
-
 </div>
 
 <script>
@@ -191,33 +192,30 @@ const themes = {
   vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#3ddc97",gradient:"135deg, #083030cc, #0b4a3ccc"},
   modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"#d76b00",gradient:"135deg, #3b1a00cc, #7a3a00cc"}
 };
-
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   setTheme(id);
 }
-
 function setTheme(id){
   const t=themes[id];
   document.documentElement.style.setProperty('--bg-image',t.bg);
   document.documentElement.style.setProperty('--primary-color',t.color);
   document.documentElement.style.setProperty('--overlay-gradient',t.gradient);
 }
-
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
 
 // IP kopyalama
 function copyIP(button, ip) {
-	const originalHTML = button.innerHTML;
-	navigator.clipboard.writeText(ip).then(() => {
-		button.innerHTML = '<span>Kopyalandı!</span>';
-		button.classList.add("copied");
-		setTimeout(() => {
-			button.innerHTML = originalHTML;
-			button.classList.remove("copied");
-		}, 1000);
-	});
+  const originalHTML = button.innerHTML;
+  navigator.clipboard.writeText(ip).then(() => {
+    button.innerHTML = '<span>Kopyalandı!</span>';
+    button.classList.add("copied");
+    setTimeout(() => {
+      button.innerHTML = originalHTML;
+      button.classList.remove("copied");
+    }, 1000);
+  });
 }
 
 // Sunucu durumu
@@ -241,29 +239,24 @@ setInterval(()=>{
   checkServerStatus('modded','create.agalarmc.com');
 },10000);
 
-// Launcher toggle
+// Drawer toggle
 document.getElementById("launcherBtn").addEventListener("click",()=>{document.getElementById("launcherDrawer").classList.toggle("open");});
+document.getElementById("modPaketiBtn").addEventListener("click",()=>{document.getElementById("modPaketiDrawer").classList.toggle("open");});
 
 // Modrinth & Prism
 document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
-document.getElementById('prismLink').addEventListener('click', async (e) => {
+document.getElementById('prismLink').addEventListener('click', async (e)=>{
   e.preventDefault();
-  const prismEl = document.getElementById('prismLink');
-  prismEl.querySelector('span').textContent = 'Kontrol ediliyor...';
-  try {
+  const el = document.getElementById('prismLink');
+  el.querySelector('span').textContent = 'Kontrol ediliyor...';
+  try{
     const resp = await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');
-    if (!resp.ok) throw new Error('GitHub API hatası');
     const data = await resp.json();
     const asset = (data.assets || []).find(a => /mingw-w64-setup\.exe/i.test(a.name));
-    if (asset) { window.location.href = asset.browser_download_url; }
-    else { window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener'); }
-  } catch { window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest', '_blank', 'noopener'); }
-  finally { prismEl.querySelector('span').textContent = 'Prism'; }
-});
-
-// Mod Paketi toggle
-document.getElementById("modPaketiBtn").addEventListener("click", () => {
-  document.getElementById("modPaketiDrawer").classList.toggle("open");
+    if(asset) window.location.href = asset.browser_download_url;
+    else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest','_blank','noopener');
+  }catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest','_blank','noopener');}
+  finally{el.querySelector('span').textContent='Prism';}
 });
 </script>
 </body>
