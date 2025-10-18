@@ -16,8 +16,6 @@
             text-align:center;
             overflow:hidden;
             background:#000;
-            transform:scale(0.9);
-            transform-origin:top center;
         }
         body::before {
             content:"";
@@ -48,7 +46,7 @@
             position:absolute;
             top:50%;
             left:50%;
-            transform:translate(-50%,-50%);
+            transform:translate(-50%,-50%) scale(0.85);
             display:flex;
             flex-direction:column;
             align-items:center;
@@ -69,7 +67,6 @@
             margin-bottom:25px;
             max-width:85%;
             height:auto;
-            transform:scale(1.02);
         }
         .btn {
             display:inline-flex;
@@ -142,7 +139,7 @@
         .launcher-drawer-content {
             display:flex;
             justify-content:center;
-            gap:20px;
+            gap:15px;
             flex-wrap:wrap;
             margin-top:10px;
             padding:10px;
@@ -156,13 +153,13 @@
             justify-content:center;
             text-decoration:none;
             background-color:#2b8f57;
-            padding:12px 16px;
+            padding:10px 14px;
             border-radius:8px;
-            width:130px;
-            min-height:110px;
+            width:120px;
+            min-height:100px;
             color:white;
             transition:transform 0.2s ease;
-            font-size:0.75rem;
+            font-size:0.7rem;
             text-align:center;
             box-sizing:border-box;
         }
@@ -172,8 +169,8 @@
             line-height:1.2;
         }
         .launcher-option img {
-            width:40px;
-            height:40px;
+            width:35px;
+            height:35px;
             border-radius:6px;
         }
         .launcher-option:hover {
@@ -202,13 +199,13 @@
         .modpack-grid .dusuk {
             grid-area:dusuk;
             width:100%;
-            max-width:170px;
+            max-width:175px;
             margin:0 auto;
         }
         .modpack-grid .patates {
             grid-area:patates;
             width:100%;
-            max-width:170px;
+            max-width:175px;
             margin:0 auto;
         }
         footer {
@@ -217,15 +214,11 @@
             color:#ddd;
         }
         @media (max-width:600px){
-            html, body {
-                transform:scale(0.85);
-                overflow:auto;
-            }
             .screen {
+                transform:translate(-50%,-50%) scale(0.75);
                 padding:12px;
             }
             .title-img {
-                transform:scale(1);
                 max-width:80%;
             }
             .btn {
@@ -234,13 +227,13 @@
                 margin:6px;
             }
             .launcher-drawer-content {
-                gap:12px;
+                gap:10px;
             }
             .launcher-option {
                 width:110px;
-                min-height:95px;
-                font-size:0.7rem;
-                padding:10px 12px;
+                min-height:90px;
+                font-size:0.65rem;
+                padding:8px 12px;
             }
             .launcher-option small {
                 font-size:0.5rem;
@@ -258,8 +251,8 @@
             }
         }
         @media (max-width:400px){
-            html, body {
-                transform:scale(0.8);
+            .screen {
+                transform:translate(-50%,-50%) scale(0.7);
             }
             .modpack-grid {
                 max-width:260px;
@@ -269,7 +262,7 @@
             }
             .modpack-grid .dusuk,
             .modpack-grid .patates {
-                max-width:120px;
+                max-width:130px;
             }
         }
     </style>
@@ -307,7 +300,7 @@
                     </a>
                 </div>
             </div>
-            <button class="btn" style="margin-top:15px;background-color:#3498db;" onclick="window.location.href='https://agalarmc.com/yardim';">
+            <button class="btn yardim-btn" style="margin-top:15px;background-color:#3498db;" onclick="window.location.href='https://agalarmc.com/yardim';">
                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım">
                 Sunucuya Nasıl Katılırım?
             </button>
@@ -511,6 +504,16 @@
         document.getElementById('moddedModpackBtn').addEventListener('click', function(e) {
             e.preventDefault();
             window.open('https://drive.google.com/your-create-modpack-link', '_blank');
+        });
+
+        // Yardım butonu hover düzeltmesi
+        document.querySelector('.yardim-btn').addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#fff';
+            this.style.color = '#3498db';
+        });
+        document.querySelector('.yardim-btn').addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '#3498db';
+            this.style.color = '#fff';
         });
     </script>
 </body>
