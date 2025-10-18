@@ -20,18 +20,28 @@ body::after {content:""; position:fixed; inset:0; background:linear-gradient(var
   --launcher-link-color: #3498db;
 }
 
-.screen {position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; padding:20px; box-sizing:border-box; text-align:center;}
-.screen.active {opacity:1; pointer-events:all;}
+/* Genel UI container */
+.ui-container {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.85); /* %15 küçültme ve tam ortalama */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
 
-/* Tüm UI %15 küçült */
-.ui-container {transform: scale(0.85); transform-origin: center center; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;}
+/* Menüler */
+.screen {display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; width:100%;}
+.screen:not(.active) {display:none;}
 
-/* Menüler daha aşağıda */
-.screen.active h1, .screen.active p, .screen.active .btn {margin-top:0;}
-
-/* Yazı ve butonlar */
-h1 {font-size:2.2rem; margin-bottom:20px; color:var(--primary-color); text-shadow:0 0 8px #000;}
-p {font-size:1rem; margin-bottom:40px; max-width:800px; text-shadow:0 0 5px #000; line-height:1.6;}
+/* Yazılar ve butonlar */
+h1 {font-size:2.2rem; color:var(--primary-color); text-shadow:0 0 8px #000; margin:0;}
+p {font-size:1rem; text-shadow:0 0 5px #000; line-height:1.6; margin:10px 0;}
 .btn {display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:20px 36px; margin:10px; font-size:0.9rem; border:none; border-radius:10px; background-color:var(--primary-color); color:#fff; cursor:pointer; text-decoration:none; font-family:'Press Start 2P', monospace; transition: all 0.3s ease; box-shadow:0 0 12px #0008;}
 .btn:hover {background-color:#fff; color:var(--primary-color); transform:scale(1.05);}
 .btn img {width:28px; height:28px; object-fit:cover; border-radius:6px;}
@@ -187,12 +197,14 @@ function showScreen(id){
   document.getElementById(id).classList.add('active');
   setTheme(id);
 }
+
 function setTheme(id){
   const t=themes[id];
   document.documentElement.style.setProperty('--bg-image',t.bg);
   document.documentElement.style.setProperty('--primary-color',t.color);
   document.documentElement.style.setProperty('--overlay-gradient',t.gradient);
 }
+
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
 
 // IP kopyalama
