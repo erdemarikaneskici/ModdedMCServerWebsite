@@ -45,6 +45,25 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 .launcher-option span {font-family:'Press Start 2P', monospace; font-size:0.9rem; color:#fff;}
 .launcher-option img {width:28px; height:28px; border-radius:6px;}
 .launcher-option:hover {transform:scale(1.05);}
+
+/* Vanilla+ Mod Paketi Options */
+#modPaketiDrawer {max-height:0; overflow:visible; transition:max-height 0.4s ease;}
+#modPaketiDrawer.open {max-height:300px;}
+#modPaketiDrawer .launcher-drawer-content {display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
+#modPaketiDrawer .launcher-option {
+  background-color:#2b8f57;
+  flex-direction:column;
+  width:130px;
+  padding:12px 8px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:center;
+}
+#modPaketiDrawer .launcher-option img {width:48px; height:48px; margin-bottom:5px;}
+#modPaketiDrawer .launcher-option span {font-size:0.9rem; font-weight:bold;}
+#modPaketiDrawer .launcher-option small {font-size:0.7rem; text-align:center; display:block; margin-top:4px; line-height:1.2;}
 </style>
 </head>
 <body>
@@ -78,7 +97,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
         </a>
       </div>
     </div>
-    <button class="btn" style="margin-top:15px;" onclick="window.location.href='https://agalarmc.com/yardim';">
+    <button class="btn" style="margin-top:15px;" onclick="showScreen('yardim')">
       <img src="images/yardim.png" alt="Yardım"> Sunucuya Nasıl Katılırım?
     </button>
   </div>
@@ -88,47 +107,38 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 <div class="screen" id="vanilla">
   <h1>AgalarMC - Vanilla+</h1>
   <p>Görsel ve performans açısından geliştirilip vanilla hissiyatı koruyan sunucumuz. 2 haftadan uzun sürme garantili ;)</p>
-  
-  <!-- IP Kopyalama Düğmesi -->
+  <!-- IP Kopyalama en üstte -->
   <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
-    <img src="images/ip.png" alt="IP" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png'"> Sunucu IP: oyna.agalarmc.com
+    <img src="images/ip.png" alt="IP"> Sunucu IP: oyna.agalarmc.com
   </button><br>
-
   <!-- Mod Paketi Drawer -->
-  <div class="launcher-section">
-    <button id="modPaketiBtn" class="btn" style="background-color:#2fa666;">
-      <img src="images/mods.png" alt="Mod Paketi" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png'">
-      Mod Paketi
-    </button>
-    <div id="modPaketiDrawer" class="launcher-drawer">
-      <div class="launcher-drawer-content" style="justify-content:center; gap:20px; flex-wrap:wrap;">
-        <!-- Patates -->
-        <a class="launcher-option" style="background-color:#2b8f57; flex-direction:column; width:120px; padding:10px;">
-          <img src="images/patates.png" alt="Patates" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/patates.png'" style="width:48px; height:48px;">
-          <span style="font-size:0.9rem; text-align:center; display:block; margin-top:5px;">Patates</span>
-          <small style="font-size:0.65rem; text-align:center; display:block; margin-top:2px;">Gerçekten patates bilgisayarlar için.</small>
-        </a>
-        <!-- Düşük -->
-        <a class="launcher-option" style="background-color:#2b8f57; flex-direction:column; width:120px; padding:10px;">
-          <img src="images/dusuk.png" alt="Düşük" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png'" style="width:48px; height:48px;">
-          <span style="font-size:0.9rem; text-align:center; display:block; margin-top:5px;">Düşük</span>
-          <small style="font-size:0.65rem; text-align:center; display:block; margin-top:2px;">Patates olmasa da kötü olan bilgisayarlar için.</small>
-        </a>
-        <!-- Standart -->
-        <a class="launcher-option" style="background-color:#2b8f57; flex-direction:column; width:120px; padding:10px;">
-          <img src="images/standart.png" alt="Standart" onerror="this.src='https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png'" style="width:48px; height:48px;">
-          <span style="font-size:0.9rem; text-align:center; display:block; margin-top:5px;">Standart</span>
-          <small style="font-size:0.65rem; text-align:center; display:block; margin-top:2px;">Ortalama ve iyi bilgisayarlar için.</small>
-        </a>
-      </div>
+  <button class="btn" onclick="toggleModPaketiDrawer()">
+    <img src="images/mods.png" alt="Mod"> Mod Paketi
+  </button>
+  <div id="modPaketiDrawer" class="launcher-drawer">
+    <div class="launcher-drawer-content">
+      <a class="launcher-option" href="#" target="_blank">
+        <img src="images/patates.png" alt="Patates">
+        <span>Patates</span>
+        <small>Gerçekten patates bilgisayarlar için.</small>
+      </a>
+      <a class="launcher-option" href="#" target="_blank">
+        <img src="images/dusuk.png" alt="Düşük">
+        <span>Düşük</span>
+        <small>Patates olmasa da kötü olan bilgisayarlar için.</small>
+      </a>
+      <a class="launcher-option" href="#" target="_blank">
+        <img src="images/standart.png" alt="Standart">
+        <span>Standart</span>
+        <small>Ortalama ve iyi bilgisayarlar için.</small>
+      </a>
     </div>
   </div>
-
+  
   <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-vanilla"></span>
     <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
   </button>
-  
   <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
   <footer>&copy; 2025 AgalarMC</footer>
 </div>
@@ -151,8 +161,14 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   <footer>&copy; 2025 AgalarMC</footer>
 </div>
 
+<!-- Yardım ekranı placeholder -->
+<div class="screen" id="yardim">
+  <h1>Nasıl Katılırım?</h1>
+  <p>Bu sayfayı <code>agalarmc.com/yardim</code> üzerinden düzenleyeceksin.</p>
+  <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
+</div>
+
 <script>
-// Temalar
 const themes = {
   home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"#3498db",gradient:"135deg, #0a0f2ccc, #1b2b5bcc"},
   vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#3ddc97",gradient:"135deg, #083030cc, #0b4a3ccc"},
@@ -171,7 +187,6 @@ function setTheme(id){
 }
 document.addEventListener("DOMContentLoaded",()=>setTheme('home'));
 
-// IP kopyalama fonksiyonu
 function copyIP(button, ip) {
 	const originalHTML = button.innerHTML;
 	navigator.clipboard.writeText(ip).then(() => {
@@ -184,7 +199,6 @@ function copyIP(button, ip) {
 	});
 }
 
-// Sunucu durumu kontrolü
 async function checkServerStatus(serverId,address){
   const statusText=document.getElementById(`status-text-${serverId}`);
   const indicator=document.getElementById(`status-indicator-${serverId}`);
@@ -205,15 +219,10 @@ setInterval(()=>{
   checkServerStatus('modded','create.agalarmc.com');
 },10000);
 
-// Launcher drawer toggle
 const launcherBtn=document.getElementById("launcherBtn");
 const launcherDrawer=document.getElementById("launcherDrawer");
 launcherBtn.addEventListener("click",()=>{launcherDrawer.classList.toggle("open");});
-
-// Modrinth link
 document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
-
-// Prism link
 const prismEl = document.getElementById('prismLink');
 prismEl.addEventListener('click', async (e) => {
   e.preventDefault();
@@ -230,11 +239,9 @@ prismEl.addEventListener('click', async (e) => {
 });
 
 // Vanilla+ Mod Paketi drawer toggle
-const modPaketiBtn = document.getElementById("modPaketiBtn");
-const modPaketiDrawer = document.getElementById("modPaketiDrawer");
-modPaketiBtn.addEventListener("click", () => {
-  modPaketiDrawer.classList.toggle("open");
-});
+function toggleModPaketiDrawer(){
+  document.getElementById('modPaketiDrawer').classList.toggle('open');
+}
 </script>
 </body>
 </html>
