@@ -6,7 +6,7 @@
 <title>AgalarMC</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-html, body {margin:0; padding:0; height:100%; font-family:'Press Start 2P', monospace; color:#fff; text-align:center; overflow:hidden;}
+html, body {margin:0; padding:0; height:100%; font-family:'Press Start 2P', monospace; color:#fff; text-align:center; overflow-x:hidden;}
 body::before {content:""; position:fixed; inset:0; background: var(--bg-image) no-repeat center center/cover; z-index:-2; opacity:0; animation:fadeIn 0.8s forwards;}
 @keyframes fadeIn { to { opacity:1; } }
 body::after {content:""; position:fixed; inset:0; background:linear-gradient(var(--overlay-gradient)); z-index:-1; opacity:0.85; transition:background 0.8s ease-in-out;}
@@ -47,8 +47,8 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
 .launcher-option:hover {transform:scale(1.05);}
 
 /* Vanilla+ Mod Paketi Options */
-#modPaketiDrawer {max-height:0; overflow:visible; transition:max-height 0.4s ease;}
-#modPaketiDrawer.open {max-height:300px;}
+#modPaketiDrawer {max-height:0; overflow:hidden; transition:max-height 0.5s ease;}
+#modPaketiDrawer.open {max-height:350px;}
 #modPaketiDrawer .launcher-drawer-content {display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
 #modPaketiDrawer .launcher-option {
   background-color:#2b8f57;
@@ -115,7 +115,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   <button class="btn" onclick="toggleModPaketiDrawer()">
     <img src="images/mods.png" alt="Mod"> Mod Paketi
   </button>
-  <div id="modPaketiDrawer" class="launcher-drawer">
+  <div id="modPaketiDrawer">
     <div class="launcher-drawer-content">
       <a class="launcher-option" href="#" target="_blank">
         <img src="images/patates.png" alt="Patates">
@@ -134,7 +134,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
       </a>
     </div>
   </div>
-  
+
   <button class="btn server-btn" onclick="checkServerStatus('vanilla', 'oyna.agalarmc.com')">
     <span class="status-indicator" id="status-indicator-vanilla"></span>
     <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
@@ -161,7 +161,7 @@ p {font-size:1rem; margin-bottom:50px; max-width:800px; text-shadow:0 0 5px #000
   <footer>&copy; 2025 AgalarMC</footer>
 </div>
 
-<!-- Yardım ekranı placeholder -->
+<!-- Yardım ekranı -->
 <div class="screen" id="yardim">
   <h1>Nasıl Katılırım?</h1>
   <p>Bu sayfayı <code>agalarmc.com/yardim</code> üzerinden düzenleyeceksin.</p>
