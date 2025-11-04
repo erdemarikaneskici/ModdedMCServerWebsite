@@ -114,6 +114,29 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
             width: 100%;
             max-width: 260px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid currentColor;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+        }
+        
+        .btn.has-drawer::after {
+            opacity: 1;
+        }
+        
+        .btn.has-drawer.open::after {
+            transform: rotate(180deg);
         }
         
         .btn:hover {
@@ -189,12 +212,16 @@
         .launcher-drawer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             width: 100%;
+            opacity: 0;
+            transform: translateY(-10px);
         }
         
         .launcher-drawer.open {
             max-height: 200px;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .launcher-drawer-content {
@@ -205,6 +232,34 @@
             margin-top: 6px;
             padding: 6px;
             width: 100%;
+        }
+        
+        .launcher-drawer.open .launcher-option {
+            animation: slideInUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            opacity: 0;
+        }
+        
+        .launcher-drawer.open .launcher-option:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .launcher-drawer.open .launcher-option:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .launcher-drawer.open .launcher-option:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
         .launcher-option {
@@ -442,7 +497,7 @@
                 Discord Sunucusu
             </a>
             <div class="launcher-section">
-                <button id="launcherBtn" class="btn">
+                <button id="launcherBtn" class="btn has-drawer">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher">
                     Launcher
                 </button>
@@ -476,7 +531,7 @@
                 Sunucu IP: oyna.agalarmc.com
             </button>
             <div class="launcher-section">
-                <button id="modPaketiBtn" class="btn" style="background-color:#2fa666;">
+                <button id="modPaketiBtn" class="btn has-drawer" style="background-color:#2fa666;">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod Paketi">
                     Mod Paketi
                 </button>
@@ -604,12 +659,16 @@
             checkServerStatus('modded', 'create.agalarmc.com');
         }, 30000);
 
-        document.getElementById('launcherBtn').onclick = () => {
-            document.getElementById('launcherDrawer').classList.toggle("open");
+        document.getElementById('launcherBtn').onclick = function() {
+            const drawer = document.getElementById('launcherDrawer');
+            drawer.classList.toggle("open");
+            this.classList.toggle("open");
         };
 
-        document.getElementById('modPaketiBtn').onclick = () => {
-            document.getElementById('modPaketiDrawer').classList.toggle("open");
+        document.getElementById('modPaketiBtn').onclick = function() {
+            const drawer = document.getElementById('modPaketiDrawer');
+            drawer.classList.toggle("open");
+            this.classList.toggle("open");
         };
 
         document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
