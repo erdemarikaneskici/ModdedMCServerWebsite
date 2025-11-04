@@ -103,7 +103,7 @@
             padding: 12px 20px;
             margin: 3px;
             font-size: 0.7rem;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             background-color: var(--primary-color);
             color: #fff;
@@ -111,7 +111,7 @@
             text-decoration: none;
             font-family: 'Press Start 2P', monospace;
             transition: all 0.3s ease;
-            box-shadow: 0 0 12px #0008;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
             width: 100%;
             max-width: 260px;
         }
@@ -120,6 +120,8 @@
             background-color: #fff;
             color: var(--primary-color);
             transform: scale(1.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 30px rgba(0, 0, 0, 0.1);
         }
         
         .btn img {
@@ -134,25 +136,37 @@
         }
         
         .btn.server-btn {
-            background-color: #0009;
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 10px 16px;
             border-radius: 14px;
             max-width: 300px;
             justify-content: center;
             gap: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn.server-btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(1.02);
         }
         
         .btn.server-btn:active {
-            transform: scale(0.95);
-            background-color: #111c;
+            transform: scale(0.98);
         }
         
         .btn.back-btn {
             margin-top: 12px;
             font-size: 0.5rem;
-            background-color: #444;
+            background-color: rgba(68, 68, 68, 0.9);
             padding: 8px 16px;
             justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn.back-btn:hover {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #444;
         }
         
         .status-indicator {
@@ -205,9 +219,17 @@
             width: 90px;
             min-height: 75px;
             color: white;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
             font-size: 0.55rem;
             text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+        
+        .launcher-option:hover {
+            transform: scale(1.08);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
         
         .launcher-option small {
@@ -220,10 +242,6 @@
             width: 24px;
             height: 24px;
             border-radius: 6px;
-        }
-        
-        .launcher-option:hover {
-            transform: scale(1.05);
         }
         
         .modpack-grid {
