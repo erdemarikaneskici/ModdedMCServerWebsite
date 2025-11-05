@@ -6,601 +6,122 @@
     <title>AgalarMC</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;width:100%;overflow:hidden;font-family:'Press Start 2P',monospace;color:#fff;text-align:center}
+        body{position:relative}
+        body::before{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--bg-image,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) no-repeat center/cover;z-index:-2}
+        body::after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(var(--overlay-gradient,135deg,#0a0f2ccc,#1b2b5bcc));z-index:-1;opacity:.85}
+        :root{--primary-color:#3498db;--overlay-gradient:135deg,#0a0f2ccc,#1b2b5bcc;--bg-image:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')}
+        .screen{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .6s;pointer-events:none;padding:12px;overflow-y:auto;transform:scale(.9)}
+        .screen.active{opacity:1;pointer-events:all}
+        .content-wrapper{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:600px;gap:8px}
+        .title-img{max-width:90%;height:auto;margin-bottom:20px;transform:scale(1.2);margin-top:-25px}
+        .btn{display:inline-flex;align-items:center;justify-content:flex-start;gap:15px;padding:10px 18px;margin:2px;font-size:.65rem;border:2px solid rgba(255,255,255,.3);border-radius:10px;background:var(--primary-color);color:#fff;cursor:pointer;text-decoration:none;font-family:'Press Start 2P',monospace;transition:all .3s;box-shadow:0 0 15px rgba(0,0,0,.6),inset 0 0 20px rgba(255,255,255,.1);width:100%;max-width:260px;position:relative;overflow:hidden}
+        .btn::after{content:'';position:absolute;right:15px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid currentColor;transition:transform .3s cubic-bezier(.68,-.55,.265,1.55);opacity:0}
+        .btn.has-drawer::after{opacity:1}
+        .btn.has-drawer.open::after{transform:rotate(180deg)}
+        .btn:hover{background:#fff;color:var(--primary-color);transform:scale(1.05);border-color:var(--primary-color);box-shadow:0 0 20px rgba(255,255,255,.4),inset 0 0 30px rgba(0,0,0,.1)}
+        .btn img{width:20px;height:20px;border-radius:6px;flex-shrink:0}
+        .btn.discord img{border-radius:50%}
+        .btn.server-btn{background:rgba(0,0,0,.7);padding:10px 16px;border-radius:14px;max-width:300px;justify-content:center;gap:10px;border:2px solid rgba(255,255,255,.2);backdrop-filter:blur(5px)}
+        .btn.server-btn:hover{background:rgba(255,255,255,.9);transform:scale(1.02)}
+        .btn.back-btn{margin-top:12px;font-size:.5rem;background:rgba(68,68,68,.9);padding:8px 16px;justify-content:center;border:2px solid rgba(255,255,255,.2)}
+        .btn.back-btn:hover{background:rgba(255,255,255,.95);color:#444}
+        .status-indicator{width:10px;height:10px;border-radius:50%;background:gray;display:inline-block}
+        .launcher-section{display:flex;flex-direction:column;align-items:center;width:100%;max-width:260px;gap:10px}
+        .launcher-drawer{max-height:0;overflow:hidden;transition:all .5s cubic-bezier(.68,-.55,.265,1.55);width:100%;opacity:0;transform:translateY(-10px)}
+        .launcher-drawer.open{max-height:300px;opacity:1;transform:translateY(0)}
+        .launcher-drawer-content{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:6px;padding:6px;width:100%}
+        @keyframes slideInUp{from{opacity:0;transform:translateY(20px) scale(.8)}to{opacity:1;transform:translateY(0) scale(1)}}
+        .launcher-drawer.open .launcher-option{animation:slideInUp .4s cubic-bezier(.68,-.55,.265,1.55) forwards;opacity:0}
+        .launcher-drawer.open .launcher-option:nth-child(1){animation-delay:.1s}
+        .launcher-drawer.open .launcher-option:nth-child(2){animation-delay:.2s}
+        .launcher-drawer.open .launcher-option:nth-child(3){animation-delay:.3s}
+        .launcher-option{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;background:#2b8f57;padding:10px 12px;border-radius:8px;width:110px;min-height:90px;color:#fff;transition:all .3s;font-size:.55rem;text-align:center;border:2px solid rgba(255,255,255,.2);box-shadow:0 0 10px rgba(0,0,0,.4);gap:8px}
+        .launcher-option:hover{transform:scale(1.08);border-color:rgba(255,255,255,.5);box-shadow:0 0 15px rgba(255,255,255,.3)}
+        .launcher-option img{width:32px;height:32px;border-radius:6px}
+        .modpack-grid{display:flex;justify-content:center;gap:8px;flex-wrap:nowrap;margin-top:6px;width:100%;max-width:380px;margin:0 auto}
+        .modpack-option{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-decoration:none;background:var(--primary-color);padding:12px 8px;border-radius:12px;width:115px;height:135px;color:#fff;transition:all .3s;font-size:.5rem;text-align:center;border:2px solid rgba(255,255,255,.2);box-shadow:0 0 10px rgba(0,0,0,.4);overflow:hidden}
+        .modpack-content{display:flex;flex-direction:column;align-items:center;transition:filter .3s;z-index:1;padding-top:8px}
+        .modpack-option:hover .modpack-content{filter:blur(2px)}
+        .modpack-option img{width:55px;height:55px;border-radius:8px;margin-bottom:10px}
+        .modpack-name{font-weight:700}
+        .modpack-description{position:absolute;bottom:0;left:0;right:0;background:rgba(12,48,32,.96);padding:14px 8px;font-size:.38rem;line-height:1.35;transform:translateY(100%);transition:transform .3s;z-index:10}
+        .modpack-option:hover .modpack-description{transform:translateY(0)}
+        .modpack-option:hover{transform:scale(1.05);border-color:rgba(255,255,255,.5);box-shadow:0 0 15px rgba(255,255,255,.3)}
+        footer{margin-top:8px;font-size:.45rem;color:#ddd}
+        p{font-size:.55rem;line-height:1.3;max-width:400px;margin:0 auto 8px}
+        @media(max-width:768px){
+            .screen{padding:15px;transform:scale(.95)}
+            .content-wrapper{gap:10px}
+            .btn{padding:12px 20px;font-size:.7rem;max-width:280px}
+            .title-img{max-width:85%;transform:scale(1.15);margin-top:-20px;margin-bottom:22px}
+            .launcher-option{width:115px;min-height:95px;font-size:.6rem}
+            .launcher-option img{width:36px;height:36px}
+            .modpack-option{width:120px;height:140px}
+            .modpack-option img{width:58px;height:58px}
+            .btn.server-btn{max-width:320px}
+            footer{font-size:.5rem}
+            p{font-size:.6rem}
         }
-        
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            font-family: 'Press Start 2P', monospace;
-            color: #fff;
-            text-align: center;
+        @media(max-width:480px){
+            .btn{padding:11px 18px;font-size:.65rem;max-width:260px}
+            .title-img{max-width:80%;transform:scale(1.1);margin-top:-15px;margin-bottom:20px}
+            .modpack-option{width:115px;height:135px}
+            .modpack-option img{width:55px;height:55px}
         }
-        
-        body {
-            position: relative;
-        }
-        
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--bg-image, url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) no-repeat center center/cover;
-            z-index: -2;
-        }
-        
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(var(--overlay-gradient, 135deg, #0a0f2ccc, #1b2b5bcc));
-            z-index: -1;
-            opacity: 0.85;
-        }
-        
-        :root {
-            --primary-color: #3498db;
-            --overlay-gradient: 135deg, #0a0f2ccc, #1b2b5bcc;
-            --bg-image: url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');
-        }
-        
-        .screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            pointer-events: none;
-            padding: 12px;
-            overflow-y: auto;
-            transform: scale(0.9);
-        }
-        
-        .screen.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 600px;
-            gap: 8px;
-        }
-        
-        .title-img {
-            max-width: 90%;
-            height: auto;
-            margin-bottom: 20px;
-            transform: scale(1.2);
-            margin-top: -25px;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 15px;
-            padding: 10px 18px;
-            margin: 2px;
-            font-size: 0.65rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            background-color: var(--primary-color);
-            color: #fff;
-            cursor: pointer;
-            text-decoration: none;
-            font-family: 'Press Start 2P', monospace;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
-            width: 100%;
-            max-width: 260px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::after {
-            content: '';
-            position: absolute;
-            right: 15px;
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 6px solid currentColor;
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            opacity: 0;
-        }
-        
-        .btn.has-drawer::after {
-            opacity: 1;
-        }
-        
-        .btn.has-drawer.open::after {
-            transform: rotate(180deg);
-        }
-        
-        .btn:hover {
-            background-color: #fff;
-            color: var(--primary-color);
-            transform: scale(1.05);
-            border-color: var(--primary-color);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn img {
-            width: 20px;
-            height: 20px;
-            border-radius: 6px;
-            flex-shrink: 0;
-        }
-        
-        .btn.discord img {
-            border-radius: 50%;
-        }
-        
-        .btn.server-btn {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px 16px;
-            border-radius: 14px;
-            max-width: 300px;
-            justify-content: center;
-            gap: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-        }
-        
-        .btn.mod-paketi-btn {
-            background-color: var(--primary-color);
-        }
-        
-        .btn.mod-paketi-btn:hover {
-            background-color: #fff;
-            color: var(--primary-color);
-        }
-        
-        .btn.server-btn:hover {
-            background-color: rgba(255, 255, 255, 0.9);
-            transform: scale(1.02);
-        }
-        
-        .btn.server-btn:active {
-            transform: scale(0.98);
-        }
-        
-        .btn.back-btn {
-            margin-top: 12px;
-            font-size: 0.5rem;
-            background-color: rgba(68, 68, 68, 0.9);
-            padding: 8px 16px;
-            justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn.back-btn:hover {
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #444;
-        }
-        
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: gray;
-            display: inline-block;
-        }
-        
-        .launcher-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 260px;
-            gap: 10px;
-        }
-        
-        .launcher-drawer {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            width: 100%;
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        
-        .launcher-drawer.open {
-            max-height: 250px;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .launcher-drawer-content {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 6px;
-            padding: 6px;
-            width: 100%;
-        }
-        
-        .launcher-drawer.open .launcher-option {
-            animation: slideInUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-            opacity: 0;
-        }
-        
-        .launcher-drawer.open .launcher-option:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-        
-        .launcher-drawer.open .launcher-option:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .launcher-drawer.open .launcher-option:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-        
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .launcher-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            background-color: #2b8f57;
-            padding: 10px 12px;
-            border-radius: 8px;
-            width: 110px;
-            min-height: 90px;
-            color: white;
-            transition: all 0.3s ease;
-            font-size: 0.55rem;
-            text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-            gap: 8px;
-        }
-        
-        .launcher-option:hover {
-            transform: scale(1.08);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-        
-        .launcher-option img {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-        }
-        
-        .modpack-grid {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 6px;
-            width: 100%;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .modpack-grid .modpack-option {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 15px;
-            text-decoration: none;
-            background-color: var(--primary-color);
-            padding: 15px 12px 12px 12px;
-            border-radius: 12px;
-            width: 120px;
-            height: 140px;
-            color: white;
-            transition: all 0.3s ease;
-            font-size: 0.55rem;
-            text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-        }
-        
-        .modpack-grid .modpack-option .modpack-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: filter 0.3s ease;
-            z-index: 1;
-        }
-        
-        .modpack-grid .modpack-option:hover .modpack-content {
-            filter: blur(2px);
-        }
-        
-        .modpack-grid .modpack-option img {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-        
-        .modpack-grid .modpack-option .modpack-name {
-            font-weight: bold;
-        }
-        
-        .modpack-grid .modpack-option .modpack-description {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 10px;
-            font-size: 0.42rem;
-            line-height: 1.4;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            z-index: 10;
-        }
-        
-        .modpack-grid .modpack-option:hover .modpack-description {
-            transform: translateY(0);
-        }
-        
-        .modpack-grid .modpack-option:hover {
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-        
-        footer {
-            margin-top: 8px;
-            font-size: 0.45rem;
-            color: #ddd;
-        }
-        
-        p {
-            font-size: 0.55rem;
-            line-height: 1.3;
-            max-width: 400px;
-            margin: 0 auto 8px auto;
-        }
-        
-        /* Responsive - Masaüstü aynı kalacak, sadece mobil büyüyecek */
-        @media (max-width: 768px) {
-            .screen {
-                padding: 15px;
-                transform: scale(0.95);
-            }
-            
-            .content-wrapper {
-                gap: 10px;
-            }
-            
-            .btn {
-                padding: 12px 20px;
-                font-size: 0.7rem;
-                max-width: 280px;
-                gap: 15px;
-            }
-            
-            .title-img {
-                max-width: 85%;
-                transform: scale(1.15);
-                margin-top: -20px;
-                margin-bottom: 22px;
-            }
-            
-            .launcher-option {
-                width: 115px;
-                min-height: 95px;
-                font-size: 0.6rem;
-                padding: 10px 12px;
-            }
-            
-            .launcher-option img {
-                width: 36px;
-                height: 36px;
-            }
-            
-            .modpack-grid {
-                max-width: 400px;
-            }
-            
-            .modpack-grid .modpack-option {
-                width: 115px;
-                height: 135px;
-            }
-            
-            .modpack-grid .modpack-option img {
-                width: 58px;
-                height: 58px;
-            }
-            
-            .btn.server-btn {
-                max-width: 320px;
-            }
-            
-            footer {
-                font-size: 0.5rem;
-            }
-            
-            p {
-                font-size: 0.6rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .screen {
-                padding: 12px;
-                transform: scale(0.9);
-            }
-            
-            .btn {
-                padding: 11px 18px;
-                font-size: 0.65rem;
-                max-width: 260px;
-                gap: 12px;
-            }
-            
-            .title-img {
-                max-width: 80%;
-                transform: scale(1.1);
-                margin-top: -15px;
-                margin-bottom: 20px;
-            }
-            
-            .launcher-drawer-content {
-                gap: 10px;
-            }
-            
-            .launcher-option {
-                width: 110px;
-                min-height: 90px;
-                font-size: 0.55rem;
-            }
-            
-            .launcher-option img {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .modpack-grid {
-                max-width: 380px;
-            }
-            
-            .modpack-grid .modpack-option {
-                width: 115px;
-                height: 135px;
-            }
-            
-            .modpack-grid .modpack-option img {
-                width: 58px;
-                height: 58px;
-            }
-            
-            p {
-                font-size: 0.55rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .screen {
-                padding: 10px;
-                transform: scale(0.85);
-            }
-            
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.6rem;
-                max-width: 240px;
-            }
-            
-            .title-img {
-                max-width: 75%;
-                transform: scale(1.05);
-                margin-top: -12px;
-                margin-bottom: 18px;
-            }
-            
-            .modpack-grid .modpack-option {
-                width: 105px;
-                height: 125px;
-            }
-            
-            .modpack-grid .modpack-option img {
-                width: 52px;
-                height: 52px;
-            }
+        @media(max-width:360px){
+            .screen{transform:scale(.85)}
+            .btn{padding:10px 16px;font-size:.6rem;max-width:240px}
+            .title-img{max-width:75%;transform:scale(1.05);margin-top:-12px;margin-bottom:18px}
+            .modpack-option{width:108px;height:128px}
+            .modpack-option img{width:50px;height:50px}
         }
     </style>
 </head>
 <body>
-    <!-- Ana Menü -->
     <div class="screen active" id="home">
         <div class="content-wrapper">
             <img class="title-img" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
             <button class="btn" onclick="showScreen('vanilla')">
-                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillalogo.png" alt="Vanilla+">
-                Vanilla+
+                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillalogo.png" alt="Vanilla+">Vanilla+
             </button>
             <button class="btn" onclick="showScreen('modded')">
-                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png" alt="Create">
-                Create
+                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png" alt="Create">Create
             </button>
             <a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank">
-                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord">
-                Discord Sunucusu
+                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord">Discord Sunucusu
             </a>
             <div class="launcher-section">
                 <button id="launcherBtn" class="btn has-drawer">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher">
-                    Launcher
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher">Launcher
                 </button>
                 <div id="launcherDrawer" class="launcher-drawer">
                     <div class="launcher-drawer-content">
-                        <a id="modrinthLink" class="launcher-option" style="background-color:#2980b9;" target="_blank">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth">
-                            <span>Modrinth</span>
+                        <a id="modrinthLink" class="launcher-option" style="background:#2980b9" target="_blank">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth"><span>Modrinth</span>
                         </a>
-                        <a id="prismLink" class="launcher-option" style="background-color:#2980b9;" target="_blank">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism">
-                            <span>Prism</span>
+                        <a id="prismLink" class="launcher-option" style="background:#2980b9" target="_blank">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism"><span>Prism</span>
                         </a>
                     </div>
                 </div>
-                <button class="btn yardim-btn" style="background-color:#3498db;">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım">
-                    Sunucuya Nasıl Katılırım?
+                <button class="btn yardim-btn" style="background:#3498db">
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım">Sunucuya Nasıl Katılırım?
                 </button>
             </div>
         </div>
     </div>
-
-    <!-- Vanilla+ -->
     <div class="screen" id="vanilla">
         <div class="content-wrapper">
             <img class="title-img" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillatitle.png" alt="Vanilla+">
             <p>Görsel ve performans açısından geliştirilmiş, vanilla hissiyatını koruyan sunucumuz.</p>
-            <button class="btn" onclick="copyIP(this, 'oyna.agalarmc.com')">
-                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">
-                Sunucu IP: oyna.agalarmc.com
+            <button class="btn" onclick="copyIP(this,'oyna.agalarmc.com')">
+                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">Sunucu IP: oyna.agalarmc.com
             </button>
             <div class="launcher-section">
-                <button id="modPaketiBtn" class="btn has-drawer mod-paketi-btn">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod Paketi">
-                    Mod Paketi
+                <button id="modPaketiBtn" class="btn has-drawer">
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketi
                 </button>
                 <div id="modPaketiDrawer" class="launcher-drawer">
                     <div class="launcher-drawer-content modpack-grid">
@@ -629,166 +150,42 @@
                 </div>
             </div>
             <button class="btn server-btn" onclick="checkServerStatus('vanilla','oyna.agalarmc.com')">
-                <span class="status-indicator" id="status-indicator-vanilla"></span>
-                <span id="status-text-vanilla">Sunucu durumu kontrol ediliyor...</span>
+                <span class="status-indicator" id="si-v"></span><span id="st-v">Sunucu durumu kontrol ediliyor...</span>
             </button>
             <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
             <footer>&copy; 2025 AgalarMC</footer>
         </div>
     </div>
-
-    <!-- Create -->
     <div class="screen" id="modded">
         <div class="content-wrapper">
             <img class="title-img" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createtitle.png" alt="Create">
             <p>Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
             <button class="btn" onclick="copyIP(this,'create.agalarmc.com')">
-                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">
-                Sunucu IP: create.agalarmc.com
+                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">Sunucu IP: create.agalarmc.com
             </button>
-            <a class="btn" href="#" id="moddedModpackBtn" style="background-color:var(--primary-color);">
-                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">
-                Mod Paketi
+            <a class="btn" href="#" id="moddedModpackBtn">
+                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketi
             </a>
             <button class="btn server-btn" onclick="checkServerStatus('modded','create.agalarmc.com')">
-                <span class="status-indicator" id="status-indicator-modded"></span>
-                <span id="status-text-modded">Sunucu durumu kontrol ediliyor...</span>
+                <span class="status-indicator" id="si-m"></span><span id="st-m">Sunucu durumu kontrol ediliyor...</span>
             </button>
             <button class="btn back-btn" onclick="showScreen('home')">Geri Dön</button>
             <footer>&copy; 2025 AgalarMC</footer>
         </div>
     </div>
-
     <script>
-        const themes = {
-            home: {
-                bg: "url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",
-                color: "#3498db",
-                gradient: "135deg, #0a0f2ccc, #1b2b5bcc"
-            },
-            vanilla: {
-                bg: "url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",
-                color: "#2ecc71",
-                gradient: "135deg, #083030cc, #0b4a3ccc"
-            },
-            modded: {
-                bg: "url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",
-                color: "#d76b00",
-                gradient: "135deg, #3b1a00cc, #7a3a00cc"
-            }
-        };
-
-        function showScreen(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            const t = themes[id];
-            document.documentElement.style.setProperty('--bg-image', t.bg);
-            document.documentElement.style.setProperty('--primary-color', t.color);
-            document.documentElement.style.setProperty('--overlay-gradient', t.gradient);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => showScreen('home'));
-
-        function copyIP(btn, ip) {
-            const orig = btn.innerHTML;
-            navigator.clipboard.writeText(ip).then(() => {
-                btn.innerHTML = '<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';
-                setTimeout(() => btn.innerHTML = orig, 1000);
-            }).catch(() => {
-                const tempInput = document.createElement('input');
-                tempInput.value = ip;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                btn.innerHTML = '<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';
-                setTimeout(() => btn.innerHTML = orig, 1000);
-            });
-        }
-
-        async function checkServerStatus(id, addr) {
-            const text = document.getElementById(`status-text-${id}`);
-            const ind = document.getElementById(`status-indicator-${id}`);
-            try {
-                const res = await fetch(`https://api.mcsrvstat.us/2/${addr}`);
-                const data = await res.json();
-                if (data.online) {
-                    text.textContent = `Sunucu açık - ${data.players?.online || 0}/${data.players?.max || 0} oyuncu`;
-                    ind.style.background = 'limegreen';
-                } else {
-                    text.textContent = 'Sunucu kapalı';
-                    ind.style.background = 'crimson';
-                }
-            } catch {
-                text.textContent = 'Sunucu başlatılıyor...';
-                ind.style.background = 'gold';
-            }
-        }
-
-        checkServerStatus('vanilla', 'oyna.agalarmc.com');
-        checkServerStatus('modded', 'create.agalarmc.com');
-        setInterval(() => {
-            checkServerStatus('vanilla', 'oyna.agalarmc.com');
-            checkServerStatus('modded', 'create.agalarmc.com');
-        }, 30000);
-
-        document.getElementById('launcherBtn').onclick = function() {
-            const drawer = document.getElementById('launcherDrawer');
-            drawer.classList.toggle("open");
-            this.classList.toggle("open");
-        };
-
-        document.getElementById('modPaketiBtn').onclick = function() {
-            const drawer = document.getElementById('modPaketiDrawer');
-            drawer.classList.toggle("open");
-            this.classList.toggle("open");
-        };
-
-        document.getElementById('modrinthLink').href = 'https://modrinth.com/app';
-
-        const prism = document.getElementById('prismLink');
-        prism.addEventListener('click', async e => {
-            e.preventDefault();
-            prism.querySelector('span').textContent = 'Kontrol...';
-            try {
-                const r = await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');
-                const d = await r.json();
-                const a = (d.assets || []).find(a => /mingw-w64-setup\.exe/i.test(a.name));
-                if (a) window.location = a.browser_download_url;
-                else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest');
-            } catch {
-                window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest');
-            } finally {
-                prism.querySelector('span').textContent = 'Prism';
-            }
-        });
-
-        function downloadModpack(type) {
-            const modpackUrls = {
-                standart: "https://drive.google.com/your-standart-modpack-link",
-                dusuk: "https://drive.google.com/your-dusuk-modpack-link",
-                patates: "https://drive.google.com/your-patates-modpack-link"
-            };
-            const url = modpackUrls[type];
-            if (url && url !== "https://drive.google.com/your-standart-modpack-link") {
-                window.open(url, '_blank');
-            } else {
-                alert('Modpack linki henüz ayarlanmamış. Lütfen daha sonra tekrar deneyin.');
-            }
-        }
-
-        document.getElementById('moddedModpackBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.open('https://drive.google.com/your-create-modpack-link', '_blank');
-        });
-
-        document.querySelector('.yardim-btn').addEventListener('mouseenter', function() {
-            this.style.backgroundColor = '#fff';
-            this.style.color = '#3498db';
-        });
-        document.querySelector('.yardim-btn').addEventListener('mouseleave', function() {
-            this.style.backgroundColor = '#3498db';
-            this.style.color = '#fff';
-        });
+        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"#3498db",gradient:"135deg,#0a0f2ccc,#1b2b5bcc"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"#229954",gradient:"135deg,#083030cc,#0b4a3ccc"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"#d76b00",gradient:"135deg,#3b1a00cc,#7a3a00cc"}};
+        function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');const t=themes[id];document.documentElement.style.setProperty('--bg-image',t.bg);document.documentElement.style.setProperty('--primary-color',t.color);document.documentElement.style.setProperty('--overlay-gradient',t.gradient)}
+        document.addEventListener("DOMContentLoaded",()=>showScreen('home'));
+        function copyIP(btn,ip){const orig=btn.innerHTML;navigator.clipboard.writeText(ip).then(()=>{btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1000)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1000)})}
+        async function checkServerStatus(id,addr){const text=document.getElementById(id=='vanilla'?'st-v':'st-m');const ind=document.getElementById(id=='vanilla'?'si-v':'si-m');try{const res=await fetch(`https://api.mcsrvstat.us/2/${addr}`);const data=await res.json();if(data.online){text.textContent=`Sunucu açık - ${data.players?.online||0}/${data.players?.max||0} oyuncu`;ind.style.background='limegreen'}else{text.textContent='Sunucu kapalı';ind.style.background='crimson'}}catch{text.textContent='Sunucu başlatılıyor...';ind.style.background='gold'}}
+        checkServerStatus('vanilla','oyna.agalarmc.com');checkServerStatus('modded','create.agalarmc.com');setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com');checkServerStatus('modded','create.agalarmc.com')},30000);
+        document.getElementById('launcherBtn').onclick=function(){const d=document.getElementById('launcherDrawer');d.classList.toggle("open");this.classList.toggle("open")};
+        document.getElementById('modPaketiBtn').onclick=function(){const d=document.getElementById('modPaketiDrawer');d.classList.toggle("open");this.classList.toggle("open")};
+        document.getElementById('modrinthLink').href='https://modrinth.com/app';
+        const prism=document.getElementById('prismLink');prism.addEventListener('click',async e=>{e.preventDefault();prism.querySelector('span').textContent='Kontrol...';try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}finally{prism.querySelector('span').textContent='Prism'}});
+        function downloadModpack(type){const urls={standart:"https://drive.google.com/your-standart-modpack-link",dusuk:"https://drive.google.com/your-dusuk-modpack-link",patates:"https://drive.google.com/your-patates-modpack-link"};const url=urls[type];if(url&&url!=="https://drive.google.com/your-standart-modpack-link"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış. Lütfen daha sonra tekrar deneyin.')}}
+        document.getElementById('moddedModpackBtn').addEventListener('click',e=>{e.preventDefault();window.open('https://drive.google.com/your-create-modpack-link','_blank')});
     </script>
 </body>
+</html>
