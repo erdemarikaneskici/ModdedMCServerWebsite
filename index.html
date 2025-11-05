@@ -84,15 +84,15 @@
             justify-content: center;
             width: 100%;
             max-width: 600px;
-            gap: 10px;
+            gap: 8px;
         }
         
         .title-img {
-            max-width: 90%;
+            max-width: 100%;
             height: auto;
-            margin-bottom: 5px;
-            transform: scale(1.1);
-            margin-top: -15px;
+            margin-bottom: 15px;
+            transform: scale(1.3);
+            margin-top: -20px;
         }
         
         .btn {
@@ -100,9 +100,9 @@
             align-items: center;
             justify-content: flex-start;
             gap: 15px;
-            padding: 12px 20px;
-            margin: 3px;
-            font-size: 0.7rem;
+            padding: 10px 18px;
+            margin: 2px;
+            font-size: 0.65rem;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             background-color: var(--primary-color);
@@ -167,6 +167,10 @@
             gap: 10px;
             border: 2px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(5px);
+        }
+        
+        .btn.mod-paketi-btn {
+            background-color: var(--primary-color);
         }
         
         .btn.server-btn:hover {
@@ -269,16 +273,17 @@
             justify-content: center;
             text-decoration: none;
             background-color: #2b8f57;
-            padding: 6px 8px;
+            padding: 10px 12px;
             border-radius: 8px;
-            width: 90px;
-            min-height: 75px;
+            width: 110px;
+            min-height: 90px;
             color: white;
             transition: all 0.3s ease;
             font-size: 0.55rem;
             text-align: center;
             border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            gap: 8px;
         }
         
         .launcher-option:hover {
@@ -287,67 +292,91 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
         
-        .launcher-option small {
-            font-size: 0.4rem;
-            margin-top: 2px;
-            line-height: 1.2;
-        }
-        
         .launcher-option img {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             border-radius: 6px;
         }
         
         .modpack-grid {
-            display: grid;
-            grid-template-areas:
-                "standart standart"
-                "dusuk patates";
-            gap: 8px;
+            display: flex;
             justify-content: center;
-            align-items: stretch;
+            gap: 10px;
+            flex-wrap: wrap;
             margin-top: 6px;
             width: 100%;
-            max-width: 260px;
+            max-width: 400px;
             margin-left: auto;
             margin-right: auto;
         }
         
-        .modpack-grid .standart {
-            grid-area: standart;
-            width: 100%;
-            max-width: 200px;
-            margin: 0 auto;
+        .modpack-grid .modpack-option {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            text-decoration: none;
+            background-color: var(--primary-color);
+            padding: 12px;
+            border-radius: 12px;
+            width: 120px;
+            height: 120px;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 0.55rem;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
         }
         
-        .modpack-grid .dusuk {
-            grid-area: dusuk;
-            width: 100%;
-            max-width: 120px;
-            margin: 0 auto;
-            min-height: 75px;
+        .modpack-grid .modpack-option img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-bottom: 8px;
         }
         
-        .modpack-grid .patates {
-            grid-area: patates;
-            width: 100%;
-            max-width: 120px;
-            margin: 0 auto;
-            min-height: 75px;
+        .modpack-grid .modpack-option .modpack-name {
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .modpack-grid .modpack-option .modpack-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 12px 8px;
+            font-size: 0.4rem;
+            line-height: 1.3;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .modpack-grid .modpack-option:hover .modpack-description {
+            transform: translateY(0);
+        }
+        
+        .modpack-grid .modpack-option:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
         
         footer {
-            margin-top: 10px;
-            font-size: 0.5rem;
+            margin-top: 8px;
+            font-size: 0.45rem;
             color: #ddd;
         }
         
         p {
-            font-size: 0.6rem;
-            line-height: 1.4;
+            font-size: 0.55rem;
+            line-height: 1.3;
             max-width: 400px;
-            margin: 0 auto 10px auto;
+            margin: 0 auto 8px auto;
         }
         
         /* Responsive - Masaüstü aynı kalacak, sadece mobil büyüyecek */
@@ -358,45 +387,47 @@
             }
             
             .content-wrapper {
-                gap: 12px;
+                gap: 10px;
             }
             
             .btn {
-                padding: 14px 22px;
-                font-size: 0.75rem;
+                padding: 12px 20px;
+                font-size: 0.7rem;
                 max-width: 280px;
                 gap: 15px;
             }
             
             .title-img {
-                max-width: 85%;
-                transform: scale(1.15);
-                margin-top: -10px;
+                max-width: 100%;
+                transform: scale(1.4);
+                margin-top: -15px;
+                margin-bottom: 20px;
             }
             
             .launcher-option {
-                width: 100px;
-                min-height: 85px;
+                width: 115px;
+                min-height: 95px;
                 font-size: 0.6rem;
-                padding: 8px 10px;
+                padding: 10px 12px;
             }
             
-            .launcher-option small {
-                font-size: 0.45rem;
+            .launcher-option img {
+                width: 36px;
+                height: 36px;
             }
             
             .modpack-grid {
-                max-width: 280px;
+                max-width: 400px;
             }
             
-            .modpack-grid .standart {
-                max-width: 220px;
+            .modpack-grid .modpack-option {
+                width: 125px;
+                height: 125px;
             }
             
-            .modpack-grid .dusuk,
-            .modpack-grid .patates {
-                max-width: 130px;
-                min-height: 85px;
+            .modpack-grid .modpack-option img {
+                width: 55px;
+                height: 55px;
             }
             
             .btn.server-btn {
@@ -404,11 +435,11 @@
             }
             
             footer {
-                font-size: 0.55rem;
+                font-size: 0.5rem;
             }
             
             p {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
             }
         }
         
@@ -419,16 +450,17 @@
             }
             
             .btn {
-                padding: 12px 20px;
-                font-size: 0.7rem;
+                padding: 11px 18px;
+                font-size: 0.65rem;
                 max-width: 260px;
                 gap: 12px;
             }
             
             .title-img {
-                max-width: 80%;
-                transform: scale(1.1);
-                margin-top: -5px;
+                max-width: 100%;
+                transform: scale(1.35);
+                margin-top: -10px;
+                margin-bottom: 18px;
             }
             
             .launcher-drawer-content {
@@ -436,27 +468,32 @@
             }
             
             .launcher-option {
-                width: 95px;
-                min-height: 80px;
+                width: 110px;
+                min-height: 90px;
                 font-size: 0.55rem;
             }
             
+            .launcher-option img {
+                width: 32px;
+                height: 32px;
+            }
+            
             .modpack-grid {
-                max-width: 260px;
+                max-width: 380px;
             }
             
-            .modpack-grid .standart {
-                max-width: 200px;
+            .modpack-grid .modpack-option {
+                width: 120px;
+                height: 120px;
             }
             
-            .modpack-grid .dusuk,
-            .modpack-grid .patates {
-                max-width: 120px;
-                min-height: 80px;
+            .modpack-grid .modpack-option img {
+                width: 50px;
+                height: 50px;
             }
             
             p {
-                font-size: 0.6rem;
+                font-size: 0.55rem;
             }
         }
 
@@ -467,14 +504,26 @@
             }
             
             .btn {
-                padding: 10px 18px;
-                font-size: 0.65rem;
+                padding: 10px 16px;
+                font-size: 0.6rem;
                 max-width: 240px;
             }
             
             .title-img {
-                max-width: 75%;
-                transform: scale(1);
+                max-width: 100%;
+                transform: scale(1.25);
+                margin-top: -8px;
+                margin-bottom: 15px;
+            }
+            
+            .modpack-grid .modpack-option {
+                width: 110px;
+                height: 110px;
+            }
+            
+            .modpack-grid .modpack-option img {
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
@@ -531,26 +580,26 @@
                 Sunucu IP: oyna.agalarmc.com
             </button>
             <div class="launcher-section">
-                <button id="modPaketiBtn" class="btn has-drawer" style="background-color:#2fa666;">
+                <button id="modPaketiBtn" class="btn has-drawer mod-paketi-btn">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod Paketi">
                     Mod Paketi
                 </button>
                 <div id="modPaketiDrawer" class="launcher-drawer">
                     <div class="launcher-drawer-content modpack-grid">
-                        <a class="launcher-option standart" href="#" onclick="downloadModpack('standart')">
+                        <a class="modpack-option" href="#" onclick="downloadModpack('standart')">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png" alt="Standart">
-                            <span>Standart</span>
-                            <small>Ortalama ve iyi bilgisayarlar için.</small>
+                            <span class="modpack-name">Standart</span>
+                            <div class="modpack-description">Ortalama ve iyi bilgisayarlar için.</div>
                         </a>
-                        <a class="launcher-option dusuk" href="#" onclick="downloadModpack('dusuk')">
+                        <a class="modpack-option" href="#" onclick="downloadModpack('dusuk')">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png" alt="Düşük">
-                            <span>Düşük</span>
-                            <small>Zayıf sistemler için optimize edilmiş.</small>
+                            <span class="modpack-name">Düşük</span>
+                            <div class="modpack-description">Zayıf sistemler için optimize edilmiş.</div>
                         </a>
-                        <a class="launcher-option patates" href="#" onclick="downloadModpack('patates')">
+                        <a class="modpack-option" href="#" onclick="downloadModpack('patates')">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/patates.png" alt="Patates">
-                            <span>Patates</span>
-                            <small>Gerçekten patates bilgisayarlar için.</small>
+                            <span class="modpack-name">Patates</span>
+                            <div class="modpack-description">Gerçekten patates bilgisayarlar için.</div>
                         </a>
                     </div>
                 </div>
@@ -719,4 +768,3 @@
         });
     </script>
 </body>
-</html>
