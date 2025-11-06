@@ -15,63 +15,65 @@
         .screen{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;pointer-events:none;padding:20px;overflow-y:auto}
         .screen.active{display:flex;animation:fadeIn .7s ease-in-out forwards;pointer-events:all}
         @keyframes fadeIn{to{opacity:1}}
-        .content-wrapper{display:flex;flex-direction:column;align-items:center;width:100%;max-width:800px;gap:20px;text-align:center;margin:auto;padding:20px 0}
-        .logo-container{position:relative;margin-bottom:20px;text-align:center;width:100%;display:flex;justify-content:center}
-        .logo{max-width:450px;width:90%;filter:drop-shadow(0 15px 50px rgba(0,0,0,.7));transition:transform .3s}
+        .content-wrapper{display:flex;flex-direction:column;align-items:center;width:100%;max-width:700px;gap:16px;text-align:center;margin:auto;padding:15px 0}
+        .logo-container{position:relative;margin-bottom:15px;text-align:center;width:100%;display:flex;justify-content:center}
+        .logo{max-width:380px;width:85%;filter:drop-shadow(0 15px 50px rgba(0,0,0,.7));transition:transform .3s}
         .logo:hover{transform:scale(1.05)}
-        .glass-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.4);width:100%;max-width:550px;text-align:center;margin:0 auto;display:flex;flex-direction:column;align-items:center;position:relative;isolation:isolate}
-        .glass-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:24px;z-index:-1}
-        .btn-group{display:flex;flex-direction:column;gap:12px;width:100%;align-items:center;position:relative;z-index:1}
-        .btn{display:flex;align-items:center;justify-content:center;gap:16px;padding:18px 24px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.15);border-radius:16px;color:#fff;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .3s ease-out;position:relative;overflow:hidden;width:100%;max-width:400px}
+        .glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.4);width:100%;max-width:500px;text-align:center;margin:0 auto;display:flex;flex-direction:column;align-items:center;position:relative;isolation:isolate;animation:blurFadeIn .5s ease-out}
+        @keyframes blurFadeIn{from{backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);opacity:0}to{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:1}}
+        .btn-group{display:flex;flex-direction:column;gap:10px;width:100%;align-items:center;position:relative;z-index:1}
+        .btn{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 20px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:14px;color:#fff;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .3s ease-out;position:relative;overflow:hidden;width:100%;max-width:360px}
         .btn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color),transparent);opacity:0;transition:opacity .3s}
         .btn:hover::before{opacity:.2}
         .btn:hover{transform:translateY(-2px);border-color:var(--accent-color);box-shadow:0 10px 30px rgba(0,0,0,.3),0 0 30px var(--accent-color)30}
         .btn:active{transform:translateY(0)}
-        .btn img{width:32px;height:32px;border-radius:8px}
+        .btn.loading{filter:blur(2px);pointer-events:none;opacity:.7}
+        .btn img{width:28px;height:28px;border-radius:7px}
         .btn.discord img{border-radius:50%}
         .btn.primary{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.2);font-weight:700;text-transform:uppercase;letter-spacing:1px}
         .btn.primary:hover{box-shadow:0 10px 40px var(--accent-color)50;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.08))}
-        .section-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.6);margin-bottom:12px;text-align:center;width:100%;position:relative;z-index:1}
+        .section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.6);margin-bottom:10px;text-align:center;width:100%;position:relative;z-index:1}
         .expandable{width:100%;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
-        .expand-trigger{width:100%;max-width:400px;position:relative}
-        .expand-trigger::after{content:'';position:absolute;right:20px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid currentColor;transition:transform .3s}
+        .expand-trigger{width:100%;max-width:360px;position:relative}
+        .expand-trigger::after{content:'';position:absolute;right:18px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid currentColor;transition:transform .3s}
         .expand-trigger.open::after{transform:translateY(-50%) rotate(180deg)}
         .expand-content{max-height:0;overflow:hidden;transition:max-height .5s ease-out;width:100%;display:flex;justify-content:center;align-items:center}
-        .expand-content.open{max-height:500px}
-        .grid{display:grid;gap:16px;padding:12px 0;margin:0 auto;width:100%;justify-items:center}
-        .launcher-grid{grid-template-columns:repeat(2,1fr);max-width:450px;width:100%}
-        .modpack-grid{grid-template-columns:repeat(3,1fr);max-width:550px}
-        .card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;color:#fff;text-decoration:none;width:100%;min-width:150px;isolation:isolate}
-        .card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:18px;z-index:-1}
+        .expand-content.open{max-height:450px}
+        .grid{display:grid;gap:14px;padding:10px 0;margin:0 auto;width:100%;justify-items:center}
+        .launcher-grid{grid-template-columns:repeat(2,1fr);max-width:400px;width:100%}
+        .modpack-grid{grid-template-columns:repeat(3,1fr);max-width:500px}
+        .card{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;color:#fff;text-decoration:none;width:100%;min-width:130px;isolation:isolate}
         .card::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color)20,transparent);opacity:0;transition:opacity .3s;z-index:-1}
         .launcher-grid .card{width:100%}
         .card:hover{text-decoration:none}
         .card:hover::after{opacity:1}
         .card:hover{transform:translateY(-4px);border-color:var(--accent-color);box-shadow:0 15px 40px rgba(0,0,0,.4)}
-        .card img{width:90px;height:90px;border-radius:12px;margin-bottom:12px;box-shadow:0 8px 20px rgba(0,0,0,.3);position:relative;z-index:1}
-        .card-title{font-size:15px;font-weight:700;margin-bottom:8px;color:#fff;position:relative;z-index:1}
-        .card-desc{font-size:11px;color:rgba(255,255,255,.6);line-height:1.5;max-height:0;overflow:hidden;transition:max-height .3s;position:relative;z-index:1}
+        .card img{width:75px;height:75px;border-radius:10px;margin-bottom:10px;box-shadow:0 8px 20px rgba(0,0,0,.3);position:relative;z-index:1}
+        .card-title{font-size:14px;font-weight:700;margin-bottom:6px;color:#fff;position:relative;z-index:1}
+        .card-desc{font-size:10px;color:rgba(255,255,255,.6);line-height:1.5;max-height:0;overflow:hidden;transition:max-height .3s;position:relative;z-index:1}
         .card:hover .card-desc{max-height:100px}
-        .status-card{background:rgba(0,0,0,.3);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,.1);cursor:pointer;max-width:400px;margin:0 auto;width:100%;position:relative;z-index:1}
-        .status-header{display:flex;align-items:center;justify-content:center;gap:12px}
-        .status-dot{width:12px;height:12px;border-radius:50%;background:#ffd700;box-shadow:0 0 20px currentColor;animation:pulse 2s infinite}
+        .status-card{background:rgba(0,0,0,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);cursor:pointer;max-width:360px;margin:0 auto;width:100%;position:relative;z-index:1}
+        .status-header{display:flex;align-items:center;justify-content:center;gap:10px}
+        .status-dot{width:11px;height:11px;border-radius:50%;background:#ffd700;box-shadow:0 0 20px currentColor;animation:pulse 2s infinite}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
         .status-dot.online{background:#00ff88}
         .status-dot.offline{background:#ff4444}
-        .status-text{font-size:15px;font-weight:600}
-        .player-list{margin-top:12px;max-height:0;overflow:hidden;transition:max-height .5s}
-        .player-list.open{max-height:300px;overflow-y:auto}
-        .player-item{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,.05);border-radius:12px;margin:8px 0;border:1px solid rgba(255,255,255,.1)}
-        .player-avatar{width:32px;height:32px;border-radius:8px;image-rendering:pixelated}
-        .player-name{font-size:14px;font-weight:600}
-        .back-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-top:20px;max-width:300px}
+        .status-text{font-size:14px;font-weight:600}
+        .player-list{margin-top:10px;max-height:0;overflow:hidden;transition:max-height .5s}
+        .player-list.open{max-height:280px;overflow-y:auto}
+        .player-item{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.05);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:10px;margin:6px 0;border:1px solid rgba(255,255,255,.1)}
+        .player-avatar{width:28px;height:28px;border-radius:7px;image-rendering:pixelated}
+        .player-name{font-size:13px;font-weight:600}
+        .back-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-top:16px;max-width:280px}
         .back-btn:hover{background:rgba(255,255,255,.12)}
-        .desc-text{font-size:15px;line-height:1.8;color:rgba(255,255,255,.7);margin-bottom:20px;text-align:center;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
-        footer{margin-top:30px;font-size:13px;color:rgba(255,255,255,.4)}
+        .desc-text{font-size:14px;line-height:1.7;color:rgba(255,255,255,.7);margin-bottom:16px;text-align:center;max-width:450px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+        .help-container{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:200px}
+        .help-text{font-size:16px;font-weight:600;color:rgba(255,255,255,.8);text-align:center}
+        footer{margin-top:25px;font-size:12px;color:rgba(255,255,255,.4)}
         @media(max-width:768px){
             .logo{max-width:320px}
-            .glass-card{padding:20px;max-width:95%}
-            .btn{padding:14px 18px;font-size:14px;max-width:100%}
+            .glass-card{padding:18px;max-width:95%}
+            .btn{padding:13px 18px;font-size:14px;max-width:100%}
             .launcher-grid{max-width:300px;gap:12px}
             .modpack-grid{grid-template-columns:repeat(3,1fr);gap:10px;max-width:100%}
             .card{padding:12px;width:100px;min-width:auto}
@@ -79,23 +81,23 @@
             .card img{width:55px;height:55px}
             .card-title{font-size:12px}
             .card-desc{font-size:9px}
-            .status-card{max-width:100%;padding:16px}
+            .status-card{max-width:100%;padding:15px}
             .desc-text{font-size:13px}
-            .player-list.open{max-height:250px}
+            .player-list.open{max-height:240px}
         }
         @media(max-width:480px){
-            .content-wrapper{gap:14px;padding:10px 0}
+            .content-wrapper{gap:12px;padding:10px 0}
             .logo{max-width:260px}
-            .glass-card{padding:18px}
-            .btn{padding:12px 16px;font-size:13px}
+            .glass-card{padding:16px}
+            .btn{padding:11px 16px;font-size:13px}
             .launcher-grid{max-width:250px;gap:10px}
             .modpack-grid{gap:8px}
             .card{padding:10px;width:95px}
             .launcher-grid .card{width:100%}
             .card img{width:50px;height:50px}
             .card-title{font-size:11px}
-            .status-card{padding:14px}
-            .section-title{font-size:12px}
+            .status-card{padding:13px}
+            .section-title{font-size:11px}
             .player-list.open{max-height:200px}
         }
     </style>
@@ -118,7 +120,7 @@
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord">Discord Sunucusu
                     </a>
                 </div>
-                <div class="section-title" style="margin-top:24px">Diğer</div>
+                <div class="section-title" style="margin-top:20px">Diğer</div>
                 <div class="expandable">
                     <button id="launcherBtn" class="btn expand-trigger">
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher">Launcher İndir
@@ -129,14 +131,14 @@
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth">
                                 <div class="card-title">Modrinth</div>
                             </a>
-                            <a id="prismLink" class="card" target="_blank">
+                            <a id="prismLink" class="card">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism">
                                 <div class="card-title">Prism</div>
                             </a>
                         </div>
                     </div>
                 </div>
-                <button class="btn" style="margin-top:12px;background:rgba(255,255,255,.08)">
+                <button class="btn" style="margin-top:10px;background:rgba(255,255,255,.08)" onclick="showScreen('help')">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım">Sunucuya Nasıl Katılırım?
                 </button>
             </div>
@@ -153,7 +155,7 @@
                 <button class="btn" onclick="copyIP(this,'oyna.agalarmc.com')">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">oyna.agalarmc.com
                 </button>
-                <div class="section-title" style="margin-top:24px">Mod Paketi</div>
+                <div class="section-title" style="margin-top:20px">Mod Paketi</div>
                 <div class="expandable">
                     <button id="modPaketiBtn" class="btn expand-trigger">
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketleri
@@ -178,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="section-title" style="margin-top:24px">Sunucu Durumu</div>
+                <div class="section-title" style="margin-top:20px">Sunucu Durumu</div>
                 <div class="status-card" onclick="toggleServerStatus('vanilla')">
                     <div class="status-header">
                         <span class="status-dot" id="si-v"></span>
@@ -202,10 +204,10 @@
                 <button class="btn" onclick="copyIP(this,'create.agalarmc.com')">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">create.agalarmc.com
                 </button>
-                <button class="btn" id="moddedModpackBtn" style="margin-top:12px">
+                <button class="btn" id="moddedModpackBtn" style="margin-top:10px">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketini İndir
                 </button>
-                <div class="section-title" style="margin-top:24px">Sunucu Durumu</div>
+                <div class="section-title" style="margin-top:20px">Sunucu Durumu</div>
                 <div class="status-card" onclick="toggleServerStatus('modded')">
                     <div class="status-header">
                         <span class="status-dot" id="si-m"></span>
@@ -218,8 +220,21 @@
             <footer>&copy; 2025 AgalarMC</footer>
         </div>
     </div>
+    <div class="screen" id="help">
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
+            </div>
+            <div class="glass-card">
+                <div class="help-container">
+                    <p class="help-text">🚧 Bu sayfa henüz yapım aşamasındadır 🚧</p>
+                    <button class="btn back-btn" onclick="showScreen('home')" style="margin-top:0">← Ana Menüye Dön</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"rgba(52,152,219,.3)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"rgba(60,176,67,.3)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"rgba(215,107,0,.3)"}};
+        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"rgba(52,152,219,.3)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"rgba(60,176,67,.3)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"rgba(215,107,0,.3)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"rgba(52,152,219,.3)"}};
         let serverData={vanilla:null,modded:null};
         function showScreen(id){
             const t=themes[id];
@@ -236,7 +251,7 @@
         document.getElementById('launcherBtn').onclick=function(){const c=document.getElementById('launcherContent');c.classList.toggle('open');this.classList.toggle('open')};
         document.getElementById('modPaketiBtn').onclick=function(){const c=document.getElementById('modPaketiContent');c.classList.toggle('open');this.classList.toggle('open')};
         document.getElementById('modrinthLink').href='https://modrinth.com/app';
-        const prism=document.getElementById('prismLink');prism.addEventListener('click',async e=>{e.preventDefault();try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}});
+        const prism=document.getElementById('prismLink');prism.addEventListener('click',async e=>{e.preventDefault();const origTitle=prism.querySelector('.card-title').textContent;prism.classList.add('loading');prism.querySelector('.card-title').textContent='Güncel sürüm kontrol ediliyor...';try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}finally{prism.classList.remove('loading');prism.querySelector('.card-title').textContent=origTitle}});
         function downloadModpack(type){const urls={standart:"https://drive.google.com/your-standart-modpack-link",dusuk:"https://drive.google.com/your-dusuk-modpack-link",patates:"https://drive.google.com/your-patates-modpack-link"};const url=urls[type];if(url&&url!=="https://drive.google.com/your-standart-modpack-link"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
         document.getElementById('moddedModpackBtn').addEventListener('click',e=>{e.preventDefault();window.open('https://drive.google.com/your-create-modpack-link','_blank')});
     </script>
