@@ -20,8 +20,8 @@
         .logo-container{position:relative;margin-bottom:20px;text-align:center;width:100%;display:flex;justify-content:center}
         .logo{max-width:450px;width:90%;filter:drop-shadow(0 15px 50px rgba(0,0,0,.7));transition:transform .3s}
         .logo:hover{transform:scale(1.05)}
-        .glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.4);width:100%;max-width:550px;text-align:center;margin:0 auto;display:flex;flex-direction:column;align-items:center;animation:glassAppear 0.4s ease-out}
-        @keyframes glassAppear{from{opacity:0;background:rgba(255,255,255,0);backdrop-filter:blur(0px);transform:translateY(10px)}to{opacity:1;background:rgba(255,255,255,.05);backdrop-filter:blur(20px);transform:translateY(0)}}
+        .glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.4);width:100%;max-width:550px;text-align:center;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+        .screen:not(.active) .glass-card{opacity:0}
         .btn-group{display:flex;flex-direction:column;gap:12px;width:100%;align-items:center}
         .btn{display:flex;align-items:center;justify-content:center;gap:16px;padding:18px 24px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.15);border-radius:16px;color:#fff;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .3s ease-out;position:relative;overflow:hidden;width:100%;max-width:400px}
         .btn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color),transparent);opacity:0;transition:opacity .3s}
@@ -42,7 +42,7 @@
         .grid{display:grid;gap:16px;padding:12px 0;margin:0 auto;width:100%;justify-items:center}
         .launcher-grid{grid-template-columns:repeat(2,1fr);max-width:450px;width:100%}
         .modpack-grid{grid-template-columns:repeat(3,1fr);max-width:550px}
-        .card{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;color:#fff;text-decoration:none;width:100%;min-width:150px}
+        .card{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;color:#fff;text-decoration:none;width:100%;min-width:150px}
         .launcher-grid .card{width:100%}
         .card:hover{text-decoration:none}
         .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color)20,transparent);opacity:0;transition:opacity .3s}
@@ -98,7 +98,6 @@
             .section-title{font-size:12px}
             .player-list.open{max-height:200px}
         }
-        .screen.transitioning .glass-card{animation:none}
     </style>
 </head>
 <body>
@@ -223,19 +222,11 @@
         const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"rgba(52,152,219,.3)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"rgba(60,176,67,.3)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"rgba(215,107,0,.3)"}};
         let serverData={vanilla:null,modded:null};
         function showScreen(id){
-            const screens=document.querySelectorAll('.screen');
-            screens.forEach(s=>{
-                s.classList.add('transitioning');
-                s.classList.remove('active');
-            });
+            document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
             const t=themes[id];
             document.documentElement.style.setProperty('--bg-image',t.bg);
             document.documentElement.style.setProperty('--accent-color',t.color);
-            setTimeout(()=>{
-                const targetScreen=document.getElementById(id);
-                targetScreen.classList.remove('transitioning');
-                targetScreen.classList.add('active');
-            },50);
+            setTimeout(()=>{document.getElementById(id).classList.add('active')},50);
         }
         document.addEventListener("DOMContentLoaded",()=>showScreen('home'));
         function copyIP(btn,ip){const orig=btn.innerHTML;navigator.clipboard.writeText(ip).then(()=>{btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1500)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1500)})}
