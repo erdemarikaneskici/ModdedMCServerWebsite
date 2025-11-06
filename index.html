@@ -9,21 +9,21 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{height:100%;width:100%;overflow:hidden;font-family:'Inter',sans-serif;color:#fff}
         body{position:relative;background:#0a0e1a}
-        body::before{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--bg-image,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) no-repeat center/cover;z-index:-2;filter:brightness(.4);will-change:transform;transition:background 0.7s cubic-bezier(.4,0,.2,1);animation:initialBlur 0.5s ease-out}
-        @keyframes initialBlur{from{filter:brightness(.4) blur(20px)}to{filter:brightness(.4)}}
-        body::after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(ellipse at top,var(--accent-color,#3498db)15,transparent 50%),linear-gradient(180deg,rgba(10,14,26,.6),rgba(10,14,26,.95));z-index:-1;will-change:transform;transition:background 0.7s cubic-bezier(.4,0,.2,1);animation:initialBackdrop 0.5s ease-out}
-        @keyframes initialBackdrop{from{opacity:0}to{opacity:1}}
+        body::before{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--bg-image,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) no-repeat center/cover;z-index:-2;filter:brightness(.4);transition:opacity 0.7s ease-in-out;animation:initialFade 0.5s ease-out}
+        @keyframes initialFade{from{opacity:0}to{opacity:1}}
+        body::after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(ellipse at top,var(--accent-color,#3498db)15,transparent 50%),linear-gradient(180deg,rgba(10,14,26,.6),rgba(10,14,26,.95));z-index:-1;transition:background 0.7s ease-in-out}
         :root{--accent-color:#3498db;--bg-image:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')}
-        .screen{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);pointer-events:none;padding:20px;overflow-y:auto}
+        .screen{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;transition:opacity .7s ease-in-out;pointer-events:none;padding:20px;overflow-y:auto}
         .screen.active{opacity:1;pointer-events:all}
-        .content-wrapper{display:flex;flex-direction:column;align-items:center;width:100%;max-width:800px;gap:20px;animation:slideUp .8s cubic-bezier(.4,0,.2,1);text-align:center;margin:auto;padding:20px 0}
+        .content-wrapper{display:flex;flex-direction:column;align-items:center;width:100%;max-width:800px;gap:20px;animation:slideUp .8s ease-out;text-align:center;margin:auto;padding:20px 0}
         @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
         .logo-container{position:relative;margin-bottom:20px;text-align:center;width:100%;display:flex;justify-content:center}
         .logo{max-width:450px;width:90%;filter:drop-shadow(0 15px 50px rgba(0,0,0,.7));transition:transform .3s}
         .logo:hover{transform:scale(1.05)}
-        .glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.4);width:100%;max-width:550px;text-align:center;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+        .glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.4);width:100%;max-width:550px;text-align:center;margin:0 auto;display:flex;flex-direction:column;align-items:center;animation:glassAppear 0.5s ease-out}
+        @keyframes glassAppear{from{background:rgba(255,255,255,0);backdrop-filter:blur(0px)}to{background:rgba(255,255,255,.05);backdrop-filter:blur(20px)}}
         .btn-group{display:flex;flex-direction:column;gap:12px;width:100%;align-items:center}
-        .btn{display:flex;align-items:center;justify-content:center;gap:16px;padding:18px 24px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.15);border-radius:16px;color:#fff;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;max-width:400px}
+        .btn{display:flex;align-items:center;justify-content:center;gap:16px;padding:18px 24px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.15);border-radius:16px;color:#fff;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .3s ease-out;position:relative;overflow:hidden;width:100%;max-width:400px}
         .btn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color),transparent);opacity:0;transition:opacity .3s}
         .btn:hover::before{opacity:.2}
         .btn:hover{transform:translateY(-2px);border-color:var(--accent-color);box-shadow:0 10px 30px rgba(0,0,0,.3),0 0 30px var(--accent-color)30}
@@ -37,7 +37,7 @@
         .expand-trigger{width:100%;max-width:400px;position:relative}
         .expand-trigger::after{content:'';position:absolute;right:20px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid currentColor;transition:transform .3s}
         .expand-trigger.open::after{transform:translateY(-50%) rotate(180deg)}
-        .expand-content{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);width:100%;display:flex;justify-content:center;align-items:center}
+        .expand-content{max-height:0;overflow:hidden;transition:max-height .5s ease-out;width:100%;display:flex;justify-content:center;align-items:center}
         .expand-content.open{max-height:500px}
         .grid{display:grid;gap:16px;padding:12px 0;margin:0 auto;width:100%;justify-items:center}
         .launcher-grid{grid-template-columns:repeat(2,1fr);max-width:450px;width:100%}
@@ -98,6 +98,7 @@
             .section-title{font-size:12px}
             .player-list.open{max-height:200px}
         }
+        .screen.transitioning .glass-card{animation:none}
     </style>
 </head>
 <body>
@@ -222,11 +223,19 @@
         const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"rgba(52,152,219,.3)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"rgba(60,176,67,.3)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"rgba(215,107,0,.3)"}};
         let serverData={vanilla:null,modded:null};
         function showScreen(id){
-            document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+            const screens=document.querySelectorAll('.screen');
+            screens.forEach(s=>{
+                s.classList.add('transitioning');
+                s.classList.remove('active');
+            });
             const t=themes[id];
             document.documentElement.style.setProperty('--bg-image',t.bg);
             document.documentElement.style.setProperty('--accent-color',t.color);
-            setTimeout(()=>{document.getElementById(id).classList.add('active')},50)
+            setTimeout(()=>{
+                const targetScreen=document.getElementById(id);
+                targetScreen.classList.remove('transitioning');
+                targetScreen.classList.add('active');
+            },50);
         }
         document.addEventListener("DOMContentLoaded",()=>showScreen('home'));
         function copyIP(btn,ip){const orig=btn.innerHTML;navigator.clipboard.writeText(ip).then(()=>{btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1500)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1500)})}
