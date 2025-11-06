@@ -1,6 +1,4 @@
-.launcher-option{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;background:#2b8f57;padding:12px 14px;border-radius:10px;width:130px;min-height:110px;color:#fff;transition:all .3s;font-size:.6rem;text-align:center;border:2px solid rgba(255,255,255,.2);box-shadow:0 0 10px rgba(0,0,0,.4);gap:10px}
-        .launcher-option:hover{transform:scale(1.08);border-color:rgba(255,255,255,.5);box-shadow:0 0 15px rgba(255,255,255,.3)}
-        .launcher-option img{width:48px;height:48px;border-radius:6px}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -11,10 +9,10 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{height:100%;width:100%;overflow:hidden;font-family:'Inter',sans-serif;color:#fff}
         body{position:relative;background:#0a0e1a}
-        body::before{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--bg-image,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) no-repeat center/cover;z-index:-2;filter:brightness(.4);will-change:background;transition:none}
-        body::after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(ellipse at top,var(--accent-color,#3498db)15,transparent 50%),linear-gradient(180deg,rgba(10,14,26,.6),rgba(10,14,26,.95));z-index:-1;will-change:background;transition:none}
+        body::before{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--bg-image,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) no-repeat center/cover;z-index:-2;filter:brightness(.4);will-change:transform;transition:none}
+        body::after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(ellipse at top,var(--accent-color,#3498db)15,transparent 50%),linear-gradient(180deg,rgba(10,14,26,.6),rgba(10,14,26,.95));z-index:-1;will-change:transform;transition:none}
         :root{--accent-color:#3498db;--bg-image:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')}
-        .screen{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);pointer-events:none;padding:20px;overflow-y:auto}
+        .screen{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;transition:opacity .7s cubic-bezier(.4,0,.2,1);pointer-events:none;padding:20px;overflow-y:auto}
         .screen.active{opacity:1;pointer-events:all}
         .content-wrapper{display:flex;flex-direction:column;align-items:center;width:100%;max-width:800px;gap:20px;animation:slideUp .8s cubic-bezier(.4,0,.2,1);text-align:center;margin:auto;padding:20px 0}
         @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
@@ -39,13 +37,15 @@
         .expand-trigger.open::after{transform:translateY(-50%) rotate(180deg)}
         .expand-content{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);width:100%;display:flex;justify-content:center;align-items:center}
         .expand-content.open{max-height:500px}
-        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;padding:12px 0;max-width:500px;margin:0 auto;width:100%;justify-items:center}
-        .card{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;color:#fff;text-decoration:none;width:140px}
+        .grid{display:grid;gap:16px;padding:12px 0;margin:0 auto;width:100%;justify-items:center}
+        .launcher-grid{grid-template-columns:repeat(2,1fr);max-width:350px}
+        .modpack-grid{grid-template-columns:repeat(3,1fr);max-width:550px}
+        .card{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;color:#fff;text-decoration:none;width:150px}
         .card:hover{text-decoration:none}
         .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color)20,transparent);opacity:0;transition:opacity .3s}
         .card:hover::before{opacity:1}
         .card:hover{transform:translateY(-4px);border-color:var(--accent-color);box-shadow:0 15px 40px rgba(0,0,0,.4)}
-        .card img{width:85px;height:85px;border-radius:12px;margin-bottom:12px;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+        .card img{width:90px;height:90px;border-radius:12px;margin-bottom:12px;box-shadow:0 8px 20px rgba(0,0,0,.3)}
         .card-title{font-size:15px;font-weight:700;margin-bottom:8px;color:#fff}
         .card-desc{font-size:11px;color:rgba(255,255,255,.6);line-height:1.5;max-height:0;overflow:hidden;transition:max-height .3s}
         .card:hover .card-desc{max-height:100px}
@@ -69,13 +69,12 @@
             .logo{max-width:320px}
             .glass-card{padding:20px;max-width:95%}
             .btn{padding:14px 18px;font-size:14px;max-width:100%}
-            .grid{grid-template-columns:repeat(3,1fr);gap:10px;max-width:100%}
-            .card{padding:12px;width:auto}
+            .launcher-grid{max-width:250px;gap:12px}
+            .modpack-grid{grid-template-columns:repeat(3,1fr);gap:10px;max-width:100%}
+            .card{padding:12px;width:100px}
             .card img{width:55px;height:55px}
             .card-title{font-size:12px}
             .card-desc{font-size:9px}
-            .launcher-option{width:100px;min-height:90px;padding:10px;font-size:.55rem}
-            .launcher-option img{width:36px;height:36px}
             .status-card{max-width:100%;padding:16px}
             .desc-text{font-size:13px}
             .player-list.open{max-height:250px}
@@ -85,12 +84,11 @@
             .logo{max-width:260px}
             .glass-card{padding:18px}
             .btn{padding:12px 16px;font-size:13px}
-            .grid{gap:8px}
-            .card{padding:10px}
+            .launcher-grid{max-width:220px;gap:10px}
+            .modpack-grid{gap:8px}
+            .card{padding:10px;width:95px}
             .card img{width:50px;height:50px}
             .card-title{font-size:11px}
-            .launcher-option{width:95px;min-height:85px;padding:8px;font-size:.5rem}
-            .launcher-option img{width:32px;height:32px}
             .status-card{padding:14px}
             .section-title{font-size:12px}
             .player-list.open{max-height:200px}
@@ -121,12 +119,14 @@
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher">Launcher İndir
                     </button>
                     <div id="launcherContent" class="expand-content">
-                        <div class="grid" style="grid-template-columns:repeat(2,1fr);max-width:300px">
-                            <a id="modrinthLink" class="launcher-option" target="_blank">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth"><span>Modrinth</span>
+                        <div class="grid launcher-grid">
+                            <a id="modrinthLink" class="card" target="_blank">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth">
+                                <div class="card-title">Modrinth</div>
                             </a>
-                            <a id="prismLink" class="launcher-option" target="_blank">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism"><span>Prism</span>
+                            <a id="prismLink" class="card" target="_blank">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism">
+                                <div class="card-title">Prism</div>
                             </a>
                         </div>
                     </div>
@@ -144,8 +144,9 @@
             </div>
             <div class="glass-card">
                 <p class="desc-text">Görsel ve performans açısından geliştirilmiş, vanilla hissiyatını koruyan sunucumuz.</p>
+                <div class="section-title">Sunucu IP'si</div>
                 <button class="btn" onclick="copyIP(this,'oyna.agalarmc.com')">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">Sunucu IP: oyna.agalarmc.com
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">oyna.agalarmc.com
                 </button>
                 <div class="section-title" style="margin-top:24px">Mod Paketi</div>
                 <div class="expandable">
@@ -153,7 +154,7 @@
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketleri
                     </button>
                     <div id="modPaketiContent" class="expand-content">
-                        <div class="grid">
+                        <div class="grid modpack-grid">
                             <a class="card" href="#" onclick="downloadModpack('patates')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/patates.png" alt="Patates">
                                 <div class="card-title">Patates</div>
@@ -192,8 +193,9 @@
             </div>
             <div class="glass-card">
                 <p class="desc-text">Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
+                <div class="section-title">Sunucu IP'si</div>
                 <button class="btn" onclick="copyIP(this,'create.agalarmc.com')">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">Sunucu IP: create.agalarmc.com
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">create.agalarmc.com
                 </button>
                 <button class="btn" id="moddedModpackBtn" style="margin-top:12px">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketini İndir
