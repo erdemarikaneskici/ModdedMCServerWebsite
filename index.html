@@ -12,9 +12,10 @@
         body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center center;background-size:cover;background-position:center;filter:brightness(.3) blur(2px);z-index:-2;transition:filter .8s cubic-bezier(.4,0,.2,1)}
         body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)08,transparent 70%);z-index:-1;transition:background .8s}
         :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5)}
-        .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;overflow-x:hidden;transition:opacity .6s;align-items:center;justify-content:center}
+        .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow:hidden;transition:opacity .6s;align-items:center;justify-content:center}
         .screen.active{display:flex;opacity:1}
-        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85);min-height:min-content}
+        .wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85);min-height:min-content;max-height:100vh;overflow-y:auto;overflow-x:hidden;padding:10px 0}
+        .wrap::-webkit-scrollbar{width:0;display:none}
         .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
         .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%}
         .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none}
@@ -41,16 +42,17 @@
         .grid{display:grid;gap:12px;padding:12px 0}
         .grid-2{grid-template-columns:repeat(2,1fr)}
         .grid-3{grid-template-columns:repeat(3,1fr)}
-        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;overflow:visible}
+        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;overflow:visible;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:space-between}
         .card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+        .card:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.35);transform:scale(1.05)}
         .card:hover::before{opacity:.5}
         .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
-        .card-desc{font-size:12px;color:rgba(255,255,255,.6);max-height:0;overflow:hidden;transition:max-height .3s;line-height:1.4}
-        .card:hover .card-desc{max-height:80px}
-        .info-btn{width:24px;height:24px;opacity:.6;margin-top:8px;cursor:pointer;transition:all .3s;border:none;background:none;padding:0}
-        .info-btn:hover{opacity:1;transform:scale(1.1)}
+        .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:8px}
+        .info-btn{width:24px;height:24px;opacity:.6;cursor:pointer;transition:all .3s;border:none;background:none;padding:0;position:relative;display:flex;align-items:center;gap:8px}
+        .info-btn:hover{opacity:1;transform:translateX(8px);padding-left:90px}
+        .info-btn::before{content:'Detaylı bilgi';position:absolute;right:calc(100% + 8px);opacity:0;font-size:12px;font-weight:600;white-space:nowrap;transition:all .3s;pointer-events:none}
+        .info-btn:hover::before{opacity:1;right:calc(100% + 0px)}
         .card-expanded{position:fixed;inset:20px;z-index:1000;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:none;animation:expandCard .3s ease}
         .card-expanded.active{display:block}
         @keyframes expandCard{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
@@ -210,19 +212,19 @@
                 </button>
                 <div id="mc2" class="expand">
                     <div class="grid grid-2">
-                        <a class="card tier-diamond">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
-                            <div class="card-title">Elmas</div>
-                            <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'elmas-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
-                            </button>
-                        </a>
                         <a class="card tier-gold">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                             <div class="card-title">Altın</div>
                             <div class="card-desc">Güçsüz sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'altin-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
+                            </button>
+                        </a>
+                        <a class="card tier-diamond">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
+                            <div class="card-title">Elmas</div>
+                            <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
+                            <button class="info-btn" onclick="showInfo(event,'elmas-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
                             </button>
                         </a>
