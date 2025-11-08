@@ -14,8 +14,9 @@
         :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5)}
         .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow:hidden;transition:opacity .6s;align-items:center;justify-content:center}
         .screen.active{display:flex;opacity:1}
-        .wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85);min-height:min-content;max-height:100vh;overflow-y:auto;overflow-x:hidden;padding:10px 0}
+        .wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85);min-height:min-content;max-height:100vh;overflow-y:auto;overflow-x:hidden;padding:10px 0;transition:justify-content .4s ease}
         .wrap::-webkit-scrollbar{width:0;display:none}
+        .wrap.centered{justify-content:center}
         .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
         .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%}
         .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none}
@@ -23,7 +24,7 @@
         .btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent),0 0 0 1px var(--accent);border-color:var(--accent)}
         .btn:hover::before{opacity:.3}
         .btn:active{transform:translateY(-1px)}
-        .btn img{width:26px;height:26px;border-radius:8px}
+        .btn img{width:32px;height:32px;border-radius:8px}
         .btn.discord img{border-radius:50%}
         .btn.primary{background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.08));font-weight:700;text-transform:uppercase;letter-spacing:1px}
         .btn.vanilla::before{background:rgba(140,180,75,.5)}
@@ -49,16 +50,17 @@
         .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
         .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:8px}
-        .info-btn{width:24px;height:24px;opacity:.6;cursor:pointer;transition:all .3s;border:none;background:none;padding:0;position:relative;display:flex;align-items:center;gap:8px}
-        .info-btn:hover{opacity:1;transform:translateX(8px);padding-left:90px}
-        .info-btn::before{content:'Detaylı bilgi';position:absolute;right:calc(100% + 8px);opacity:0;font-size:12px;font-weight:600;white-space:nowrap;transition:all .3s;pointer-events:none}
-        .info-btn:hover::before{opacity:1;right:calc(100% + 0px)}
+        .info-btn{width:24px;height:24px;opacity:.6;cursor:pointer;transition:all .3s;border:none;background:none;padding:0;position:relative;display:flex;align-items:center;gap:0}
+        .info-btn:hover{opacity:1;transform:translateX(8px)}
+        .info-btn::before{content:'Detaylı bilgi';position:absolute;right:32px;opacity:0;font-size:12px;font-weight:600;white-space:nowrap;transition:all .3s;pointer-events:none;color:#fff}
+        .info-btn:hover::before{opacity:1}
         .card-expanded{position:fixed;inset:20px;z-index:1000;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:none;animation:expandCard .3s ease}
         .card-expanded.active{display:block}
         @keyframes expandCard{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
         .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
-        .card-info{display:flex;gap:16px;align-items:center}
+        .card-info{display:flex;gap:16px;align-items:center;flex-direction:row-reverse}
         .card-info img{width:64px;height:64px;border-radius:12px}
+        .card-details{text-align:left}
         .card-details h3{font-size:20px;font-weight:700;margin-bottom:4px}
         .card-details p{font-size:13px;color:rgba(255,255,255,.6)}
         .close-btn{width:32px;height:32px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;flex-shrink:0}
@@ -66,11 +68,11 @@
         .card-content{font-size:14px;line-height:1.8;color:rgba(255,255,255,.7)}
         .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:999;display:none}
         .overlay.active{display:block}
-        .card.tier-iron:hover{box-shadow:0 8px 20px rgba(0,0,0,.3)}
-        .card.tier-iron:hover::before{opacity:.3}
-        .card.tier-gold:hover{box-shadow:0 8px 28px rgba(0,0,0,.35)}
-        .card.tier-gold:hover::before{opacity:.4}
-        .card.tier-diamond:hover{box-shadow:0 8px 32px rgba(0,0,0,.4)}
+        .card.tier-iron:hover{box-shadow:0 8px 24px rgba(0,0,0,.35)}
+        .card.tier-iron:hover::before{opacity:.5}
+        .card.tier-gold:hover{box-shadow:0 8px 24px rgba(0,0,0,.35)}
+        .card.tier-gold:hover::before{opacity:.5}
+        .card.tier-diamond:hover{box-shadow:0 8px 24px rgba(0,0,0,.35)}
         .card.tier-diamond:hover::before{opacity:.5}
         .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
         .status:hover{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.2)}
@@ -281,11 +283,26 @@
             document.documentElement.style.setProperty('--accent',t.a);
             document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            updateWrapCentering();
         }
         function closeAllExpands(){
             document.querySelectorAll('.expand').forEach(e=>e.classList.remove('open'));
             document.querySelectorAll('.expand-btn').forEach(b=>b.classList.remove('open'));
             closeInfo();
+            updateWrapCentering();
+        }
+        function updateWrapCentering(){
+            setTimeout(()=>{
+                document.querySelectorAll('.wrap').forEach(w=>{
+                    const contentHeight=w.scrollHeight;
+                    const containerHeight=w.clientHeight;
+                    if(contentHeight<=containerHeight){
+                        w.classList.add('centered');
+                    }else{
+                        w.classList.remove('centered');
+                    }
+                });
+            },50);
         }
         function showInfo(e,id,img,title,desc){
             e.preventDefault();
@@ -309,13 +326,16 @@
                 }
             }
         });
+        document.getElementById('lb').onclick=function(){const c=document.getElementById('lc');c.classList.toggle('open');this.classList.toggle('open');updateWrapCentering()};
+        document.getElementById('mb1').onclick=function(){const c=document.getElementById('mc1');c.classList.toggle('open');this.classList.toggle('open');updateWrapCentering()};
+        document.getElementById('mb2').onclick=function(){const c=document.getElementById('mc2');c.classList.toggle('open');this.classList.toggle('open');updateWrapCentering()};
         function copy(b,ip){const o=b.innerHTML;navigator.clipboard.writeText(ip).then(()=>{b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)})}
         async function check(id,addr,m=false){const txt=document.getElementById('t'+id);const dot=document.getElementById('d'+id);if(m){txt.textContent='Kontrol ediliyor...';dot.className='dot'}const st=Date.now();try{const r=await fetch(`https://api.mcsrvstat.us/2/${addr}`);const d=await r.json();sd[id]=d;const el=Date.now()-st;const dly=m?Math.max(0,1000-el):0;await new Promise(res=>setTimeout(res,dly));if(d.online){txt.textContent=`Sunucu Açık - ${d.players?.online||0}/${d.players?.max||0} Oyuncu`;dot.className='dot on'}else{txt.textContent='Sunucu Kapalı';dot.className='dot off'}}catch{const el=Date.now()-st;const dly=m?Math.max(0,1000-el):0;await new Promise(res=>setTimeout(res,dly));txt.textContent='Sunucu Başlatılıyor...';dot.className='dot'}}
         function toggle(id){const d=sd[id];const pl=document.getElementById('p'+id);if(d&&d.online&&d.players?.online>0){if(pl.classList.contains('open')){pl.classList.remove('open')}else{pl.innerHTML='';if(d.players.list){d.players.list.forEach(p=>{const i=document.createElement('div');i.className='player';i.innerHTML=`<img src="https://minotar.net/avatar/${p}/32"><span>${p}</span>`;pl.appendChild(i)})}else{for(let i=0;i<d.players.online;i++){const it=document.createElement('div');it.className='player';it.innerHTML=`<img src="https://minotar.net/avatar/Steve/32"><span>Oyuncu ${i+1}</span>`;pl.appendChild(it)}}pl.classList.add('open')}}else{check(id,id=='v'?'oyna.agalarmc.com':'create.agalarmc.com',true)}}
         check('v','oyna.agalarmc.com');check('m','create.agalarmc.com');setInterval(()=>{check('v','oyna.agalarmc.com');check('m','create.agalarmc.com')},30000);
-        document.getElementById('lb').onclick=function(){const c=document.getElementById('lc');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('mb1').onclick=function(){const c=document.getElementById('mc1');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('mb2').onclick=function(){const c=document.getElementById('mc2');c.classList.toggle('open');this.classList.toggle('open')};
+        document.getElementById('lb').onclick=function(){const c=document.getElementById('lc');c.classList.toggle('open');this.classList.toggle('open');updateWrapCentering()};
+        document.getElementById('mb1').onclick=function(){const c=document.getElementById('mc1');c.classList.toggle('open');this.classList.toggle('open');updateWrapCentering()};
+        document.getElementById('mb2').onclick=function(){const c=document.getElementById('mc2');c.classList.toggle('open');this.classList.toggle('open');updateWrapCentering()};
         document.getElementById('prism').addEventListener('click',async e=>{e.preventDefault();const o=e.currentTarget.querySelector('.card-title').textContent;e.currentTarget.querySelector('.card-title').textContent='Yükleniyor...';try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}finally{e.currentTarget.querySelector('.card-title').textContent=o}});
         function dl(t){const u={elmas:"#",altin:"#",demir:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
         function dlc(t){const u={elmas:"#",altin:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
