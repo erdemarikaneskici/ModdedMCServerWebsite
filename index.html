@@ -9,12 +9,12 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{height:100%;width:100%;overflow:hidden;font-family:'Inter',sans-serif;color:#fff}
         body{background:#050814;position:relative}
-        body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center center;background-size:cover;background-position:center;filter:brightness(.3) blur(3px);z-index:-2;transition:filter .8s cubic-bezier(.4,0,.2,1)}
+        body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center center;background-size:cover;background-position:center;filter:brightness(.3) blur(2px);z-index:-2;transition:filter .8s cubic-bezier(.4,0,.2,1)}
         body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)08,transparent 70%);z-index:-1;transition:background .8s}
         :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5)}
         .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;transition:opacity .6s;align-items:center;justify-content:center}
         .screen.active{display:flex;opacity:1}
-        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px}
+        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85)}
         .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
         .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%}
         .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none}
@@ -25,21 +25,21 @@
         .btn img{width:26px;height:26px;border-radius:8px}
         .btn.discord img{border-radius:50%}
         .btn.primary{background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.08));font-weight:700;text-transform:uppercase;letter-spacing:1px}
-        .btn.vanilla::before{background:rgba(60,176,67,.5)}
-        .btn.vanilla:hover{box-shadow:0 12px 40px rgba(60,176,67,.5),0 0 0 1px rgba(60,176,67,.5);border-color:rgba(60,176,67,.5)}
+        .btn.vanilla::before{background:rgba(140,180,75,.5)}
+        .btn.vanilla:hover{box-shadow:0 12px 40px rgba(140,180,75,.5),0 0 0 1px rgba(140,180,75,.5);border-color:rgba(140,180,75,.5)}
         .btn.create::before{background:rgba(215,107,0,.5)}
         .btn.create:hover{box-shadow:0 12px 40px rgba(215,107,0,.5),0 0 0 1px rgba(215,107,0,.5);border-color:rgba(215,107,0,.5)}
         .title{font:700 12px 'Inter';text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin:16px 0 8px;text-align:center}
         .expand-btn::after{content:'';position:absolute;right:20px;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s}
         .expand-btn.open::after{transform:translateY(-50%) rotate(180deg)}
-        .expand{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+        .expand{max-height:0;overflow:hidden;transition:max-height .3s ease;will-change:max-height}
         .expand.open{max-height:600px}
-        .grid{display:grid;gap:12px;padding:12px 0}
+        .grid{display:grid;gap:12px;padding:12px 0;overflow:visible}
         .grid-2{grid-template-columns:repeat(2,1fr)}
         .grid-3{grid-template-columns:repeat(3,1fr)}
-        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff}
+        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;overflow:visible}
         .card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+        .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.35)}
         .card:hover::before{opacity:.5}
         .card img{width:64px;height:64px;border-radius:12px;margin-bottom:8px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 13px 'Inter';margin-bottom:4px}
@@ -57,7 +57,7 @@
         .player{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.06);border-radius:12px;margin:6px 0;border:1px solid rgba(255,255,255,.1)}
         .player img{width:28px;height:28px;border-radius:6px;image-rendering:pixelated}
         .player span{font:600 13px 'Inter'}
-        .back{margin-top:16px;background:rgba(255,255,255,.08);max-width:280px}
+        .back{margin:16px auto 0;background:rgba(255,255,255,.08);max-width:280px;display:flex}
         .desc{font-size:14px;line-height:1.6;color:rgba(255,255,255,.6);margin-bottom:20px;text-align:center}
         .help{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
         footer{margin-top:30px;font-size:11px;color:rgba(255,255,255,.3);text-align:center}
