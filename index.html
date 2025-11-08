@@ -12,18 +12,21 @@
         body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center center;background-size:cover;background-position:center;filter:brightness(.3) blur(2px);z-index:-2;transition:filter .8s cubic-bezier(.4,0,.2,1)}
         body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)08,transparent 70%);z-index:-1;transition:background .8s}
         :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5)}
-        .screen{position:fixed;inset:0;display:none;opacity:0;overflow:hidden;transition:opacity .6s;align-items:center;justify-content:center}
+        .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;overflow-x:hidden;transition:opacity .6s;align-items:center;justify-content:center}
         .screen.active{display:flex;opacity:1}
-        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;gap:20px;transform:scale(.85);padding:20px;max-height:100vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box}
-        .wrap::-webkit-scrollbar{width:0;display:none}
+        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85);min-height:min-content}
         .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
-        .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%}
+        .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%;max-height:calc(100vh - 200px);overflow-y:auto;overflow-x:hidden}
+        .glass::-webkit-scrollbar{width:8px}
+        .glass::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
+        .glass::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
+        .glass::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
         .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none}
         .btn::before{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .3s}
         .btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent),0 0 0 1px var(--accent);border-color:var(--accent)}
         .btn:hover::before{opacity:.3}
         .btn:active{transform:translateY(-1px)}
-        .btn img{width:32px;height:32px;border-radius:8px}
+        .btn img{width:26px;height:26px;border-radius:8px}
         .btn.discord img{border-radius:50%}
         .btn.primary{background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.08));font-weight:700;text-transform:uppercase;letter-spacing:1px}
         .btn.vanilla::before{background:rgba(140,180,75,.5)}
@@ -38,30 +41,34 @@
         .expand-btn::after{content:'';position:absolute;right:20px;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s}
         .expand-btn.open::after{transform:translateY(-50%) rotate(180deg)}
         .expand{max-height:0;overflow:hidden;transition:max-height .3s ease;will-change:max-height}
-        .expand.open{max-height:600px;overflow:visible}
+        .expand.open{max-height:800px}
         .grid{display:grid;gap:12px;padding:12px 0}
         .grid-2{grid-template-columns:repeat(2,1fr)}
         .grid-3{grid-template-columns:repeat(3,1fr)}
-        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;overflow:visible;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:space-between}
+        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;overflow:hidden}
         .card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .card:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.35);transform:scale(1.05)}
+        .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.35)}
         .card:hover::before{opacity:.5}
-        .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+        .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .3s}
+        .card:hover img{transform:scale(1.05)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
-        .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:8px}
-        .info-btn{width:24px;height:24px;opacity:.6;cursor:pointer;transition:all .3s;border:none;background:none;padding:0;position:relative;display:flex;align-items:center;justify-content:center}
-        .info-btn:hover{opacity:1;padding-left:100px}
-        .info-btn img{transition:transform .3s}
-        .info-btn:hover img{transform:translateX(-100px)}
-        .info-btn::before{content:'Detaylı bilgi';position:absolute;right:0;opacity:0;font-size:12px;font-weight:600;white-space:nowrap;color:#fff;transform:translateX(30px);transition:all .3s}
-        .info-btn:hover::before{opacity:1;transform:translateX(-12px)}
-        .card-expanded{position:fixed;inset:20px;z-index:1000;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:none;animation:expandCard .3s ease}
+        .card-desc{font-size:12px;color:rgba(255,255,255,.6);max-height:0;overflow:hidden;transition:max-height .3s;line-height:1.4}
+        .card:hover .card-desc{max-height:80px}
+        .info-btn{width:24px;height:24px;opacity:0;margin-top:8px;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);border:none;background:none;padding:0;position:relative;transform:translateX(-30px)}
+        .info-btn img{width:100%;height:100%;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+        .card:hover .info-btn{opacity:.7;transform:translateX(0)}
+        .info-btn:hover{opacity:1!important;transform:translateX(5px)!important}
+        .info-btn:hover img{transform:rotate(15deg) scale(1.15)}
+        .card-expanded{position:fixed;inset:20px;z-index:1000;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:none;animation:expandCard .3s ease;max-height:calc(100vh - 40px);overflow-y:auto}
+        .card-expanded::-webkit-scrollbar{width:8px}
+        .card-expanded::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
+        .card-expanded::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
+        .card-expanded::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
         .card-expanded.active{display:block}
         @keyframes expandCard{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
         .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
-        .card-info{display:flex;gap:16px;align-items:center;flex-direction:row-reverse}
+        .card-info{display:flex;gap:16px;align-items:center}
         .card-info img{width:64px;height:64px;border-radius:12px}
-        .card-details{text-align:left}
         .card-details h3{font-size:20px;font-weight:700;margin-bottom:4px}
         .card-details p{font-size:13px;color:rgba(255,255,255,.6)}
         .close-btn{width:32px;height:32px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;flex-shrink:0}
@@ -69,11 +76,11 @@
         .card-content{font-size:14px;line-height:1.8;color:rgba(255,255,255,.7)}
         .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:999;display:none}
         .overlay.active{display:block}
-        .card.tier-iron:hover{box-shadow:0 8px 24px rgba(0,0,0,.35)}
-        .card.tier-iron:hover::before{opacity:.5}
-        .card.tier-gold:hover{box-shadow:0 8px 24px rgba(0,0,0,.35)}
-        .card.tier-gold:hover::before{opacity:.5}
-        .card.tier-diamond:hover{box-shadow:0 8px 24px rgba(0,0,0,.35)}
+        .card.tier-iron:hover{box-shadow:0 8px 20px rgba(0,0,0,.3)}
+        .card.tier-iron:hover::before{opacity:.3}
+        .card.tier-gold:hover{box-shadow:0 8px 28px rgba(0,0,0,.35)}
+        .card.tier-gold:hover::before{opacity:.4}
+        .card.tier-diamond:hover{box-shadow:0 8px 32px rgba(0,0,0,.4)}
         .card.tier-diamond:hover::before{opacity:.5}
         .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
         .status:hover{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.2)}
@@ -83,30 +90,57 @@
         .dot.on{background:#00ff88}
         .dot.off{background:#ff4444}
         .players{margin-top:12px;max-height:0;overflow:hidden;transition:max-height .4s}
-        .players.open{max-height:300px;overflow-y:auto}
+        .players.open{max-height:400px;overflow-y:auto}
+        .players::-webkit-scrollbar{width:6px}
+        .players::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
+        .players::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
         .player{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.06);border-radius:12px;margin:6px 0;border:1px solid rgba(255,255,255,.1)}
         .player img{width:28px;height:28px;border-radius:6px;image-rendering:pixelated}
         .player span{font:600 13px 'Inter'}
         .back{margin:16px auto 0;background:rgba(255,255,255,.08);max-width:280px;display:flex}
         .desc{font-size:14px;line-height:1.6;color:rgba(255,255,255,.6);margin-bottom:20px;text-align:center}
         .help{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-        footer{margin-top:30px;font-size:11px;color:rgba(255,255,255,.3);text-align:center}
+        footer{margin-top:20px;font-size:11px;color:rgba(255,255,255,.3);text-align:center}
         @media(max-width:768px){
-            .logo{width:min(85%,320px)}
-            .glass{padding:20px}
-            .btn{padding:14px 20px;font-size:14px}
-            .grid-3{grid-template-columns:repeat(3,1fr)}
-            .card{padding:12px;min-width:90px}
-            .card img{width:50px;height:50px}
-            .card-title{font-size:11px}
+            .wrap{transform:scale(.95);gap:15px}
+            .logo{width:min(70%,280px);margin:10px 0}
+            .glass{padding:18px;max-height:calc(100vh - 150px)}
+            .btn{padding:13px 18px;font-size:14px;gap:10px}
+            .btn img{width:22px;height:22px}
+            .grid-3{grid-template-columns:repeat(3,1fr);gap:10px}
+            .card{padding:14px}
+            .card img{width:60px;height:60px;margin-bottom:8px}
+            .card-title{font-size:12px}
+            .card-desc{font-size:11px}
+            .info-btn{width:20px;height:20px;margin-top:6px}
+            .title{font-size:11px;margin:12px auto 6px}
+            footer{margin-top:15px;font-size:10px}
         }
         @media(max-width:480px){
-            .wrap{gap:16px}
-            .logo{width:min(90%,280px)}
-            .glass{padding:18px}
-            .btn{padding:12px 18px;font-size:13px}
-            .card{padding:10px;min-width:85px}
-            .card img{width:45px;height:45px}
+            .wrap{transform:scale(1);gap:12px;padding:10px 0}
+            .logo{width:min(75%,240px);margin:5px 0}
+            .glass{padding:16px;max-height:calc(100vh - 120px)}
+            .btn{padding:12px 16px;font-size:13px;gap:8px}
+            .btn img{width:20px;height:20px}
+            .grid-3{grid-template-columns:repeat(3,1fr);gap:8px}
+            .card{padding:12px}
+            .card img{width:50px;height:50px;margin-bottom:6px}
+            .card-title{font-size:11px;margin-bottom:4px}
+            .card-desc{font-size:10px}
+            .info-btn{width:18px;height:18px;margin-top:4px}
+            .title{font-size:10px;margin:10px auto 5px}
+            .status{padding:14px}
+            .player{padding:8px;gap:8px}
+            .player img{width:24px;height:24px}
+            .player span{font-size:12px}
+            footer{margin-top:10px}
+            .card-expanded{padding:20px;inset:15px}
+            .card-header{margin-bottom:16px}
+            .card-info{gap:12px}
+            .card-info img{width:48px;height:48px}
+            .card-details h3{font-size:16px}
+            .card-details p{font-size:12px}
+            .card-content{font-size:13px;line-height:1.6}
         }
     </style>
 </head>
@@ -159,14 +193,14 @@
                 <button id="mb1" class="btn expand-btn">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png">Mod Paketleri
                 </button>
-                                    <div id="mc1" class="expand">
+                <div id="mc1" class="expand">
                     <div class="grid grid-3">
                         <a class="card tier-iron">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
                             <div class="card-title">Demir</div>
                             <div class="card-desc">Gerçekten patates sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'demir','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png','Demir','Gerçekten patates sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
                         </a>
                         <a class="card tier-gold">
@@ -174,7 +208,7 @@
                             <div class="card-title">Altın</div>
                             <div class="card-desc">Güçsüz sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'altin','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
                         </a>
                         <a class="card tier-diamond">
@@ -182,7 +216,7 @@
                             <div class="card-title">Elmas</div>
                             <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'elmas','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
                         </a>
                     </div>
@@ -215,20 +249,20 @@
                 </button>
                 <div id="mc2" class="expand">
                     <div class="grid grid-2">
-                        <a class="card tier-gold">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
-                            <div class="card-title">Altın</div>
-                            <div class="card-desc">Güçsüz sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'altin-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
-                            </button>
-                        </a>
                         <a class="card tier-diamond">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
                             <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'elmas-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" style="width:100%;height:100%">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
+                            </button>
+                        </a>
+                        <a class="card tier-gold">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
+                            <div class="card-title">Altın</div>
+                            <div class="card-desc">Güçsüz sistemler için</div>
+                            <button class="info-btn" onclick="showInfo(event,'altin-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
                         </a>
                     </div>
@@ -274,8 +308,10 @@
         </div>
     </div>
     <script>
-        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.5)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.5)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"}};
+           const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.5)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.5)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"}};
         let sd={v:null,m:null};
+        let expandsOpen=false;
+        
         function nav(id){
             closeAllExpands();
             const t=themes[id];
@@ -285,11 +321,14 @@
             document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
+        
         function closeAllExpands(){
             document.querySelectorAll('.expand').forEach(e=>e.classList.remove('open'));
             document.querySelectorAll('.expand-btn').forEach(b=>b.classList.remove('open'));
+            expandsOpen=false;
             closeInfo();
         }
+        
         function showInfo(e,id,img,title,desc){
             e.preventDefault();
             e.stopPropagation();
@@ -299,29 +338,146 @@
             document.getElementById('overlay').classList.add('active');
             document.getElementById('cardExpanded').classList.add('active');
         }
+        
         function closeInfo(){
             document.getElementById('overlay').classList.remove('active');
             document.getElementById('cardExpanded').classList.remove('active');
         }
+        
         document.addEventListener('keydown',e=>{
             if(e.key==='Escape'){
                 if(document.getElementById('cardExpanded').classList.contains('active')){
                     closeInfo();
+                }else if(expandsOpen){
+                    closeAllExpands();
                 }else if(document.querySelector('.screen.active').id!=='home'){
                     nav('home');
                 }
             }
         });
-        function copy(b,ip){const o=b.innerHTML;navigator.clipboard.writeText(ip).then(()=>{b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)})}
-        async function check(id,addr,m=false){const txt=document.getElementById('t'+id);const dot=document.getElementById('d'+id);if(m){txt.textContent='Kontrol ediliyor...';dot.className='dot'}const st=Date.now();try{const r=await fetch(`https://api.mcsrvstat.us/2/${addr}`);const d=await r.json();sd[id]=d;const el=Date.now()-st;const dly=m?Math.max(0,1000-el):0;await new Promise(res=>setTimeout(res,dly));if(d.online){txt.textContent=`Sunucu Açık - ${d.players?.online||0}/${d.players?.max||0} Oyuncu`;dot.className='dot on'}else{txt.textContent='Sunucu Kapalı';dot.className='dot off'}}catch{const el=Date.now()-st;const dly=m?Math.max(0,1000-el):0;await new Promise(res=>setTimeout(res,dly));txt.textContent='Sunucu Başlatılıyor...';dot.className='dot'}}
-        function toggle(id){const d=sd[id];const pl=document.getElementById('p'+id);if(d&&d.online&&d.players?.online>0){if(pl.classList.contains('open')){pl.classList.remove('open')}else{pl.innerHTML='';if(d.players.list){d.players.list.forEach(p=>{const i=document.createElement('div');i.className='player';i.innerHTML=`<img src="https://minotar.net/avatar/${p}/32"><span>${p}</span>`;pl.appendChild(i)})}else{for(let i=0;i<d.players.online;i++){const it=document.createElement('div');it.className='player';it.innerHTML=`<img src="https://minotar.net/avatar/Steve/32"><span>Oyuncu ${i+1}</span>`;pl.appendChild(it)}}pl.classList.add('open')}}else{check(id,id=='v'?'oyna.agalarmc.com':'create.agalarmc.com',true)}}
-        check('v','oyna.agalarmc.com');check('m','create.agalarmc.com');setInterval(()=>{check('v','oyna.agalarmc.com');check('m','create.agalarmc.com')},30000);
-        document.getElementById('lb').onclick=function(){const c=document.getElementById('lc');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('mb1').onclick=function(){const c=document.getElementById('mc1');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('mb2').onclick=function(){const c=document.getElementById('mc2');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('prism').addEventListener('click',async e=>{e.preventDefault();const o=e.currentTarget.querySelector('.card-title').textContent;e.currentTarget.querySelector('.card-title').textContent='Yükleniyor...';try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}finally{e.currentTarget.querySelector('.card-title').textContent=o}});
-        function dl(t){const u={elmas:"#",altin:"#",demir:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
-        function dlc(t){const u={elmas:"#",altin:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
+        
+        function copy(b,ip){
+            const o=b.innerHTML;
+            navigator.clipboard.writeText(ip).then(()=>{
+                b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';
+                setTimeout(()=>b.innerHTML=o,1500)
+            }).catch(()=>{
+                const t=document.createElement('input');
+                t.value=ip;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand('copy');
+                document.body.removeChild(t);
+                b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';
+                setTimeout(()=>b.innerHTML=o,1500)
+            })
+        }
+        
+        async function check(id,addr,m=false){
+            const txt=document.getElementById('t'+id);
+            const dot=document.getElementById('d'+id);
+            if(m){
+                txt.textContent='Kontrol ediliyor...';
+                dot.className='dot'
+            }
+            const st=Date.now();
+            try{
+                const r=await fetch(`https://api.mcsrvstat.us/2/${addr}`);
+                const d=await r.json();
+                sd[id]=d;
+                const el=Date.now()-st;
+                const dly=m?Math.max(0,1000-el):0;
+                await new Promise(res=>setTimeout(res,dly));
+                if(d.online){
+                    txt.textContent=`Sunucu Açık - ${d.players?.online||0}/${d.players?.max||0} Oyuncu`;
+                    dot.className='dot on'
+                }else{
+                    txt.textContent='Sunucu Kapalı';
+                    dot.className='dot off'
+                }
+            }catch{
+                const el=Date.now()-st;
+                const dly=m?Math.max(0,1000-el):0;
+                await new Promise(res=>setTimeout(res,dly));
+                txt.textContent='Sunucu Başlatılıyor...';
+                dot.className='dot'
+            }
+        }
+        
+        function toggle(id){
+            const d=sd[id];
+            const pl=document.getElementById('p'+id);
+            if(d&&d.online&&d.players?.online>0){
+                if(pl.classList.contains('open')){
+                    pl.classList.remove('open')
+                }else{
+                    pl.innerHTML='';
+                    if(d.players.list){
+                        d.players.list.forEach(p=>{
+                            const i=document.createElement('div');
+                            i.className='player';
+                            i.innerHTML=`<img src="https://minotar.net/avatar/${p}/32"><span>${p}</span>`;
+                            pl.appendChild(i)
+                        })
+                    }else{
+                        for(let i=0;i<d.players.online;i++){
+                            const it=document.createElement('div');
+                            it.className='player';
+                            it.innerHTML=`<img src="https://minotar.net/avatar/Steve/32"><span>Oyuncu ${i+1}</span>`;
+                            pl.appendChild(it)
+                        }
+                    }
+                    pl.classList.add('open')
+                }
+            }else{
+                check(id,id=='v'?'oyna.agalarmc.com':'create.agalarmc.com',true)
+            }
+        }
+        
+        check('v','oyna.agalarmc.com');
+        check('m','create.agalarmc.com');
+        setInterval(()=>{
+            check('v','oyna.agalarmc.com');
+            check('m','create.agalarmc.com')
+        },30000);
+        
+        document.getElementById('lb').onclick=function(){
+            const c=document.getElementById('lc');
+            const isOpen=c.classList.toggle('open');
+            this.classList.toggle('open');
+            expandsOpen=isOpen||document.querySelector('.expand.open')!==null
+        };
+        
+        document.getElementById('mb1').onclick=function(){
+            const c=document.getElementById('mc1');
+            const isOpen=c.classList.toggle('open');
+            this.classList.toggle('open');
+            expandsOpen=isOpen||document.querySelector('.expand.open')!==null
+        };
+        
+        document.getElementById('mb2').onclick=function(){
+            const c=document.getElementById('mc2');
+            const isOpen=c.classList.toggle('open');
+            this.classList.toggle('open');
+            expandsOpen=isOpen||document.querySelector('.expand.open')!==null
+        };
+        
+        document.getElementById('prism').addEventListener('click',async e=>{
+            e.preventDefault();
+            const o=e.currentTarget.querySelector('.card-title').textContent;
+            e.currentTarget.querySelector('.card-title').textContent='Yükleniyor...';
+            try{
+                const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');
+                const d=await r.json();
+                const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));
+                if(a)window.location=a.browser_download_url;
+                else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')
+            }catch{
+                window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')
+            }finally{
+                e.currentTarget.querySelector('.card-title').textContent=o
+            }
+        });
     </script>
 </body>
 </html>
