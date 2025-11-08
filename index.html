@@ -34,9 +34,9 @@
         .title{font:700 12px 'Inter';text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin:16px auto 8px;text-align:center;width:100%}
         .expand-btn::after{content:'';position:absolute;right:20px;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s}
         .expand-btn.open::after{transform:translateY(-50%) rotate(180deg)}
-        .expand{max-height:0;overflow:visible;transition:max-height .3s ease;will-change:max-height}
-        .expand.open{max-height:600px}
-        .grid{display:grid;gap:12px;padding:12px 0;overflow:visible}
+        .expand{max-height:0;overflow:hidden;transition:max-height .3s ease;will-change:max-height}
+        .expand.open{max-height:600px;overflow:visible}
+        .grid{display:grid;gap:12px;padding:12px 0}
         .grid-2{grid-template-columns:repeat(2,1fr)}
         .grid-3{grid-template-columns:repeat(3,1fr)}
         .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;overflow:visible}
@@ -137,22 +137,22 @@
                 <button id="mb1" class="btn expand-btn">
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png">Mod Paketleri
                 </button>
-                <div id="mc1" class="expand">
+                                    <div id="mc1" class="expand">
                     <div class="grid grid-3">
-                        <a class="card" onclick="dl('patates')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/patates.png">
-                            <div class="card-title">Patates</div>
-                            <div class="card-desc">Gerçekten patates bilgisayarlar için.</div>
+                        <a class="card tier-iron" onclick="dl('demir')">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
+                            <div class="card-title">Demir</div>
+                            <div class="card-desc">Gerçekten patates sistemler için</div>
                         </a>
-                        <a class="card" onclick="dl('dusuk')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png">
-                            <div class="card-title">Düşük</div>
-                            <div class="card-desc">Zayıf sistemler için optimize edilmiş.</div>
+                        <a class="card tier-gold" onclick="dl('altin')">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
+                            <div class="card-title">Altın</div>
+                            <div class="card-desc">Güçsüz sistemler için</div>
                         </a>
-                        <a class="card" onclick="dl('standart')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png">
-                            <div class="card-title">Standart</div>
-                            <div class="card-desc">Ortalama ve iyi bilgisayarlar için.</div>
+                        <a class="card tier-diamond" onclick="dl('elmas')">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
+                            <div class="card-title">Elmas</div>
+                            <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
                         </a>
                     </div>
                 </div>
@@ -184,15 +184,15 @@
                 </button>
                 <div id="mc2" class="expand">
                     <div class="grid grid-2">
-                        <a class="card" onclick="dlc('standart')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png">
-                            <div class="card-title">Standart</div>
-                            <div class="card-desc">Ortalama ve iyi bilgisayarlar için.</div>
+                        <a class="card tier-diamond" onclick="dlc('elmas')">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png">
+                            <div class="card-title">Elmas</div>
+                            <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
                         </a>
-                        <a class="card" onclick="dlc('dusuk')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png">
-                            <div class="card-title">Düşük</div>
-                            <div class="card-desc">Zayıf sistemler için optimize edilmiş.</div>
+                        <a class="card tier-gold" onclick="dlc('altin')">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png">
+                            <div class="card-title">Altın</div>
+                            <div class="card-desc">Güçsüz sistemler için</div>
                         </a>
                     </div>
                 </div>
@@ -232,8 +232,8 @@
         document.getElementById('mb1').onclick=function(){const c=document.getElementById('mc1');c.classList.toggle('open');this.classList.toggle('open')};
         document.getElementById('mb2').onclick=function(){const c=document.getElementById('mc2');c.classList.toggle('open');this.classList.toggle('open')};
         document.getElementById('prism').addEventListener('click',async e=>{e.preventDefault();const o=e.currentTarget.querySelector('.card-title').textContent;e.currentTarget.querySelector('.card-title').textContent='Yükleniyor...';try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}finally{e.currentTarget.querySelector('.card-title').textContent=o}});
-        function dl(t){const u={standart:"#",dusuk:"#",patates:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
-        function dlc(t){const u={standart:"#",dusuk:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
+        function dl(t){const u={elmas:"#",altin:"#",demir:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
+        function dlc(t){const u={elmas:"#",altin:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
     </script>
 </body>
 </html>
