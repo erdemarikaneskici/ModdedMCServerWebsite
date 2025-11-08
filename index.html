@@ -4,224 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>AgalarMC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{height:100%;width:100%;overflow:hidden;font-family:'Inter',sans-serif;color:#fff}
-        body{background:#050814;position:relative}
-        body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center/cover;filter:brightness(.3) blur(8px);transform:scale(1.1);z-index:-2;transition:all .8s cubic-bezier(.4,0,.2,1)}
-        body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)00,transparent 60%);z-index:-1;transition:background .8s}
-        :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.6)}
-        .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;transition:opacity .6s}
-        .screen.active{display:flex;opacity:1}
-        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px}
-        .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
-        .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%}
-        .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%}
-        .btn::before{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .3s}
-        .btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent),0 0 0 1px var(--accent);border-color:var(--accent)}
-        .btn:hover::before{opacity:.3}
-        .btn:active{transform:translateY(-1px)}
-        .btn img{width:26px;height:26px;border-radius:8px}
+        body{position:relative;background:#0a0e1a}
+        body::before{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--bg-image,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) no-repeat center/cover;z-index:-2;filter:brightness(.6);transition:opacity 0.7s ease-in-out}
+        body::after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(ellipse at top,var(--accent-color,#3498db)10,transparent 60%),linear-gradient(180deg,rgba(10,14,26,.3),rgba(10,14,26,.7));z-index:-1;transition:background 0.7s ease-in-out}
+        :root{--accent-color:#3498db;--bg-image:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')}
+        .screen{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;pointer-events:none;padding:20px;overflow-y:auto}
+        .screen.active{display:flex;animation:fadeIn .7s ease-in-out forwards;pointer-events:all}
+        @keyframes fadeIn{to{opacity:1}}
+        .content-wrapper{display:flex;flex-direction:column;align-items:center;width:100%;max-width:700px;gap:16px;text-align:center;margin:auto;padding:15px 0}
+        .logo-container{position:relative;margin-bottom:15px;text-align:center;width:100%;display:flex;justify-content:center}
+        .logo{max-width:380px;width:85%;filter:drop-shadow(0 15px 50px rgba(0,0,0,.7));transition:transform .3s}
+        .logo:hover{transform:scale(1.05)}
+        .glass-card{background:rgba(20,25,35,.4);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1px solid rgba(255,255,255,.18);border-radius:22px;padding:20px;box-shadow:0 8px 32px 0 rgba(0,0,0,.37);width:100%;max-width:500px;text-align:center;margin:0 auto;display:flex;flex-direction:column;align-items:center;position:relative}
+        .btn-group{display:flex;flex-direction:column;gap:10px;width:100%;align-items:center;position:relative;z-index:1}
+        .btn{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 20px;background:rgba(20,25,35,.35);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,.18);border-radius:14px;color:#fff;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .3s ease-out;position:relative;overflow:hidden;width:100%;max-width:360px}
+        .btn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color),transparent);opacity:0;transition:opacity .3s}
+        .btn:hover::before{opacity:.2}
+        .btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.35);box-shadow:0 8px 32px 0 rgba(0,0,0,.4),0 0 20px var(--accent-color)20;background:rgba(20,25,35,.5)}
+        .btn:active{transform:translateY(0)}
+        .btn.loading{filter:blur(2px);pointer-events:none;opacity:.7}
+        .btn img{width:28px;height:28px;border-radius:7px}
         .btn.discord img{border-radius:50%}
-        .btn.primary{background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.08));font-weight:700;text-transform:uppercase;letter-spacing:1px}
-        .title{font:700 12px 'Inter';text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin:16px 0 8px;text-align:center}
-        .expand-btn::after{content:'';position:absolute;right:20px;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s}
-        .expand-btn.open::after{transform:translateY(-50%) rotate(180deg)}
-        .expand{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
-        .expand.open{max-height:600px}
-        .grid{display:grid;gap:12px;padding:12px 0}
-        .grid-2{grid-template-columns:repeat(2,1fr)}
-        .grid-3{grid-template-columns:repeat(3,1fr)}
-        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .3s;position:relative}
-        .card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 16px 48px rgba(0,0,0,.4)}
-        .card:hover::before{opacity:.5}
-        .card img{width:64px;height:64px;border-radius:12px;margin-bottom:8px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-        .card-title{font:700 13px 'Inter';margin-bottom:4px}
-        .card-desc{font-size:10px;color:rgba(255,255,255,.5);max-height:0;overflow:hidden;transition:max-height .3s}
-        .card:hover .card-desc{max-height:60px}
-        .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
-        .status:hover{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.2)}
-        .status-head{display:flex;align-items:center;justify-content:center;gap:10px}
-        .dot{width:10px;height:10px;border-radius:50%;background:#ffd700;box-shadow:0 0 20px currentColor;animation:pulse 2s infinite}
-        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-        .dot.on{background:#00ff88}
-        .dot.off{background:#ff4444}
-        .players{margin-top:12px;max-height:0;overflow:hidden;transition:max-height .4s}
-        .players.open{max-height:300px;overflow-y:auto}
-        .player{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.06);border-radius:12px;margin:6px 0;border:1px solid rgba(255,255,255,.1)}
-        .player img{width:28px;height:28px;border-radius:6px;image-rendering:pixelated}
-        .player span{font:600 13px 'Inter'}
-        .back{margin-top:16px;background:rgba(255,255,255,.08);max-width:280px}
-        .desc{font-size:14px;line-height:1.6;color:rgba(255,255,255,.6);margin-bottom:20px;text-align:center}
-        .help{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-        footer{margin-top:30px;font-size:11px;color:rgba(255,255,255,.3);text-align:center}
+        .btn.primary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+        .btn.primary:hover{box-shadow:0 10px 40px var(--accent-color)50;background:rgba(255,255,255,.15)}
+        .section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.6);margin-bottom:10px;text-align:center;width:100%;position:relative;z-index:1}
+        .expandable{width:100%;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+        .expand-trigger{width:100%;max-width:360px;position:relative}
+        .expand-trigger::after{content:'';position:absolute;right:18px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid currentColor;transition:transform .3s}
+        .expand-trigger.open::after{transform:translateY(-50%) rotate(180deg)}
+        .expand-content{max-height:0;overflow:hidden;transition:max-height .5s ease-out;width:100%;display:flex;justify-content:center;align-items:center}
+        .expand-content.open{max-height:450px}
+        .grid{display:grid;gap:14px;padding:10px 0;margin:0 auto;width:100%;justify-items:center}
+        .launcher-grid{grid-template-columns:repeat(2,1fr);max-width:400px;width:100%}
+        .modpack-grid{grid-template-columns:repeat(3,1fr);max-width:500px}
+        .card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;color:#fff;text-decoration:none;width:100%;min-width:130px;isolation:isolate}
+        .card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;z-index:-1}
+        .card::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--accent-color)20,transparent);opacity:0;transition:opacity .3s;z-index:-1}
+        .launcher-grid .card{width:100%}
+        .card:hover{text-decoration:none}
+        .card:hover::after{opacity:1}
+        .card:hover{transform:translateY(-4px);border-color:var(--accent-color);box-shadow:0 15px 40px rgba(0,0,0,.4)}
+        .card img{width:75px;height:75px;border-radius:10px;margin-bottom:10px;box-shadow:0 8px 20px rgba(0,0,0,.3);position:relative;z-index:1}
+        .card-title{font-size:14px;font-weight:700;margin-bottom:6px;color:#fff;position:relative;z-index:1}
+        .card-desc{font-size:10px;color:rgba(255,255,255,.6);line-height:1.5;max-height:0;overflow:hidden;transition:max-height .3s;position:relative;z-index:1}
+        .card:hover .card-desc{max-height:100px}
+        .status-card{background:rgba(0,0,0,.3);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);cursor:pointer;max-width:360px;margin:0 auto;width:100%;position:relative;z-index:1;isolation:isolate}
+        .status-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:14px;z-index:-1}
+        .status-header{display:flex;align-items:center;justify-content:center;gap:10px}
+        .status-dot{width:11px;height:11px;border-radius:50%;background:#ffd700;box-shadow:0 0 20px currentColor;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+        .status-dot.online{background:#00ff88}
+        .status-dot.offline{background:#ff4444}
+        .status-text{font-size:14px;font-weight:600}
+        .player-list{margin-top:10px;max-height:0;overflow:hidden;transition:max-height .5s}
+        .player-list.open{max-height:280px;overflow-y:auto}
+        .player-item{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.05);border-radius:10px;margin:6px 0;border:1px solid rgba(255,255,255,.1);position:relative;isolation:isolate}
+        .player-item::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border-radius:10px;z-index:-1}
+        .player-avatar{width:28px;height:28px;border-radius:7px;image-rendering:pixelated}
+        .player-name{font-size:13px;font-weight:600}
+        .back-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-top:16px;max-width:280px}
+        .back-btn:hover{background:rgba(255,255,255,.12)}
+        .desc-text{font-size:14px;line-height:1.7;color:rgba(255,255,255,.7);margin-bottom:16px;text-align:center;max-width:450px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+        .help-container{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:200px}
+        .help-text{font-size:16px;font-weight:600;color:rgba(255,255,255,.8);text-align:center}
+        footer{margin-top:25px;font-size:12px;color:rgba(255,255,255,.4)}
         @media(max-width:768px){
-            .logo{width:min(85%,320px)}
-            .glass{padding:20px}
-            .btn{padding:14px 20px;font-size:14px}
-            .grid-3{grid-template-columns:repeat(3,1fr)}
-            .card{padding:12px;min-width:90px}
-            .card img{width:50px;height:50px}
-            .card-title{font-size:11px}
+            .logo{max-width:320px}
+            .glass-card{padding:18px;max-width:95%}
+            .btn{padding:13px 18px;font-size:14px}
+            .launcher-grid{max-width:300px;gap:12px}
+            .modpack-grid{grid-template-columns:repeat(3,1fr);gap:10px;max-width:100%}
+            .card{padding:12px;width:100px;min-width:auto}
+            .launcher-grid .card{width:100%}
+            .card img{width:55px;height:55px}
+            .card-title{font-size:12px}
+            .card-desc{font-size:9px}
+            .status-card{padding:15px}
+            .desc-text{font-size:13px}
+            .player-list.open{max-height:240px}
         }
         @media(max-width:480px){
-            .wrap{gap:16px}
-            .logo{width:min(90%,280px)}
-            .glass{padding:18px}
-            .btn{padding:12px 18px;font-size:13px}
-            .card{padding:10px;min-width:85px}
-            .card img{width:45px;height:45px}
+            .content-wrapper{gap:12px;padding:10px 0}
+            .logo{max-width:260px}
+            .glass-card{padding:16px}
+            .btn{padding:11px 16px;font-size:13px}
+            .launcher-grid{max-width:250px;gap:10px}
+            .modpack-grid{gap:8px}
+            .card{padding:10px;width:95px}
+            .launcher-grid .card{width:100%}
+            .card img{width:50px;height:50px}
+            .card-title{font-size:11px}
+            .status-card{padding:13px}
+            .section-title{font-size:11px}
+            .player-list.open{max-height:200px}
         }
     </style>
 </head>
 <body>
     <div class="screen active" id="home">
-        <div class="wrap">
-            <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
-            <div class="glass">
-                <button class="btn primary" onclick="nav('vanilla')">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillalogo.png">Vanilla+
-                </button>
-                <button class="btn primary" onclick="nav('modded')" style="margin-top:12px">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png">Create
-                </button>
-                <a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank" style="margin-top:12px">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg">Discord Sunucusu
-                </a>
-                <div class="title">Diğer</div>
-                <button id="lb" class="btn expand-btn">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png">Launcher İndir
-                </button>
-                <div id="lc" class="expand">
-                    <div class="grid grid-2">
-                        <a href="https://modrinth.com/app" class="card" target="_blank">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png">
-                            <div class="card-title">Modrinth</div>
-                        </a>
-                        <a id="prism" class="card">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png">
-                            <div class="card-title">Prism</div>
-                        </a>
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
+            </div>
+            <div class="glass-card">
+                <div class="btn-group">
+                    <button class="btn primary" onclick="showScreen('vanilla')">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillalogo.png" alt="Vanilla+">Vanilla+
+                    </button>
+                    <button class="btn primary" onclick="showScreen('modded')">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png" alt="Create">Create
+                    </button>
+                    <a class="btn discord" href="https://discord.gg/wkUvFRTHr9" target="_blank">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/discord.jpg" alt="Discord">Discord Sunucusu
+                    </a>
+                </div>
+                <div class="section-title" style="margin-top:20px">Diğer</div>
+                <div class="expandable">
+                    <button id="launcherBtn" class="btn expand-trigger">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png" alt="Launcher">Launcher İndir
+                    </button>
+                    <div id="launcherContent" class="expand-content">
+                        <div class="grid launcher-grid">
+                            <a id="modrinthLink" class="card" target="_blank">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png" alt="Modrinth">
+                                <div class="card-title">Modrinth</div>
+                            </a>
+                            <a id="prismLink" class="card">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/prism.png" alt="Prism">
+                                <div class="card-title">Prism</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <button class="btn" style="margin-top:12px;background:rgba(255,255,255,.08)" onclick="nav('help')">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png">Sunucuya Nasıl Katılırım?
+                <button class="btn" style="margin-top:10px;background:rgba(255,255,255,.08)" onclick="showScreen('help')">
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım">Sunucuya Nasıl Katılırım?
                 </button>
             </div>
         </div>
     </div>
     <div class="screen" id="vanilla">
-        <div class="wrap">
-            <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillatitle.png" alt="Vanilla+">
-            <div class="glass">
-                <p class="desc">Görsel ve performans açısından geliştirilmiş, vanilla hissiyatını koruyan sunucumuz.</p>
-                <div class="title">Sunucu IP'si</div>
-                <button class="btn" onclick="copy(this,'oyna.agalarmc.com')">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png">oyna.agalarmc.com
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillatitle.png" alt="Vanilla+">
+            </div>
+            <div class="glass-card">
+                <p class="desc-text">Görsel ve performans açısından geliştirilmiş, vanilla hissiyatını koruyan sunucumuz.</p>
+                <div class="section-title">Sunucu IP'si</div>
+                <button class="btn" onclick="copyIP(this,'oyna.agalarmc.com')">
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">oyna.agalarmc.com
                 </button>
-                <div class="title">Mod Paketi</div>
-                <button id="mb1" class="btn expand-btn">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png">Mod Paketleri
-                </button>
-                <div id="mc1" class="expand">
-                    <div class="grid grid-3">
-                        <a class="card" onclick="dl('patates')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/patates.png">
-                            <div class="card-title">Patates</div>
-                            <div class="card-desc">Gerçekten patates bilgisayarlar için.</div>
-                        </a>
-                        <a class="card" onclick="dl('dusuk')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png">
-                            <div class="card-title">Düşük</div>
-                            <div class="card-desc">Zayıf sistemler için optimize edilmiş.</div>
-                        </a>
-                        <a class="card" onclick="dl('standart')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png">
-                            <div class="card-title">Standart</div>
-                            <div class="card-desc">Ortalama ve iyi bilgisayarlar için.</div>
-                        </a>
+                <div class="section-title" style="margin-top:20px">Mod Paketi</div>
+                <div class="expandable">
+                    <button id="modPaketiBtn" class="btn expand-trigger">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketleri
+                    </button>
+                    <div id="modPaketiContent" class="expand-content">
+                        <div class="grid modpack-grid">
+                            <a class="card" href="#" onclick="downloadModpack('patates')">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/patates.png" alt="Patates">
+                                <div class="card-title">Patates</div>
+                                <div class="card-desc">Gerçekten patates bilgisayarlar için.</div>
+                            </a>
+                            <a class="card" href="#" onclick="downloadModpack('dusuk')">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png" alt="Düşük">
+                                <div class="card-title">Düşük</div>
+                                <div class="card-desc">Zayıf sistemler için optimize edilmiş.</div>
+                            </a>
+                            <a class="card" href="#" onclick="downloadModpack('standart')">
+                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png" alt="Standart">
+                                <div class="card-title">Standart</div>
+                                <div class="card-desc">Ortalama ve iyi bilgisayarlar için.</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="title">Sunucu Durumu</div>
-                <div class="status" onclick="toggle('v')">
-                    <div class="status-head">
-                        <span class="dot" id="dv"></span>
-                        <span id="tv">Kontrol ediliyor...</span>
+                <div class="section-title" style="margin-top:20px">Sunucu Durumu</div>
+                <div class="status-card" onclick="toggleServerStatus('vanilla')">
+                    <div class="status-header">
+                        <span class="status-dot" id="si-v"></span>
+                        <span class="status-text" id="st-v">Kontrol ediliyor...</span>
                     </div>
-                    <div id="pv" class="players"></div>
+                    <div id="playerListV" class="player-list"></div>
                 </div>
-                <button class="btn back" onclick="nav('home')">← Ana Menüye Dön</button>
+                <button class="btn back-btn" onclick="showScreen('home')">← Ana Menüye Dön</button>
             </div>
             <footer>&copy; 2025 AgalarMC</footer>
         </div>
     </div>
     <div class="screen" id="modded">
-        <div class="wrap">
-            <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createtitle.png" alt="Create">
-            <div class="glass">
-                <p class="desc">Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
-                <div class="title">Sunucu IP'si</div>
-                <button class="btn" onclick="copy(this,'create.agalarmc.com')">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png">create.agalarmc.com
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createtitle.png" alt="Create">
+            </div>
+            <div class="glass-card">
+                <p class="desc-text">Sanayileşme ve makinelerle dolu bu sunucuda otomasyonun sınırlarını zorla!</p>
+                <div class="section-title">Sunucu IP'si</div>
+                <button class="btn" onclick="copyIP(this,'create.agalarmc.com')">
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP">create.agalarmc.com
                 </button>
-                <div class="title">Mod Paketi</div>
-                <button id="mb2" class="btn expand-btn">
-                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png">Mod Paketleri
+                <button class="btn" id="moddedModpackBtn" style="margin-top:10px">
+                    <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/mods.png" alt="Mod">Mod Paketini İndir
                 </button>
-                <div id="mc2" class="expand">
-                    <div class="grid grid-2">
-                        <a class="card" onclick="dlc('standart')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/standart.png">
-                            <div class="card-title">Standart</div>
-                            <div class="card-desc">Ortalama ve iyi bilgisayarlar için.</div>
-                        </a>
-                        <a class="card" onclick="dlc('dusuk')">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/dusuk.png">
-                            <div class="card-title">Düşük</div>
-                            <div class="card-desc">Zayıf sistemler için optimize edilmiş.</div>
-                        </a>
+                <div class="section-title" style="margin-top:20px">Sunucu Durumu</div>
+                <div class="status-card" onclick="toggleServerStatus('modded')">
+                    <div class="status-header">
+                        <span class="status-dot" id="si-m"></span>
+                        <span class="status-text" id="st-m">Kontrol ediliyor...</span>
                     </div>
+                    <div id="playerListM" class="player-list"></div>
                 </div>
-                <div class="title">Sunucu Durumu</div>
-                <div class="status" onclick="toggle('m')">
-                    <div class="status-head">
-                        <span class="dot" id="dm"></span>
-                        <span id="tm">Kontrol ediliyor...</span>
-                    </div>
-                    <div id="pm" class="players"></div>
-                </div>
-                <button class="btn back" onclick="nav('home')">← Ana Menüye Dön</button>
+                <button class="btn back-btn" onclick="showScreen('home')">← Ana Menüye Dön</button>
             </div>
             <footer>&copy; 2025 AgalarMC</footer>
         </div>
     </div>
     <div class="screen" id="help">
-        <div class="wrap">
-            <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
-            <div class="glass">
-                <div class="help">
-                    <p style="font:600 16px 'Inter';color:rgba(255,255,255,.7)">🚧 Bu sayfa henüz yapım aşamasındadır 🚧</p>
-                    <button class="btn back" onclick="nav('home')">← Ana Menüye Dön</button>
+        <div class="content-wrapper">
+            <div class="logo-container">
+                <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
+            </div>
+            <div class="glass-card">
+                <div class="help-container">
+                    <p class="help-text">🚧 Bu sayfa henüz yapım aşamasındadır 🚧</p>
+                    <button class="btn back-btn" onclick="showScreen('home')" style="margin-top:0">← Ana Menüye Dön</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.6)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.6)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.6)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.6)"}};
-        let sd={v:null,m:null};
-        function nav(id){const t=themes[id];document.documentElement.style.setProperty('--bg',t.bg);document.documentElement.style.setProperty('--glow',t.g);document.documentElement.style.setProperty('--accent',t.a);document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
-        function copy(b,ip){const o=b.innerHTML;navigator.clipboard.writeText(ip).then(()=>{b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)})}
-        async function check(id,addr,m=false){const txt=document.getElementById('t'+id);const dot=document.getElementById('d'+id);if(m){txt.textContent='Kontrol ediliyor...';dot.className='dot'}const st=Date.now();try{const r=await fetch(`https://api.mcsrvstat.us/2/${addr}`);const d=await r.json();sd[id]=d;const el=Date.now()-st;const dly=m?Math.max(0,1000-el):0;await new Promise(res=>setTimeout(res,dly));if(d.online){txt.textContent=`Sunucu Açık - ${d.players?.online||0}/${d.players?.max||0} Oyuncu`;dot.className='dot on'}else{txt.textContent='Sunucu Kapalı';dot.className='dot off'}}catch{const el=Date.now()-st;const dly=m?Math.max(0,1000-el):0;await new Promise(res=>setTimeout(res,dly));txt.textContent='Sunucu Başlatılıyor...';dot.className='dot'}}
-        function toggle(id){const d=sd[id];const pl=document.getElementById('p'+id);if(d&&d.online&&d.players?.online>0){if(pl.classList.contains('open')){pl.classList.remove('open')}else{pl.innerHTML='';if(d.players.list){d.players.list.forEach(p=>{const i=document.createElement('div');i.className='player';i.innerHTML=`<img src="https://minotar.net/avatar/${p}/32"><span>${p}</span>`;pl.appendChild(i)})}else{for(let i=0;i<d.players.online;i++){const it=document.createElement('div');it.className='player';it.innerHTML=`<img src="https://minotar.net/avatar/Steve/32"><span>Oyuncu ${i+1}</span>`;pl.appendChild(it)}}pl.classList.add('open')}}else{check(id,id=='v'?'oyna.agalarmc.com':'create.agalarmc.com',true)}}
-        check('v','oyna.agalarmc.com');check('m','create.agalarmc.com');setInterval(()=>{check('v','oyna.agalarmc.com');check('m','create.agalarmc.com')},30000);
-        document.getElementById('lb').onclick=function(){const c=document.getElementById('lc');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('mb1').onclick=function(){const c=document.getElementById('mc1');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('mb2').onclick=function(){const c=document.getElementById('mc2');c.classList.toggle('open');this.classList.toggle('open')};
-        document.getElementById('prism').addEventListener('click',async e=>{e.preventDefault();const o=e.currentTarget.querySelector('.card-title').textContent;e.currentTarget.querySelector('.card-title').textContent='Yükleniyor...';try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}finally{e.currentTarget.querySelector('.card-title').textContent=o}});
-        function dl(t){const u={standart:"#",dusuk:"#",patates:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
-        function dlc(t){const u={standart:"#",dusuk:"#"};const url=u[t];if(url&&url!=="#"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
+        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"rgba(52,152,219,.3)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",color:"rgba(60,176,67,.3)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",color:"rgba(215,107,0,.3)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",color:"rgba(52,152,219,.3)"}};
+        let serverData={vanilla:null,modded:null};
+        function showScreen(id){
+            const t=themes[id];
+            document.documentElement.style.setProperty('--bg-image',t.bg);
+            document.documentElement.style.setProperty('--accent-color',t.color);
+            document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        document.addEventListener("DOMContentLoaded",()=>showScreen('home'));
+        function copyIP(btn,ip){const orig=btn.innerHTML;navigator.clipboard.writeText(ip).then(()=>{btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1500)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);btn.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png" alt="IP"> Kopyalandı!';setTimeout(()=>btn.innerHTML=orig,1500)})}
+        async function checkServerStatus(id,addr,manual=false){const text=document.getElementById(id=='vanilla'?'st-v':'st-m');const ind=document.getElementById(id=='vanilla'?'si-v':'si-m');if(manual){text.textContent='Kontrol ediliyor...';ind.className='status-dot'}const startTime=Date.now();try{const res=await fetch(`https://api.mcsrvstat.us/2/${addr}`);const data=await res.json();serverData[id]=data;const elapsed=Date.now()-startTime;const delay=manual?Math.max(0,1000-elapsed):0;await new Promise(resolve=>setTimeout(resolve,delay));if(data.online){text.textContent=`Sunucu Açık - ${data.players?.online||0}/${data.players?.max||0} Oyuncu`;ind.className='status-dot online'}else{text.textContent='Sunucu Kapalı';ind.className='status-dot offline'}}catch{const elapsed=Date.now()-startTime;const delay=manual?Math.max(0,1000-elapsed):0;await new Promise(resolve=>setTimeout(resolve,delay));text.textContent='Sunucu Başlatılıyor...';ind.className='status-dot'}}
+        function toggleServerStatus(id){const data=serverData[id];const list=document.getElementById(id=='vanilla'?'playerListV':'playerListM');if(data&&data.online&&data.players?.online>0){if(list.classList.contains('open')){list.classList.remove('open')}else{list.innerHTML='';if(data.players.list){data.players.list.forEach(p=>{const item=document.createElement('div');item.className='player-item';item.innerHTML=`<img class="player-avatar" src="https://minotar.net/avatar/${p}/32" alt="${p}"><span class="player-name">${p}</span>`;list.appendChild(item)})}else{for(let i=0;i<data.players.online;i++){const item=document.createElement('div');item.className='player-item';item.innerHTML=`<img class="player-avatar" src="https://minotar.net/avatar/Steve/32" alt="Oyuncu"><span class="player-name">Oyuncu ${i+1}</span>`;list.appendChild(item)}}list.classList.add('open')}}else{checkServerStatus(id,id=='vanilla'?'oyna.agalarmc.com':'create.agalarmc.com',true)}}
+        checkServerStatus('vanilla','oyna.agalarmc.com');checkServerStatus('modded','create.agalarmc.com');setInterval(()=>{checkServerStatus('vanilla','oyna.agalarmc.com',false);checkServerStatus('modded','create.agalarmc.com',false)},30000);
+        document.getElementById('launcherBtn').onclick=function(){const c=document.getElementById('launcherContent');c.classList.toggle('open');this.classList.toggle('open')};
+        document.getElementById('modPaketiBtn').onclick=function(){const c=document.getElementById('modPaketiContent');c.classList.toggle('open');this.classList.toggle('open')};
+        document.getElementById('modrinthLink').href='https://modrinth.com/app';
+        const prism=document.getElementById('prismLink');prism.addEventListener('click',async e=>{e.preventDefault();const origTitle=prism.querySelector('.card-title').textContent;prism.classList.add('loading');prism.querySelector('.card-title').textContent='Güncel sürüm kontrol ediliyor...';try{const r=await fetch('https://api.github.com/repos/Diegiwg/PrismLauncher-Cracked/releases/latest');const d=await r.json();const a=(d.assets||[]).find(a=>/mingw-w64-setup\.exe/i.test(a.name));if(a)window.location=a.browser_download_url;else window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}catch{window.open('https://github.com/Diegiwg/PrismLauncher-Cracked/releases/latest')}finally{prism.classList.remove('loading');prism.querySelector('.card-title').textContent=origTitle}});
+        function downloadModpack(type){const urls={standart:"https://drive.google.com/your-standart-modpack-link",dusuk:"https://drive.google.com/your-dusuk-modpack-link",patates:"https://drive.google.com/your-patates-modpack-link"};const url=urls[type];if(url&&url!=="https://drive.google.com/your-standart-modpack-link"){window.open(url,'_blank')}else{alert('Modpack linki henüz ayarlanmamış.')}}
+        document.getElementById('moddedModpackBtn').addEventListener('click',e=>{e.preventDefault();window.open('https://drive.google.com/your-create-modpack-link','_blank')});
     </script>
 </body>
 </html>
