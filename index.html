@@ -9,10 +9,10 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{height:100%;width:100%;overflow:hidden;font-family:'Inter',sans-serif;color:#fff}
         body{background:#050814;position:relative}
-        body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center/cover;filter:brightness(.3) blur(8px);transform:scale(1.1);z-index:-2;transition:all .8s cubic-bezier(.4,0,.2,1)}
-        body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)00,transparent 60%);z-index:-1;transition:background .8s}
-        :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.6)}
-        .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;transition:opacity .6s}
+        body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center center;background-size:cover;background-position:center;filter:brightness(.3) blur(3px);z-index:-2;transition:filter .8s cubic-bezier(.4,0,.2,1)}
+        body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)08,transparent 70%);z-index:-1;transition:background .8s}
+        :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5)}
+        .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;transition:opacity .6s;align-items:center;justify-content:center}
         .screen.active{display:flex;opacity:1}
         .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px}
         .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
@@ -209,7 +209,7 @@
         </div>
     </div>
     <script>
-        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.6)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.6)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.6)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.6)"}};
+        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.5)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.5)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"}};
         let sd={v:null,m:null};
         function nav(id){const t=themes[id];document.documentElement.style.setProperty('--bg',t.bg);document.documentElement.style.setProperty('--glow',t.g);document.documentElement.style.setProperty('--accent',t.a);document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
         function copy(b,ip){const o=b.innerHTML;navigator.clipboard.writeText(ip).then(()=>{b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)}).catch(()=>{const t=document.createElement('input');t.value=ip;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);b.innerHTML='<img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/ip.png"> Kopyalandı!';setTimeout(()=>b.innerHTML=o,1500)})}
