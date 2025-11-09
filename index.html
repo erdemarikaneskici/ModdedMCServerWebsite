@@ -69,7 +69,8 @@
         .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s;position:relative}
         .status:hover{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.2)}
         .status-head{display:flex;align-items:center;justify-content:center;gap:10px;position:relative}
-        .status-arrow{position:absolute;right:0;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s;opacity:.6}
+        .status-arrow{position:absolute;right:0;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s,opacity .3s;opacity:0}
+        .status.has-players .status-arrow{opacity:.6}
         .status.open .status-arrow{transform:translateY(-50%) rotate(180deg)}
         .dot{width:10px;height:10px;border-radius:50%;background:#ffd700;box-shadow:0 0 20px currentColor;animation:pulse 2s infinite}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
@@ -392,6 +393,7 @@
         async function check(id,addr,m=false){
             const txt=document.getElementById('t'+id);
             const dot=document.getElementById('d'+id);
+            const statusEl=document.querySelector(`#${id=='v'?'vanilla':'modded'} .status`);
             if(m){
                 txt.textContent='Kontrol ediliyor...';
                 dot.className='dot'
@@ -406,17 +408,24 @@
                 await new Promise(res=>setTimeout(res,dly));
                 if(d.online){
                     txt.textContent=`Sunucu Açık - ${d.players?.online||0}/${d.players?.max||0} Oyuncu`;
-                    dot.className='dot on'
+                    dot.className='dot on';
+                    if(d.players?.online>0){
+                        statusEl.classList.add('has-players')
+                    }else{
+                        statusEl.classList.remove('has-players')
+                    }
                 }else{
                     txt.textContent='Sunucu Kapalı';
-                    dot.className='dot off'
+                    dot.className='dot off';
+                    statusEl.classList.remove('has-players')
                 }
             }catch{
                 const el=Date.now()-st;
                 const dly=m?Math.max(0,1000-el):0;
                 await new Promise(res=>setTimeout(res,dly));
                 txt.textContent='Sunucu Başlatılıyor...';
-                dot.className='dot'
+                dot.className='dot';
+                statusEl.classList.remove('has-players')
             }
         }
         
