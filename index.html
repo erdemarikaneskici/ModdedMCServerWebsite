@@ -57,17 +57,20 @@
         .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
         .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:12px}
-        .info-btn{height:32px;min-width:32px;opacity:.7;cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1);border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);padding:0 8px;position:relative;display:flex;align-items:center;justify-content:center;margin-top:auto;overflow:hidden;border-radius:10px;white-space:nowrap}
-        .info-btn img{width:18px;height:18px;transition:all .5s cubic-bezier(.4,0,.2,1);filter:brightness(1.2);flex-shrink:0}
-        .info-btn span{font-size:12px;font-weight:600;color:#fff;opacity:0;width:0;overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1);margin-left:0}
-        .info-btn:hover{opacity:1;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);min-width:120px;padding:0 12px 0 10px}
-        .info-btn:hover img{opacity:0;width:0;margin-right:0}
-        .info-btn:hover span{opacity:1;width:auto;margin-left:0}
+        .info-btn{height:32px;width:32px;opacity:.7;cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1);border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);padding:0;position:relative;display:flex;align-items:center;justify-content:center;margin-top:auto;overflow:hidden;border-radius:10px;white-space:nowrap}
+        .info-btn-content{display:flex;align-items:center;justify-content:center;transition:all .5s cubic-bezier(.4,0,.2,1);position:relative}
+        .info-btn img{width:18px;height:18px;transition:opacity .5s cubic-bezier(.4,0,.2,1);filter:brightness(1.2);position:absolute}
+        .info-btn span{font-size:12px;font-weight:600;color:#fff;opacity:0;transition:opacity .5s cubic-bezier(.4,0,.2,1);position:absolute;white-space:nowrap}
+        .info-btn:hover{opacity:1;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);width:120px}
+        .info-btn:hover img{opacity:0}
+        .info-btn:hover span{opacity:1}
         .launcher-grid .card{min-height:140px}
         .launcher-grid .card img{width:70px;height:70px;margin-bottom:6px}
-        .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
+        .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s;position:relative}
         .status:hover{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.2)}
-        .status-head{display:flex;align-items:center;justify-content:center;gap:10px}
+        .status-head{display:flex;align-items:center;justify-content:center;gap:10px;position:relative}
+        .status-arrow{position:absolute;right:0;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s;opacity:.6}
+        .status.open .status-arrow{transform:translateY(-50%) rotate(180deg)}
         .dot{width:10px;height:10px;border-radius:50%;background:#ffd700;box-shadow:0 0 20px currentColor;animation:pulse 2s infinite}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
         .dot.on{background:#00ff88}
@@ -235,6 +238,7 @@
                     <div class="status-head">
                         <span class="dot" id="dv"></span>
                         <span id="tv">Kontrol ediliyor...</span>
+                        <span class="status-arrow"></span>
                     </div>
                     <div id="pv" class="players"></div>
                 </div>
@@ -283,6 +287,7 @@
                     <div class="status-head">
                         <span class="dot" id="dm"></span>
                         <span id="tm">Kontrol ediliyor...</span>
+                        <span class="status-arrow"></span>
                     </div>
                     <div id="pm" class="players"></div>
                 </div>
@@ -418,9 +423,11 @@
         function toggle(id){
             const d=sd[id];
             const pl=document.getElementById('p'+id);
+            const statusEl=pl.closest('.status');
             if(d&&d.online&&d.players?.online>0){
                 if(pl.classList.contains('open')){
-                    pl.classList.remove('open')
+                    pl.classList.remove('open');
+                    statusEl.classList.remove('open')
                 }else{
                     pl.innerHTML='';
                     if(d.players.list){
@@ -438,7 +445,8 @@
                             pl.appendChild(it)
                         }
                     }
-                    pl.classList.add('open')
+                    pl.classList.add('open');
+                    statusEl.classList.add('open')
                 }
             }else{
                 check(id,id=='v'?'oyna.agalarmc.com':'create.agalarmc.com',true)
