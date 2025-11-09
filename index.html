@@ -13,15 +13,17 @@
         body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)08,transparent 70%);z-index:-1;transition:background .8s}
         :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5)}
         .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;overflow-x:hidden;transition:opacity .6s;align-items:center;justify-content:center}
+        .screen::-webkit-scrollbar{width:0;display:none}
+        .screen{scrollbar-width:none}
         .screen.active{display:flex;opacity:1}
-        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85);min-height:min-content}
+        .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85)}
         .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
         .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%;max-height:calc(100vh - 200px);overflow-y:auto;overflow-x:hidden}
         .glass::-webkit-scrollbar{width:8px}
         .glass::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
         .glass::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
         .glass::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
-        .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none}
+        .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none;border:none}
         .btn::before{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .3s}
         .btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent),0 0 0 1px var(--accent);border-color:var(--accent)}
         .btn:hover::before{opacity:.3}
@@ -45,43 +47,21 @@
         .grid{display:grid;gap:12px;padding:12px 0}
         .grid-2{grid-template-columns:repeat(2,1fr)}
         .grid-3{grid-template-columns:repeat(3,1fr)}
-        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;overflow:hidden}
+        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:200px}
         .card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+        .card:hover{transform:scale(1.05);border-color:var(--accent);box-shadow:0 6px 16px rgba(0,0,0,.3)}
         .card:hover::before{opacity:.5}
-        .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .3s}
-        .card:hover img{transform:scale(1.05)}
+        .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
-        .card-desc{font-size:12px;color:rgba(255,255,255,.6);max-height:0;overflow:hidden;transition:max-height .3s;line-height:1.4}
-        .card:hover .card-desc{max-height:80px}
-        .info-btn{width:24px;height:24px;opacity:0;margin-top:8px;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);border:none;background:none;padding:0;position:relative;transform:translateX(-30px)}
-        .info-btn img{width:100%;height:100%;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-        .card:hover .info-btn{opacity:.7;transform:translateX(0)}
-        .info-btn:hover{opacity:1!important;transform:translateX(5px)!important}
-        .info-btn:hover img{transform:rotate(15deg) scale(1.15)}
-        .card-expanded{position:fixed;inset:20px;z-index:1000;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:none;animation:expandCard .3s ease;max-height:calc(100vh - 40px);overflow-y:auto}
-        .card-expanded::-webkit-scrollbar{width:8px}
-        .card-expanded::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
-        .card-expanded::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
-        .card-expanded::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
-        .card-expanded.active{display:block}
-        @keyframes expandCard{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-        .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
-        .card-info{display:flex;gap:16px;align-items:center}
-        .card-info img{width:64px;height:64px;border-radius:12px}
-        .card-details h3{font-size:20px;font-weight:700;margin-bottom:4px}
-        .card-details p{font-size:13px;color:rgba(255,255,255,.6)}
-        .close-btn{width:32px;height:32px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;flex-shrink:0}
-        .close-btn:hover{background:rgba(255,255,255,.2);transform:rotate(90deg)}
-        .card-content{font-size:14px;line-height:1.8;color:rgba(255,255,255,.7)}
-        .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:999;display:none}
-        .overlay.active{display:block}
-        .card.tier-iron:hover{box-shadow:0 8px 20px rgba(0,0,0,.3)}
-        .card.tier-iron:hover::before{opacity:.3}
-        .card.tier-gold:hover{box-shadow:0 8px 28px rgba(0,0,0,.35)}
-        .card.tier-gold:hover::before{opacity:.4}
-        .card.tier-diamond:hover{box-shadow:0 8px 32px rgba(0,0,0,.4)}
-        .card.tier-diamond:hover::before{opacity:.5}
+        .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:12px}
+        .info-btn{width:24px;height:24px;opacity:.6;cursor:pointer;transition:all .3s;border:none;background:none;padding:0;position:relative;display:flex;align-items:center;justify-content:center;margin-top:auto}
+        .info-btn img{width:100%;height:100%;transition:all .3s}
+        .info-btn::after{content:'Detaylı bilgi';position:absolute;left:100%;margin-left:8px;opacity:0;font-size:11px;font-weight:600;white-space:nowrap;color:#fff;transform:translateX(-10px);transition:all .3s;pointer-events:none}
+        .info-btn:hover{opacity:1;width:100px}
+        .info-btn:hover img{transform:translateX(-35px)}
+        .info-btn:hover::after{opacity:1;transform:translateX(0)}
+        .launcher-grid .card{min-height:140px}
+        .launcher-grid .card img{width:70px;height:70px;margin-bottom:6px}
         .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
         .status:hover{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.2)}
         .status-head{display:flex;align-items:center;justify-content:center;gap:10px}
@@ -101,6 +81,23 @@
         .desc{font-size:14px;line-height:1.6;color:rgba(255,255,255,.6);margin-bottom:20px;text-align:center}
         .help{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
         footer{margin-top:20px;font-size:11px;color:rgba(255,255,255,.3);text-align:center}
+        .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:999;display:none}
+        .overlay.active{display:block}
+        .card-expanded{position:fixed;inset:20px;z-index:1000;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:none;animation:expandCard .3s ease;max-height:calc(100vh - 40px);overflow-y:auto}
+        .card-expanded::-webkit-scrollbar{width:8px}
+        .card-expanded::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
+        .card-expanded::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
+        .card-expanded::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
+        .card-expanded.active{display:block}
+        @keyframes expandCard{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+        .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+        .card-info{display:flex;gap:16px;align-items:center}
+        .card-info img{width:64px;height:64px;border-radius:12px}
+        .card-details h3{font-size:20px;font-weight:700;margin-bottom:4px}
+        .card-details p{font-size:13px;color:rgba(255,255,255,.6)}
+        .close-btn{width:32px;height:32px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;flex-shrink:0}
+        .close-btn:hover{background:rgba(255,255,255,.2);transform:rotate(90deg)}
+        .card-content{font-size:14px;line-height:1.8;color:rgba(255,255,255,.7)}
         @media(max-width:768px){
             .wrap{transform:scale(.95);gap:15px}
             .logo{width:min(70%,280px);margin:10px 0}
@@ -108,11 +105,13 @@
             .btn{padding:13px 18px;font-size:14px;gap:10px}
             .btn img{width:22px;height:22px}
             .grid-3{grid-template-columns:repeat(3,1fr);gap:10px}
-            .card{padding:14px}
+            .card{padding:14px;min-height:180px}
             .card img{width:60px;height:60px;margin-bottom:8px}
             .card-title{font-size:12px}
             .card-desc{font-size:11px}
-            .info-btn{width:20px;height:20px;margin-top:6px}
+            .info-btn{width:20px;height:20px}
+            .info-btn:hover{width:80px}
+            .info-btn::after{font-size:10px}
             .title{font-size:11px;margin:12px auto 6px}
             footer{margin-top:15px;font-size:10px}
         }
@@ -123,11 +122,13 @@
             .btn{padding:12px 16px;font-size:13px;gap:8px}
             .btn img{width:20px;height:20px}
             .grid-3{grid-template-columns:repeat(3,1fr);gap:8px}
-            .card{padding:12px}
+            .card{padding:12px;min-height:170px}
             .card img{width:50px;height:50px;margin-bottom:6px}
             .card-title{font-size:11px;margin-bottom:4px}
             .card-desc{font-size:10px}
-            .info-btn{width:18px;height:18px;margin-top:4px}
+            .info-btn{width:18px;height:18px}
+            .info-btn:hover{width:70px}
+            .info-btn::after{font-size:9px}
             .title{font-size:10px;margin:10px auto 5px}
             .status{padding:14px}
             .player{padding:8px;gap:8px}
@@ -163,7 +164,7 @@
                     <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/launcher.png">Launcher İndir
                 </button>
                 <div id="lc" class="expand">
-                    <div class="grid grid-2">
+                    <div class="grid grid-2 launcher-grid">
                         <a href="https://modrinth.com/app" class="card" target="_blank">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/modrinth.png">
                             <div class="card-title">Modrinth</div>
@@ -195,30 +196,30 @@
                 </button>
                 <div id="mc1" class="expand">
                     <div class="grid grid-3">
-                        <a class="card tier-iron">
+                        <div class="card tier-iron">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
                             <div class="card-title">Demir</div>
                             <div class="card-desc">Gerçekten patates sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'demir','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png','Demir','Gerçekten patates sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
-                        </a>
-                        <a class="card tier-gold">
+                        </div>
+                        <div class="card tier-gold">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                             <div class="card-title">Altın</div>
                             <div class="card-desc">Güçsüz sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'altin','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
-                        </a>
-                        <a class="card tier-diamond">
+                        </div>
+                        <div class="card tier-diamond">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
                             <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'elmas','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <div class="title">Sunucu Durumu</div>
@@ -249,22 +250,22 @@
                 </button>
                 <div id="mc2" class="expand">
                     <div class="grid grid-2">
-                        <a class="card tier-diamond">
+                        <div class="card tier-diamond">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
                             <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'elmas-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
-                        </a>
-                        <a class="card tier-gold">
+                        </div>
+                        <div class="card tier-gold">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                             <div class="card-title">Altın</div>
                             <div class="card-desc">Güçsüz sistemler için</div>
                             <button class="info-btn" onclick="showInfo(event,'altin-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
                             </button>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <div class="title">Sunucu Durumu</div>
@@ -308,7 +309,7 @@
         </div>
     </div>
     <script>
-           const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.5)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.5)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"}};
+        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.5)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.5)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"}};
         let sd={v:null,m:null};
         let expandsOpen=false;
         
