@@ -38,7 +38,9 @@
         #vanilla .btn::before{background:rgba(140,180,75,.5)}
         #vanilla .btn:hover{box-shadow:0 12px 40px rgba(140,180,75,.5),0 0 0 1px rgba(140,180,75,.5);border-color:rgba(140,180,75,.5)}
         #vanilla .card::before{background:linear-gradient(135deg,rgba(140,180,75,.5),transparent)}
-        #vanilla .card:hover{border-color:rgba(140,180,75,.5)}
+        #vanilla .card:hover{border-color:rgba(140,180,75,.5);box-shadow:0 12px 40px rgba(140,180,75,.3)}
+        #modded .card::before{background:linear-gradient(135deg,rgba(215,107,0,.5),transparent)}
+        #modded .card:hover{border-color:rgba(215,107,0,.5);box-shadow:0 12px 40px rgba(215,107,0,.3)}
         .title{font:700 12px 'Inter';text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.5);margin:16px auto 8px;text-align:center;width:100%}
         .expand-btn::after{content:'';position:absolute;right:20px;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s}
         .expand-btn.open::after{transform:translateY(-50%) rotate(180deg)}
@@ -55,12 +57,12 @@
         .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
         .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:12px}
-        .info-btn{width:24px;height:24px;opacity:.6;cursor:pointer;transition:all .3s;border:none;background:none;padding:0;position:relative;display:flex;align-items:center;justify-content:center;margin-top:auto;overflow:visible}
-        .info-btn img{width:100%;height:100%;transition:all .3s}
-        .info-btn::after{content:'Detaylı bilgi';position:absolute;top:50%;left:calc(100% - 25px);margin-left:8px;opacity:0;font-size:11px;font-weight:600;white-space:nowrap;color:#fff;transform:translate(-10px,-50%);transition:all .3s;pointer-events:none}
-        .info-btn:hover{opacity:1}
-        .info-btn:hover img{transform:translateX(-25px)}
-        .info-btn:hover::after{opacity:1;transform:translate(0,-50%)}
+        .info-btn{height:32px;min-width:32px;opacity:.7;cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1);border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);padding:0 8px;position:relative;display:flex;align-items:center;justify-content:center;margin-top:auto;overflow:hidden;border-radius:10px;white-space:nowrap}
+        .info-btn img{width:18px;height:18px;transition:all .5s cubic-bezier(.4,0,.2,1);filter:brightness(1.2);flex-shrink:0}
+        .info-btn span{font-size:12px;font-weight:600;color:#fff;opacity:0;width:0;overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1);margin-left:0}
+        .info-btn:hover{opacity:1;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);min-width:120px;padding:0 12px 0 10px}
+        .info-btn:hover img{opacity:0;width:0;margin-right:0}
+        .info-btn:hover span{opacity:1;width:auto;margin-left:0}
         .launcher-grid .card{min-height:140px}
         .launcher-grid .card img{width:70px;height:70px;margin-bottom:6px}
         .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
@@ -110,10 +112,10 @@
             .card img{width:60px;height:60px;margin-bottom:8px}
             .card-title{font-size:12px}
             .card-desc{font-size:11px}
-            .info-btn{width:20px;height:20px}
-            .info-btn:hover img{transform:translateX(-20px)}
-            .info-btn:hover::after{transform:translate(0,-50%)}
-            .info-btn::after{font-size:10px;margin-left:6px;transform:translate(-8px,-50%)}
+            .info-btn{height:26px;min-width:26px}
+            .info-btn img{width:15px;height:15px}
+            .info-btn span{font-size:10px}
+            .info-btn:hover{min-width:105px;padding:0 9px 0 7px}
             .title{font-size:11px;margin:12px auto 6px}
             footer{margin-top:15px;font-size:10px}
         }
@@ -128,10 +130,10 @@
             .card img{width:50px;height:50px;margin-bottom:6px}
             .card-title{font-size:11px;margin-bottom:4px}
             .card-desc{font-size:10px}
-            .info-btn{width:18px;height:18px}
-            .info-btn:hover img{transform:translateX(-18px)}
-            .info-btn:hover::after{transform:translate(0,-50%)}
-            .info-btn::after{font-size:9px;margin-left:5px;transform:translate(-7px,-50%)}
+            .info-btn{width:26px;height:26px}
+            .info-btn img{width:15px;height:15px}
+            .info-btn::after{font-size:10px;padding:4px 9px}
+            .info-btn:hover{transform:scale(1.05)}
             .title{font-size:10px;margin:10px auto 5px}
             .status{padding:14px}
             .player{padding:8px;gap:8px}
@@ -202,25 +204,28 @@
                         <div class="card tier-iron">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
                             <div class="card-title">Demir</div>
-                            <div class="card-desc">Gerçekten patates sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'demir','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png','Demir','Gerçekten patates sistemler için')">
+                            <div class="card-desc">Sadece temel modlar, saf performans için</div>
+                            <button class="info-btn" onclick="showInfo(event,'demir','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png','Demir','Sadece temel modlar, saf performans için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
+                                <span>Detaylı Bilgi</span>
                             </button>
                         </div>
                         <div class="card tier-gold">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                             <div class="card-title">Altın</div>
-                            <div class="card-desc">Güçsüz sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'altin','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
+                            <div class="card-desc">Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için</div>
+                            <button class="info-btn" onclick="showInfo(event,'altin','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
+                                <span>Detaylı Bilgi</span>
                             </button>
                         </div>
                         <div class="card tier-diamond">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
-                            <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'elmas','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
+                            <div class="card-desc">Ortalama ve üstü sistemler için tavsiye edilen paket</div>
+                            <button class="info-btn" onclick="showInfo(event,'elmas','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Ortalama ve üstü sistemler için tavsiye edilen paket')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
+                                <span>Detaylı Bilgi</span>
                             </button>
                         </div>
                     </div>
@@ -256,17 +261,19 @@
                         <div class="card tier-diamond">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
-                            <div class="card-desc">Standart veya ortalamanın üstü sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'elmas-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Standart veya ortalamanın üstü sistemler için')">
+                            <div class="card-desc">Ortalama ve üstü sistemler için tavsiye edilen paket</div>
+                            <button class="info-btn" onclick="showInfo(event,'elmas-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Ortalama ve üstü sistemler için tavsiye edilen paket')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
+                                <span>Detaylı Bilgi</span>
                             </button>
                         </div>
                         <div class="card tier-gold">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                             <div class="card-title">Altın</div>
-                            <div class="card-desc">Güçsüz sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'altin-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Güçsüz sistemler için')">
+                            <div class="card-desc">Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için</div>
+                            <button class="info-btn" onclick="showInfo(event,'altin-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için')">
                                 <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
+                                <span>Detaylı Bilgi</span>
                             </button>
                         </div>
                     </div>
