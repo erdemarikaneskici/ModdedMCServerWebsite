@@ -18,7 +18,7 @@
         .screen.active{display:flex;opacity:1}
         .wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px;margin:auto;gap:20px;transform:scale(.85)}
         .logo{width:min(80%,380px);filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));margin:20px 0}
-        .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%;max-height:calc(100vh - 200px);overflow-y:auto;overflow-x:hidden}
+        .glass{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border:1.5px solid rgba(255,255,255,.18);border-radius:24px;padding:24px;box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2);width:100%;max-height:calc(100vh - 200px);overflow-y:auto;overflow-x:visible}
         .glass::-webkit-scrollbar{width:8px}
         .glass::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
         .glass::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
@@ -43,23 +43,24 @@
         .expand-btn::after{content:'';position:absolute;right:20px;top:50%;width:0;height:0;border:5px solid transparent;border-top-color:currentColor;transform:translateY(-30%);transition:transform .3s}
         .expand-btn.open::after{transform:translateY(-50%) rotate(180deg)}
         .expand{max-height:0;overflow:hidden;transition:max-height .3s ease;will-change:max-height}
+        .expand.open{max-height:800px;overflow:visible}
         .expand.open{max-height:800px}
-        .grid{display:grid;gap:12px;padding:12px 0}
+        .grid{display:grid;gap:12px;padding:12px 0;overflow:visible}
         .grid-2{grid-template-columns:repeat(2,1fr)}
         .grid-3{grid-template-columns:repeat(3,1fr)}
-        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:200px}
+        .card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:200px;overflow:visible}
         .card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .card:hover{transform:scale(1.05);border-color:var(--accent);box-shadow:0 6px 16px rgba(0,0,0,.3)}
-        .card:hover::before{opacity:.5}
+        .card:hover{transform:scale(1.05);border-color:var(--accent);box-shadow:0 12px 40px var(--accent)}
+        .card:hover::before{opacity:.3}
         .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
         .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:12px}
         .info-btn{width:24px;height:24px;opacity:.6;cursor:pointer;transition:all .3s;border:none;background:none;padding:0;position:relative;display:flex;align-items:center;justify-content:center;margin-top:auto;overflow:visible}
         .info-btn img{width:100%;height:100%;transition:all .3s}
-        .info-btn::after{content:'Detaylı bilgi';position:absolute;left:100%;margin-left:6px;opacity:0;font-size:11px;font-weight:600;white-space:nowrap;color:#fff;transform:translateX(-5px);transition:all .3s;pointer-events:none}
+        .info-btn::after{content:'Detaylı bilgi';position:absolute;top:50%;left:calc(100% - 25px);margin-left:8px;opacity:0;font-size:11px;font-weight:600;white-space:nowrap;color:#fff;transform:translate(-10px,-50%);transition:all .3s;pointer-events:none}
         .info-btn:hover{opacity:1}
-        .info-btn:hover img{transform:translateX(-20px)}
-        .info-btn:hover::after{opacity:1;transform:translateX(-5px)}
+        .info-btn:hover img{transform:translateX(-25px)}
+        .info-btn:hover::after{opacity:1;transform:translate(0,-50%)}
         .launcher-grid .card{min-height:140px}
         .launcher-grid .card img{width:70px;height:70px;margin-bottom:6px}
         .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
@@ -110,9 +111,9 @@
             .card-title{font-size:12px}
             .card-desc{font-size:11px}
             .info-btn{width:20px;height:20px}
-            .info-btn:hover img{transform:translateX(-16px)}
-            .info-btn:hover::after{transform:translateX(-4px)}
-            .info-btn::after{font-size:10px;margin-left:5px}
+            .info-btn:hover img{transform:translateX(-20px)}
+            .info-btn:hover::after{transform:translate(0,-50%)}
+            .info-btn::after{font-size:10px;margin-left:6px;transform:translate(-8px,-50%)}
             .title{font-size:11px;margin:12px auto 6px}
             footer{margin-top:15px;font-size:10px}
         }
@@ -128,9 +129,9 @@
             .card-title{font-size:11px;margin-bottom:4px}
             .card-desc{font-size:10px}
             .info-btn{width:18px;height:18px}
-            .info-btn:hover img{transform:translateX(-14px)}
-            .info-btn:hover::after{transform:translateX(-3px)}
-            .info-btn::after{font-size:9px;margin-left:4px}
+            .info-btn:hover img{transform:translateX(-18px)}
+            .info-btn:hover::after{transform:translate(0,-50%)}
+            .info-btn::after{font-size:9px;margin-left:5px;transform:translate(-7px,-50%)}
             .title{font-size:10px;margin:10px auto 5px}
             .status{padding:14px}
             .player{padding:8px;gap:8px}
