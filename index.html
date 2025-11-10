@@ -458,7 +458,8 @@
                     statusEl.classList.add('open')
                 }
             }else{
-                check(id,id=='v'?'oyna.agalarmc.com':'create.agalarmc.com',true)
+                const addr = id=='v' ? 'oyna.agalarmc.com' : 'create.agalarmc.com';
+                check(id, addr, true)
             }
         }
         
