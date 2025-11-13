@@ -350,9 +350,183 @@
         function showInfo(e,id,img,title,desc){
             e.preventDefault();
             e.stopPropagation();
-            document.getElementById('expandedImg').src=img;
-            document.getElementById('expandedTitle').textContent=title;
-            document.getElementById('expandedDesc').textContent=desc;
+            
+            const contentMap = {
+                'demir': {
+                    fullDesc: 'Demir modpaketi, vanilla Minecraft deneyimini neredeyse hiç bozmadan sadece performans optimizasyonlarına odaklanan minimalist bir pakettir. Sunucudaki birkaç yeni özellik için gerekli modların yanında, güçsüz bilgisayarlarda bile akıcı bir oyun deneyimi sağlamak için optimize edilmiş performans modlarını içerir. Eğer sisteminiz düşük özelliklere sahipse ve vanilla hissiyatını korumak istiyorsanız, bu paket tam size göre.',
+                    requirements: {
+                        ram: '4GB (Önerilen: 6GB)',
+                        gpu: 'İntegre GPU destekler',
+                        cpu: 'Çift çekirdekli işlemci'
+                    },
+                    modGroups: [
+                        {name: 'Performans & Optimizasyon', count: 15, desc: 'Sodium, Lithium, FerriteCore, ModernFix gibi FPS artırıcı ve bellek optimizasyonu yapan modlar'},
+                        {name: 'Sunucu Özellikleri', count: 8, desc: 'Sunucudaki özel içerikler için gerekli temel modlar'},
+                        {name: 'Kütüphane Modları', count: 12, desc: 'Diğer modların çalışması için gerekli API ve kütüphane modları'}
+                    ],
+                    featured: [
+                        {name: 'Sodium', desc: 'Minecraft\'ın render motorunu yeniden yazarak muazzam FPS artışı sağlar. Vanilla görünümü korurken performansı 3-5 kat artırabilir.'},
+                        {name: 'Lithium', desc: 'Oyunun çeşitli sistemlerini optimize eder. Fizik hesaplamaları, mob AI ve chunk yükleme gibi işlemleri hızlandırır.'},
+                        {name: 'FerriteCore', desc: 'Bellek kullanımını optimize ederek RAM tüketimini %50\'ye kadar azaltabilir. Düşük RAM\'li sistemler için kritik önem taşır.'}
+                    ],
+                    idealFor: 'Zayıf sistemlere sahip oyuncular, vanilla deneyimi korumak isteyenler, minimum mod ile maksimum performans arayanlar için idealdir.',
+                    totalMods: 35
+                },
+                'elmas': {
+                    fullDesc: 'Elmas modpaketi, vanilla Minecraft\'ı görsel, işitsel ve kullanıcı deneyimi açısından kapsamlı şekilde geliştiren premium bir pakettir. Distant Horizons ile ultra uzak görüş mesafesi, Iris Shaders ile gerçekçi gölgelendirme, yüzlerce yeni animasyon, gelişmiş menüler, atmosferik ses efektleri ve birçok kalite iyileştirmesi içerir. Orta-üst segment sistemler için optimize edilmiş, dengeli ve göz alıcı bir deneyim sunar.',
+                    requirements: {
+                        ram: '8GB (Önerilen: 12GB)',
+                        gpu: 'GTX 1060 / RX 580 veya üstü',
+                        cpu: 'Dört çekirdekli işlemci (i5/Ryzen 5)'
+                    },
+                    modGroups: [
+                        {name: 'Görsel İyileştirmeler', count: 45, desc: '3D zırıhlar, animasyonlu envanter, partiküller, shaderlar ve görsel efektler'},
+                        {name: 'Ses & Atmosfer', count: 12, desc: 'Gelişmiş ses fiziği, yağmur sesleri, müzik çalar ve atmosferik efektler'},
+                        {name: 'Kullanıcı Arayüzü', count: 28, desc: 'Gelişmiş menüler, chat özellikleri, ekran görüntüleme araçları'},
+                        {name: 'Oynanış İyileştirmeleri', count: 35, desc: 'Hareket kontrolleri, envanter yönetimi, kalite geliştirmeleri'},
+                        {name: 'Dünya Geliştirmeleri', count: 18, desc: 'YUNG\'s yapıları, mevsimler, gelişmiş worldgen, biome iyileştirmeleri'},
+                        {name: 'Performans & Optimizasyon', count: 22, desc: 'Sodium, Iris, ImmediatelyFast ve diğer optimizasyon modları'},
+                        {name: 'Kütüphane & API', count: 45, desc: 'Modların çalışması için gerekli altyapı modları'}
+                    ],
+                    featured: [
+                        {name: 'Distant Horizons', desc: 'Level of Detail (LOD) sistemi ile render mesafesini 64-512 chunk\'a kadar çıkarır. Dağları, gölleri kilometrelerce uzaktan görebilirsiniz.'},
+                        {name: 'Iris Shaders', desc: 'Complementary Shaders ile gerçekçi ışık, gölge, su yansımaları ve atmosferik efektler. OptiFine shaderları ile tam uyumlu.'},
+                        {name: 'Entity Model Features', desc: 'CEM (Custom Entity Models) desteği ile mobların görünümü özelleştirilebilir. OptiFine kaynak paketleri ile uyumludur.'},
+                        {name: 'Sound Physics Remastered', desc: 'Ses yankılanması, mesafe ve materyal bazlı ses yutuculuğu ile sinematik ses deneyimi.'}
+                    ],
+                    idealFor: 'Orta-üst segment PC sahipleri, görsel kalite önceliği olanlar, immersive deneyim arayanlar, shaderlar ve LOD ile oynamak isteyenler için idealdir.',
+                    totalMods: 205
+                },
+                'altin': {
+                    fullDesc: 'Altın modpaketi yapım aşamasındadır. Yakında eklenecek...',
+                    requirements: {ram: 'TBA', gpu: 'TBA', cpu: 'TBA'},
+                    modGroups: [],
+                    featured: [],
+                    idealFor: 'Bilgi yakında eklenecek.',
+                    totalMods: 0
+                },
+                'elmas-c': {
+                    fullDesc: 'Create sunucusu için Elmas modpaketi bilgileri yakında eklenecek...',
+                    requirements: {ram: 'TBA', gpu: 'TBA', cpu: 'TBA'},
+                    modGroups: [],
+                    featured: [],
+                    idealFor: 'Bilgi yakında eklenecek.',
+                    totalMods: 0
+                },
+                'altin-c': {
+                    fullDesc: 'Create sunucusu için Altın modpaketi bilgileri yakında eklenecek...',
+                    requirements: {ram: 'TBA', gpu: 'TBA', cpu: 'TBA'},
+                    modGroups: [],
+                    featured: [],
+                    idealFor: 'Bilgi yakında eklenecek.',
+                    totalMods: 0
+                }
+            };
+            
+            const data = contentMap[id] || contentMap['altin'];
+            
+            document.getElementById('expandedImg').src = img;
+            document.getElementById('expandedTitle').textContent = title;
+            document.getElementById('expandedDesc').textContent = desc;
+            
+            let contentHTML = `
+                <div style="display:flex;gap:24px;margin-bottom:24px">
+                    <div style="flex:1;min-width:0">
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">📝 Genel Bakış</h3>
+                        <p style="font-size:13px;line-height:1.8;color:rgba(255,255,255,.75);margin-bottom:20px">${data.fullDesc}</p>
+                        
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">💻 Sistem Gereksinimleri</h3>
+                        <div style="background:rgba(0,0,0,.3);padding:16px;border-radius:12px;margin-bottom:20px">
+                            <div style="display:grid;gap:10px">
+                                <div style="display:flex;justify-content:space-between">
+                                    <span style="color:rgba(255,255,255,.6);font-size:13px">RAM:</span>
+                                    <span style="color:#fff;font-size:13px;font-weight:600">${data.requirements.ram}</span>
+                                </div>
+                                <div style="display:flex;justify-content:space-between">
+                                    <span style="color:rgba(255,255,255,.6);font-size:13px">Ekran Kartı:</span>
+                                    <span style="color:#fff;font-size:13px;font-weight:600">${data.requirements.gpu}</span>
+                                </div>
+                                <div style="display:flex;justify-content:space-between">
+                                    <span style="color:rgba(255,255,255,.6);font-size:13px">İşlemci:</span>
+                                    <span style="color:#fff;font-size:13px;font-weight:600">${data.requirements.cpu}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${data.modGroups.length > 0 ? `
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">📦 Mod Grupları</h3>
+                        <div style="display:grid;gap:10px;margin-bottom:20px">
+                            ${data.modGroups.map(g => `
+                                <div style="background:rgba(255,255,255,.05);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.1)">
+                                    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                                        <span style="font-weight:600;font-size:13px;color:#fff">${g.name}</span>
+                                        <span style="font-size:12px;color:rgba(255,255,255,.5)">${g.count} mod</span>
+                                    </div>
+                                    <p style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;margin:0">${g.desc}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ` : ''}
+                        
+                        ${data.featured.length > 0 ? `
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">⭐ Öne Çıkan Modlar</h3>
+                        <div style="display:grid;gap:12px;margin-bottom:20px">
+                            ${data.featured.map(f => `
+                                <div style="background:rgba(255,255,255,.08);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.15)">
+                                    <h4 style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">${f.name}</h4>
+                                    <p style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;margin:0">${f.desc}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ` : ''}
+                        
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">🎯 Kimler İçin Uygun?</h3>
+                        <p style="font-size:13px;line-height:1.8;color:rgba(255,255,255,.75);background:rgba(255,255,255,.05);padding:14px;border-radius:10px;margin-bottom:20px">${data.idealFor}</p>
+                        
+                        ${data.totalMods > 0 ? `
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">📋 Tüm Modlar (${data.totalMods})</h3>
+                        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:8px">Mod ismine tıklayarak Modrinth sayfasına gidebilirsiniz</div>
+                        <div style="background:rgba(0,0,0,.3);padding:14px;border-radius:10px;max-height:300px;overflow-y:auto" id="modList">
+                            <div style="color:rgba(255,255,255,.6);font-size:12px">Mod listesi yükleniyor...</div>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('expandedContent').innerHTML = contentHTML;
+            
+            if (data.totalMods > 0 && (id === 'demir' || id === 'elmas')) {
+                fetch(id === 'demir' ? 'demir.txt' : 'elmas.txt')
+                    .then(r => r.text())
+                    .then(text => {
+                        const mods = [];
+                        const lines = text.split('\n');
+                        let currentMod = {};
+                        
+                        lines.forEach(line => {
+                            if (line.startsWith('ID: ')) {
+                                if (currentMod.id) mods.push(currentMod);
+                                currentMod = {id: line.substring(4).trim()};
+                            } else if (line.startsWith('Name: ')) {
+                                currentMod.name = line.substring(6).trim();
+                            }
+                        });
+                        if (currentMod.id) mods.push(currentMod);
+                        
+                        const modListHTML = mods.map(m => 
+                            `<a href="https://modrinth.com/mod/${m.id}" target="_blank" style="display:inline-block;padding:6px 10px;margin:3px;background:rgba(255,255,255,.08);border-radius:6px;color:rgba(255,255,255,.8);text-decoration:none;font-size:11px;transition:all .2s;border:1px solid rgba(255,255,255,.1)" 
+                            onmouseover="this.style.background='rgba(255,255,255,.15)';this.style.borderColor='rgba(255,255,255,.25)'" 
+                            onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.borderColor='rgba(255,255,255,.1)'">${m.name}</a>`
+                        ).join('');
+                        
+                        document.getElementById('modList').innerHTML = modListHTML;
+                    })
+                    .catch(() => {
+                        document.getElementById('modList').innerHTML = '<div style="color:rgba(255,255,255,.5);font-size:12px">Mod listesi yüklenemedi</div>';
+                    });
+            }
+            
             document.getElementById('overlay').classList.add('active');
             document.getElementById('cardExpanded').classList.add('active');
         }
