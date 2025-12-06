@@ -88,16 +88,16 @@
         .help-section img{width:40px;height:40px;border-radius:8px}
         .help-section-text h3{font-size:16px;font-weight:700;margin-bottom:4px}
         .help-section-text p{font-size:12px;color:rgba(255,255,255,.6)}
-        .comparison-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
-        .comparison-card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;transition:all .3s;position:relative}
+        .comparison-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:20px}
+        .comparison-card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:18px;text-align:center;transition:all .3s;position:relative}
         .comparison-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .comparison-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 12px 40px var(--accent)}
+        .comparison-card:hover{transform:translateY(-5px) scale(1.02);border-color:var(--accent);box-shadow:0 12px 40px var(--accent)}
         .comparison-card:hover::before{opacity:.3}
-        .comparison-card img{width:80px;height:80px;border-radius:12px;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-        .comparison-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
-        .comparison-card .short-desc{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.4}
-        .comparison-detail{text-align:left;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
-        .comparison-detail-item{display:flex;justify-content:space-between;margin:8px 0;font-size:12px}
+        .comparison-card img{width:70px;height:70px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+        .comparison-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
+        .comparison-card .short-desc{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:14px;line-height:1.3}
+        .comparison-detail{text-align:left;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1)}
+        .comparison-detail-item{display:flex;justify-content:space-between;margin:6px 0;font-size:11px}
         .comparison-detail-item .label{color:rgba(255,255,255,.5)}
         .comparison-detail-item .value{color:#fff;font-weight:600}
         .video-container{position:relative;width:100%;padding-bottom:56.25%;border-radius:16px;overflow:hidden;margin:20px 0}
@@ -119,6 +119,10 @@
             .card-title{font-size:12px}
             .card-desc{font-size:11px}
             .title{font-size:11px;margin:12px auto 6px}
+            .comparison-container{grid-template-columns:1fr;gap:12px}
+            .comparison-card{padding:16px}
+            .comparison-card img{width:60px;height:60px}
+            .comparison-card h3{font-size:14px}
             footer{margin-top:15px;font-size:10px}
         }
     </style>
@@ -422,7 +426,7 @@
                     </div>
                 </div>
                 
-                <button class="btn back" onclick="nav('help')" style="margin-top:24px">← Yardım Menüsüne Dön</button>
+                <button class="btn back" onclick="nav('vanilla')" style="margin-top:24px">← Vanilla+ Menüsüne Dön</button>
             </div>
         </div>
     </div>
@@ -434,7 +438,7 @@
                 <h2 style="font-size:22px;font-weight:700;text-align:center;margin-bottom:8px">Hangi Paketi Seçmeliyim?</h2>
                 <p style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;margin-bottom:24px">Sistemine ve ihtiyaçlarına göre en uygun modpack'i seç</p>
                 
-                <div class="comparison-container" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">
+                <div class="comparison-container" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
                     <div class="comparison-card">
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                         <h3>Altın</h3>
@@ -500,7 +504,7 @@
                     </div>
                 </div>
                 
-                <button class="btn back" onclick="nav('help')" style="margin-top:24px">← Yardım Menüsüne Dön</button>
+                <button class="btn back" onclick="nav('modded')" style="margin-top:24px">← Create Menüsüne Dön</button>
             </div>
         </div>
     </div>
@@ -516,10 +520,19 @@
             compare_create:{bg:"var(--help-bg)",g:"#d76b00",a:"rgba(215,107,0,.5)"}
         };
         
+        const navHistory = [];
         let sd={v:null,m:null};
         let expandsOpen=false;
         
         function nav(id){
+            const currentScreen = document.querySelector('.screen.active');
+            if(currentScreen) {
+                const currentId = currentScreen.id;
+                if(currentId !== id) {
+                    navHistory.push(currentId);
+                }
+            }
+            
             closeAllExpands();
             const t=themes[id];
             document.documentElement.style.setProperty('--bg',t.bg);
@@ -527,6 +540,19 @@
             document.documentElement.style.setProperty('--accent',t.a);
             document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+        }
+        
+        function goBack() {
+            if(navHistory.length > 0) {
+                const previousScreen = navHistory.pop();
+                closeAllExpands();
+                const t=themes[previousScreen];
+                document.documentElement.style.setProperty('--bg',t.bg);
+                document.documentElement.style.setProperty('--glow',t.g);
+                document.documentElement.style.setProperty('--accent',t.a);
+                document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+                document.getElementById(previousScreen).classList.add('active');
+            }
         }
         
         function closeAllExpands(){
@@ -563,8 +589,8 @@
             if(e.key==='Escape'){
                 if(expandsOpen){
                     closeAllExpands();
-                }else if(document.querySelector('.screen.active').id!=='home'){
-                    nav('home');
+                } else {
+                    goBack();
                 }
             }
         });
