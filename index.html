@@ -12,7 +12,7 @@
         body{background:#050814;position:relative}
         body::before{content:"";position:fixed;inset:0;background:var(--bg,url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')) center center;background-size:cover;background-position:center;filter:brightness(.3) blur(2px);z-index:-2;transition:filter .8s cubic-bezier(.4,0,.2,1)}
         body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0,var(--glow,#3498db)08,transparent 70%);z-index:-1;transition:background .8s}
-        :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5)}
+        :root{--bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg');--glow:#3498db;--accent:rgba(52,152,219,.5);--help-bg:url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/help.png')}
         .screen{position:fixed;inset:0;display:none;opacity:0;padding:20px;overflow-y:auto;overflow-x:hidden;transition:opacity .6s;align-items:center;justify-content:center}
         .screen::-webkit-scrollbar{width:0;display:none}
         .screen{scrollbar-width:none}
@@ -24,7 +24,7 @@
         .glass::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
         .glass::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
         .glass::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
-        .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none;border:none}
+        .btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;color:#fff;font:600 15px 'Inter';cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;width:100%;text-decoration:none}
         .btn::before{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .3s}
         .btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent),0 0 0 1px var(--accent);border-color:var(--accent)}
         .btn:hover::before{opacity:.3}
@@ -47,7 +47,6 @@
         .expand-btn.open::after{transform:translateY(-50%) rotate(180deg)}
         .expand{max-height:0;overflow:hidden;transition:max-height .3s ease;will-change:max-height}
         .expand.open{max-height:800px;overflow:visible}
-        .expand.open{max-height:800px}
         .grid{display:grid;gap:12px;padding:12px 0;overflow:visible}
         .grid-2{grid-template-columns:repeat(2,1fr)}
         .grid-3{grid-template-columns:repeat(3,1fr)}
@@ -58,13 +57,9 @@
         .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
         .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:12px}
-        .info-btn{height:32px;width:32px;opacity:.7;cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1);border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);padding:0;position:relative;display:flex;align-items:center;justify-content:center;margin-top:auto;overflow:hidden;border-radius:10px;white-space:nowrap}
-        .info-btn-content{display:flex;align-items:center;justify-content:center;transition:all .5s cubic-bezier(.4,0,.2,1);position:relative}
-        .info-btn img{width:18px;height:18px;transition:opacity .5s cubic-bezier(.4,0,.2,1);filter:brightness(1.2);position:absolute}
-        .info-btn span{font-size:12px;font-weight:600;color:#fff;opacity:0;transition:opacity .5s cubic-bezier(.4,0,.2,1);position:absolute;white-space:nowrap}
-        .info-btn:hover{opacity:1;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);width:120px}
-        .info-btn:hover img{opacity:0}
-        .info-btn:hover span{opacity:1}
+        .compare-info-btn{width:auto;padding:14px 24px;opacity:1;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;gap:10px;margin:16px auto 0;border-radius:12px;font-size:13px;font-weight:600;color:#fff}
+        .compare-info-btn img{width:20px;height:20px;filter:brightness(1.2)}
+        .compare-info-btn:hover{transform:scale(1.05);background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3)}
         .launcher-grid .card{min-height:140px}
         .launcher-grid .card img{width:70px;height:70px;margin-bottom:6px}
         .status{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s;position:relative}
@@ -87,25 +82,31 @@
         .player span{font:600 13px 'Inter'}
         .back{margin:16px auto 0;background:rgba(255,255,255,.08);max-width:280px;display:flex}
         .desc{font-size:14px;line-height:1.6;color:rgba(255,255,255,.6);margin-bottom:20px;text-align:center}
-        .help{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+        .help-menu{display:grid;gap:16px;width:100%}
+        .help-section{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:14px}
+        .help-section:hover{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.2);transform:translateY(-2px)}
+        .help-section img{width:40px;height:40px;border-radius:8px}
+        .help-section-text h3{font-size:16px;font-weight:700;margin-bottom:4px}
+        .help-section-text p{font-size:12px;color:rgba(255,255,255,.6)}
+        .comparison-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
+        .comparison-card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;transition:all .3s;position:relative}
+        .comparison-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
+        .comparison-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 12px 40px var(--accent)}
+        .comparison-card:hover::before{opacity:.3}
+        .comparison-card img{width:80px;height:80px;border-radius:12px;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+        .comparison-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+        .comparison-card .short-desc{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.4}
+        .comparison-detail{text-align:left;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+        .comparison-detail-item{display:flex;justify-content:space-between;margin:8px 0;font-size:12px}
+        .comparison-detail-item .label{color:rgba(255,255,255,.5)}
+        .comparison-detail-item .value{color:#fff;font-weight:600}
+        .video-container{position:relative;width:100%;padding-bottom:56.25%;border-radius:16px;overflow:hidden;margin:20px 0}
+        .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+        .guide-content{background:rgba(0,0,0,.3);padding:20px;border-radius:12px;margin:16px 0}
+        .guide-content h4{font-size:14px;font-weight:700;margin-bottom:12px;color:#fff}
+        .guide-content ol{margin-left:20px;color:rgba(255,255,255,.75)}
+        .guide-content li{margin:8px 0;line-height:1.6;font-size:13px}
         footer{margin-top:20px;font-size:11px;color:rgba(255,255,255,.3);text-align:center}
-        .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:999;display:none}
-        .overlay.active{display:block}
-        .card-expanded{position:fixed;inset:20px;z-index:1000;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:none;animation:expandCard .3s ease;max-height:calc(100vh - 40px);overflow-y:auto}
-        .card-expanded::-webkit-scrollbar{width:8px}
-        .card-expanded::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
-        .card-expanded::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
-        .card-expanded::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3)}
-        .card-expanded.active{display:block}
-        @keyframes expandCard{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-        .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
-        .card-info{display:flex;gap:16px;align-items:center}
-        .card-info img{width:64px;height:64px;border-radius:12px}
-        .card-details h3{font-size:20px;font-weight:700;margin-bottom:4px}
-        .card-details p{font-size:13px;color:rgba(255,255,255,.6)}
-        .close-btn{width:32px;height:32px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;flex-shrink:0}
-        .close-btn:hover{background:rgba(255,255,255,.2);transform:rotate(90deg)}
-        .card-content{font-size:14px;line-height:1.8;color:rgba(255,255,255,.7)}
         @media(max-width:768px){
             .wrap{transform:scale(.95);gap:15px}
             .logo{width:min(70%,280px);margin:10px 0}
@@ -117,41 +118,8 @@
             .card img{width:60px;height:60px;margin-bottom:8px}
             .card-title{font-size:12px}
             .card-desc{font-size:11px}
-            .info-btn{height:26px;min-width:26px}
-            .info-btn img{width:15px;height:15px}
-            .info-btn span{font-size:10px}
-            .info-btn:hover{min-width:105px;padding:0 9px 0 7px}
             .title{font-size:11px;margin:12px auto 6px}
             footer{margin-top:15px;font-size:10px}
-        }
-        @media(max-width:480px){
-            .wrap{transform:scale(1);gap:12px;padding:10px 0}
-            .logo{width:min(75%,240px);margin:5px 0}
-            .glass{padding:16px;max-height:calc(100vh - 120px)}
-            .btn{padding:12px 16px;font-size:13px;gap:8px}
-            .btn img{width:20px;height:20px}
-            .grid-3{grid-template-columns:repeat(3,1fr);gap:8px}
-            .card{padding:12px;min-height:170px}
-            .card img{width:50px;height:50px;margin-bottom:6px}
-            .card-title{font-size:11px;margin-bottom:4px}
-            .card-desc{font-size:10px}
-            .info-btn{width:26px;height:26px}
-            .info-btn img{width:15px;height:15px}
-            .info-btn::after{font-size:10px;padding:4px 9px}
-            .info-btn:hover{transform:scale(1.05)}
-            .title{font-size:10px;margin:10px auto 5px}
-            .status{padding:14px}
-            .player{padding:8px;gap:8px}
-            .player img{width:24px;height:24px}
-            .player span{font-size:12px}
-            footer{margin-top:10px}
-            .card-expanded{padding:20px;inset:15px}
-            .card-header{margin-bottom:16px}
-            .card-info{gap:12px}
-            .card-info img{width:48px;height:48px}
-            .card-details h3{font-size:16px}
-            .card-details p{font-size:12px}
-            .card-content{font-size:13px;line-height:1.6}
         }
     </style>
 </head>
@@ -210,30 +178,21 @@
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
                             <div class="card-title">Demir</div>
                             <div class="card-desc">Sadece temel modlar, saf performans için</div>
-                            <button class="info-btn" onclick="showInfo(event,'demir','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png','Demir','Sadece temel modlar, saf performans için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
-                                <span>Detaylı Bilgi</span>
-                            </button>
                         </div>
                         <div class="card tier-gold">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                             <div class="card-title">Altın</div>
                             <div class="card-desc">Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'altin','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
-                                <span>Detaylı Bilgi</span>
-                            </button>
                         </div>
                         <div class="card tier-diamond">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
                             <div class="card-desc">Ortalama ve üstü sistemler için tavsiye edilen paket</div>
-                            <button class="info-btn" onclick="showInfo(event,'elmas','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Ortalama ve üstü sistemler için tavsiye edilen paket')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
-                                <span>Detaylı Bilgi</span>
-                            </button>
                         </div>
                     </div>
+                    <button class="compare-info-btn" onclick="nav('compare_vanilla')">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">Paketleri Karşılaştır
+                    </button>
                 </div>
                 <div class="title">Sunucu Durumu</div>
                 <div class="status" onclick="toggle('v')">
@@ -268,21 +227,16 @@
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
                             <div class="card-desc">Ortalama ve üstü sistemler için tavsiye edilen paket</div>
-                            <button class="info-btn" onclick="showInfo(event,'elmas-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png','Elmas','Ortalama ve üstü sistemler için tavsiye edilen paket')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
-                                <span>Detaylı Bilgi</span>
-                            </button>
                         </div>
                         <div class="card tier-gold">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
                             <div class="card-title">Altın</div>
                             <div class="card-desc">Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için</div>
-                            <button class="info-btn" onclick="showInfo(event,'altin-c','https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png','Altın','Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için')">
-                                <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png">
-                                <span>Detaylı Bilgi</span>
-                            </button>
                         </div>
                     </div>
+                    <button class="compare-info-btn" onclick="nav('compare_create')">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png">Paketleri Karşılaştır
+                    </button>
                 </div>
                 <div class="title">Sunucu Durumu</div>
                 <div class="status" onclick="toggle('m')">
@@ -302,31 +256,266 @@
         <div class="wrap">
             <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
             <div class="glass">
-                <div class="help">
-                    <p style="font:600 16px 'Inter';color:rgba(255,255,255,.7)">🚧 Bu sayfa henüz yapım aşamasındadır 🚧</p>
-                    <button class="btn back" onclick="nav('home')">← Ana Menüye Dön</button>
+                <div class="help-menu">
+                    <div class="help-section" onclick="nav('howto')">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/yardim.png" alt="Yardım">
+                        <div class="help-section-text">
+                            <h3>Nasıl Katılırım?</h3>
+                            <p>Sunucuya katılma ve modpack kurulum rehberi</p>
+                        </div>
+                    </div>
+                    <div class="help-section" onclick="showPackageChoice()">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/info.png" alt="Karşılaştır">
+                        <div class="help-section-text">
+                            <h3>Hangi Paketi Seçmeliyim?</h3>
+                            <p>Modpack'leri karşılaştır ve sana uygun olanı seç</p>
+                        </div>
+                    </div>
                 </div>
+                <button class="btn back" onclick="nav('home')" style="margin-top:20px">← Ana Menüye Dön</button>
             </div>
         </div>
     </div>
-    <div class="overlay" id="overlay" onclick="closeInfo()"></div>
-    <div class="card-expanded" id="cardExpanded">
-        <div class="card-header">
-            <div class="card-info">
-                <img id="expandedImg" src="" alt="">
-                <div class="card-details">
-                    <h3 id="expandedTitle"></h3>
-                    <p id="expandedDesc"></p>
+    <div class="screen" id="howto">
+        <div class="wrap">
+            <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
+            <div class="glass">
+                <h2 style="font-size:22px;font-weight:700;text-align:center;margin-bottom:20px">Modpack Nasıl İndirilir?</h2>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
                 </div>
+                <div class="guide-content">
+                    <h4>📝 Yazılı Rehber</h4>
+                    <ol>
+                        <li><strong>Launcher'ı İndirin:</strong> Ana menüden Modrinth veya Prism Launcher'ı indirin. Yeni başlayanlar için Modrinth önerilir.</li>
+                        <li><strong>Launcher'ı Kurun:</strong> İndirdiğiniz dosyayı çalıştırın ve kurulum adımlarını takip edin.</li>
+                        <li><strong>Minecraft Hesabınızı Bağlayın:</strong> Launcher'ı açın ve Microsoft/Mojang hesabınız ile giriş yapın.</li>
+                        <li><strong>Modpack'i Seçin:</strong> Ana sayfamızda Vanilla+ veya Create sunucusu için uygun modpack'i seçin (Demir, Altın veya Elmas).</li>
+                        <li><strong>İndirme Linkine Tıklayın:</strong> Seçtiğiniz modpack'in indirme butonuna tıklayarak .mrpack dosyasını indirin.</li>
+                        <li><strong>Modpack'i İçe Aktarın:</strong> Launcher'da "Import" veya "İçe Aktar" butonuna tıklayın ve indirdiğiniz .mrpack dosyasını seçin.</li>
+                        <li><strong>Kurulumu Tamamlayın:</strong> Launcher otomatik olarak tüm modları ve bağımlılıkları indirecektir. Bu işlem internet hızınıza bağlı olarak 5-15 dakika sürebilir.</li>
+                        <li><strong>Oyunu Başlatın:</strong> Kurulum tamamlandıktan sonra "Play" butonuna tıklayarak oyunu başlatın.</li>
+                        <li><strong>Sunucuya Bağlanın:</strong> Minecraft'ı açtıktan sonra "Multiplayer" seçeneğine tıklayın ve sunucu IP'sini girin:<br>• Vanilla+ için: <strong>oyna.agalarmc.com</strong>
+                            <br>• Create için: <strong>create.agalarmc.com</strong>
+                        </li>
+                        <li><strong>Oyunun Tadını Çıkarın!</strong> Artık sunucumuza bağlanabilir ve oyunun keyfini çıkarabilirsiniz!</li>
+                    </ol>
+                </div>
+                
+                <div style="background:rgba(255,200,0,.15);border:1px solid rgba(255,200,0,.3);padding:16px;border-radius:12px;margin-top:16px">
+                    <h4 style="font-size:14px;font-weight:700;margin-bottom:8px;color:#ffc800">⚠️ Önemli Notlar</h4>
+                    <ul style="margin-left:20px;color:rgba(255,255,255,.8);font-size:12px;line-height:1.8">
+                        <li>En az 6GB RAM ayrılması önerilir (Launcher ayarlarından yapılandırılabilir)</li>
+                        <li>Java 21 veya üzeri gereklidir (Launcher otomatik olarak indirebilir)</li>
+                        <li>İlk açılış daha uzun sürebilir, sabırlı olun</li>
+                        <li>Sorun yaşarsanız Discord sunucumuzdan destek alabilirsiniz</li>
+                    </ul>
+                </div>
+                
+                <button class="btn back" onclick="nav('help')">← Yardım Menüsüne Dön</button>
             </div>
-            <button class="close-btn" onclick="closeInfo()">✕</button>
-        </div>
-        <div class="card-content" id="expandedContent">
-            Bu modpack hakkında detaylı bilgiler buraya gelecek. Mod listesi, sistem gereksinimleri, özellikler ve kurulum talimatları gibi bilgiler eklenecek.
         </div>
     </div>
+    
+    <div class="screen" id="compare_vanilla">
+        <div class="wrap">
+            <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillatitle.png" alt="Vanilla+">
+            <div class="glass">
+                <h2 style="font-size:22px;font-weight:700;text-align:center;margin-bottom:8px">Hangi Paketi Seçmeliyim?</h2>
+                <p style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;margin-bottom:24px">Sistemine ve ihtiyaçlarına göre en uygun modpack'i seç</p>
+                
+                <div class="comparison-container">
+                    <div class="comparison-card">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
+                        <h3>Demir</h3>
+                        <p class="short-desc">Saf performans odaklı, minimalist paket</p>
+                        <div class="comparison-detail">
+                            <div class="comparison-detail-item">
+                                <span class="label">Toplam Mod:</span>
+                                <span class="value">~35</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">RAM İhtiyacı:</span>
+                                <span class="value">4-6GB</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Ekran Kartı:</span>
+                                <span class="value">İntegre GPU</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Görsel Modlar:</span>
+                                <span class="value">Yok</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Shader Desteği:</span>
+                                <span class="value">Hayır</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Uygun Sistem:</span>
+                                <span class="value">Düşük</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-card">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
+                        <h3>Altın</h3>
+                        <p class="short-desc">Dengeli performans ve görsellik</p>
+                        <div class="comparison-detail">
+                            <div class="comparison-detail-item">
+                                <span class="label">Toplam Mod:</span>
+                                <span class="value">Yakında</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">RAM İhtiyacı:</span>
+                                <span class="value">6-8GB</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Ekran Kartı:</span>
+                                <span class="value">GTX 960 / RX 560</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Görsel Modlar:</span>
+                                <span class="value">Orta</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Shader Desteği:</span>
+                                <span class="value">Hafif</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Uygun Sistem:</span>
+                                <span class="value">Orta-Alt</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-card">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
+                        <h3>Elmas</h3>
+                        <p class="short-desc">Premium deneyim, maksimum görsellik</p>
+                        <div class="comparison-detail">
+                            <div class="comparison-detail-item">
+                                <span class="label">Toplam Mod:</span>
+                                <span class="value">~205</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">RAM İhtiyacı:</span>
+                                <span class="value">8-12GB</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Ekran Kartı:</span>
+                                <span class="value">GTX 1060 / RX 580+</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Görsel Modlar:</span>
+                                <span class="value">Maksimum</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Shader Desteği:</span>
+                                <span class="value">Evet + LOD</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Uygun Sistem:</span>
+                                <span class="value">Orta-Üst</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn back" onclick="nav('help')" style="margin-top:24px">← Yardım Menüsüne Dön</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="screen" id="compare_create">
+        <div class="wrap">
+            <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createtitle.png" alt="Create">
+            <div class="glass">
+                <h2 style="font-size:22px;font-weight:700;text-align:center;margin-bottom:8px">Hangi Paketi Seçmeliyim?</h2>
+                <p style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;margin-bottom:24px">Sistemine ve ihtiyaçlarına göre en uygun modpack'i seç</p>
+                
+                <div class="comparison-container" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">
+                    <div class="comparison-card">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
+                        <h3>Altın</h3>
+                        <p class="short-desc">Create için optimize edilmiş temel paket</p>
+                        <div class="comparison-detail">
+                            <div class="comparison-detail-item">
+                                <span class="label">Toplam Mod:</span>
+                                <span class="value">Yakında</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">RAM İhtiyacı:</span>
+                                <span class="value">6-8GB</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Ekran Kartı:</span>
+                                <span class="value">GTX 960 / RX 560</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Create Eklentileri:</span>
+                                <span class="value">Temel</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Görsel İyileştirmeler:</span>
+                                <span class="value">Orta</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Uygun Sistem:</span>
+                                <span class="value">Orta-Alt</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-card">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
+                        <h3>Elmas</h3>
+                        <p class="short-desc">Tüm Create eklentileri ve görsel iyileştirmeler</p>
+                        <div class="comparison-detail">
+                            <div class="comparison-detail-item">
+                                <span class="label">Toplam Mod:</span>
+                                <span class="value">Yakında</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">RAM İhtiyacı:</span>
+                                <span class="value">8-12GB</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Ekran Kartı:</span>
+                                <span class="value">GTX 1060 / RX 580+</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Create Eklentileri:</span>
+                                <span class="value">Tümü</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Görsel İyileştirmeler:</span>
+                                <span class="value">Maksimum</span>
+                            </div>
+                            <div class="comparison-detail-item">
+                                <span class="label">Uygun Sistem:</span>
+                                <span class="value">Orta-Üst</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn back" onclick="nav('help')" style="margin-top:24px">← Yardım Menüsüne Dön</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        const themes={home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"},vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.5)"},modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.5)"},help:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"}};
+        const themes={
+            home:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menu.jpg')",g:"#3498db",a:"rgba(52,152,219,.5)"},
+            vanilla:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanilla.jpg')",g:"#3cb043",a:"rgba(60,176,67,.5)"},
+            modded:{bg:"url('https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/create.jpg')",g:"#d76b00",a:"rgba(215,107,0,.5)"},
+            help:{bg:"var(--help-bg)",g:"#3498db",a:"rgba(52,152,219,.5)"},
+            howto:{bg:"var(--help-bg)",g:"#3498db",a:"rgba(52,152,219,.5)"},
+            compare_vanilla:{bg:"var(--help-bg)",g:"#3cb043",a:"rgba(60,176,67,.5)"},
+            compare_create:{bg:"var(--help-bg)",g:"#d76b00",a:"rgba(215,107,0,.5)"}
+        };
+        
         let sd={v:null,m:null};
         let expandsOpen=false;
         
@@ -344,203 +533,35 @@
             document.querySelectorAll('.expand').forEach(e=>e.classList.remove('open'));
             document.querySelectorAll('.expand-btn').forEach(b=>b.classList.remove('open'));
             expandsOpen=false;
-            closeInfo();
         }
         
-        function showInfo(e,id,img,title,desc){
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const contentMap = {
-                'demir': {
-                    fullDesc: 'Demir modpaketi, vanilla Minecraft deneyimini neredeyse hiç bozmadan sadece performans optimizasyonlarına odaklanan minimalist bir pakettir. Sunucudaki birkaç yeni özellik için gerekli modların yanında, güçsüz bilgisayarlarda bile akıcı bir oyun deneyimi sağlamak için optimize edilmiş performans modlarını içerir. Eğer sisteminiz düşük özelliklere sahipse ve vanilla hissiyatını korumak istiyorsanız, bu paket tam size göre.',
-                    requirements: {
-                        ram: '4GB (Önerilen: 6GB)',
-                        gpu: 'İntegre GPU destekler',
-                        cpu: 'Çift çekirdekli işlemci'
-                    },
-                    modGroups: [
-                        {name: 'Performans & Optimizasyon', count: 15, desc: 'Sodium, Lithium, FerriteCore, ModernFix gibi FPS artırıcı ve bellek optimizasyonu yapan modlar'},
-                        {name: 'Sunucu Özellikleri', count: 8, desc: 'Sunucudaki özel içerikler için gerekli temel modlar'},
-                        {name: 'Kütüphane Modları', count: 12, desc: 'Diğer modların çalışması için gerekli API ve kütüphane modları'}
-                    ],
-                    featured: [
-                        {name: 'Sodium', desc: 'Minecraft\'ın render motorunu yeniden yazarak muazzam FPS artışı sağlar. Vanilla görünümü korurken performansı 3-5 kat artırabilir.'},
-                        {name: 'Lithium', desc: 'Oyunun çeşitli sistemlerini optimize eder. Fizik hesaplamaları, mob AI ve chunk yükleme gibi işlemleri hızlandırır.'},
-                        {name: 'FerriteCore', desc: 'Bellek kullanımını optimize ederek RAM tüketimini %50\'ye kadar azaltabilir. Düşük RAM\'li sistemler için kritik önem taşır.'}
-                    ],
-                    idealFor: 'Zayıf sistemlere sahip oyuncular, vanilla deneyimi korumak isteyenler, minimum mod ile maksimum performans arayanlar için idealdir.',
-                    totalMods: 35
-                },
-                'elmas': {
-                    fullDesc: 'Elmas modpaketi, vanilla Minecraft\'ı görsel, işitsel ve kullanıcı deneyimi açısından kapsamlı şekilde geliştiren premium bir pakettir. Distant Horizons ile ultra uzak görüş mesafesi, Iris Shaders ile gerçekçi gölgelendirme, yüzlerce yeni animasyon, gelişmiş menüler, atmosferik ses efektleri ve birçok kalite iyileştirmesi içerir. Orta-üst segment sistemler için optimize edilmiş, dengeli ve göz alıcı bir deneyim sunar.',
-                    requirements: {
-                        ram: '8GB (Önerilen: 12GB)',
-                        gpu: 'GTX 1060 / RX 580 veya üstü',
-                        cpu: 'Dört çekirdekli işlemci (i5/Ryzen 5)'
-                    },
-                    modGroups: [
-                        {name: 'Görsel İyileştirmeler', count: 45, desc: '3D zırıhlar, animasyonlu envanter, partiküller, shaderlar ve görsel efektler'},
-                        {name: 'Ses & Atmosfer', count: 12, desc: 'Gelişmiş ses fiziği, yağmur sesleri, müzik çalar ve atmosferik efektler'},
-                        {name: 'Kullanıcı Arayüzü', count: 28, desc: 'Gelişmiş menüler, chat özellikleri, ekran görüntüleme araçları'},
-                        {name: 'Oynanış İyileştirmeleri', count: 35, desc: 'Hareket kontrolleri, envanter yönetimi, kalite geliştirmeleri'},
-                        {name: 'Dünya Geliştirmeleri', count: 18, desc: 'YUNG\'s yapıları, mevsimler, gelişmiş worldgen, biome iyileştirmeleri'},
-                        {name: 'Performans & Optimizasyon', count: 22, desc: 'Sodium, Iris, ImmediatelyFast ve diğer optimizasyon modları'},
-                        {name: 'Kütüphane & API', count: 45, desc: 'Modların çalışması için gerekli altyapı modları'}
-                    ],
-                    featured: [
-                        {name: 'Distant Horizons', desc: 'Level of Detail (LOD) sistemi ile render mesafesini 64-512 chunk\'a kadar çıkarır. Dağları, gölleri kilometrelerce uzaktan görebilirsiniz.'},
-                        {name: 'Iris Shaders', desc: 'Complementary Shaders ile gerçekçi ışık, gölge, su yansımaları ve atmosferik efektler. OptiFine shaderları ile tam uyumlu.'},
-                        {name: 'Entity Model Features', desc: 'CEM (Custom Entity Models) desteği ile mobların görünümü özelleştirilebilir. OptiFine kaynak paketleri ile uyumludur.'},
-                        {name: 'Sound Physics Remastered', desc: 'Ses yankılanması, mesafe ve materyal bazlı ses yutuculuğu ile sinematik ses deneyimi.'}
-                    ],
-                    idealFor: 'Orta-üst segment PC sahipleri, görsel kalite önceliği olanlar, immersive deneyim arayanlar, shaderlar ve LOD ile oynamak isteyenler için idealdir.',
-                    totalMods: 205
-                },
-                'altin': {
-                    fullDesc: 'Altın modpaketi yapım aşamasındadır. Yakında eklenecek...',
-                    requirements: {ram: 'TBA', gpu: 'TBA', cpu: 'TBA'},
-                    modGroups: [],
-                    featured: [],
-                    idealFor: 'Bilgi yakında eklenecek.',
-                    totalMods: 0
-                },
-                'elmas-c': {
-                    fullDesc: 'Create sunucusu için Elmas modpaketi bilgileri yakında eklenecek...',
-                    requirements: {ram: 'TBA', gpu: 'TBA', cpu: 'TBA'},
-                    modGroups: [],
-                    featured: [],
-                    idealFor: 'Bilgi yakında eklenecek.',
-                    totalMods: 0
-                },
-                'altin-c': {
-                    fullDesc: 'Create sunucusu için Altın modpaketi bilgileri yakında eklenecek...',
-                    requirements: {ram: 'TBA', gpu: 'TBA', cpu: 'TBA'},
-                    modGroups: [],
-                    featured: [],
-                    idealFor: 'Bilgi yakında eklenecek.',
-                    totalMods: 0
-                }
-            };
-            
-            const data = contentMap[id] || contentMap['altin'];
-            
-            document.getElementById('expandedImg').src = img;
-            document.getElementById('expandedTitle').textContent = title;
-            document.getElementById('expandedDesc').textContent = desc;
-            
-            let contentHTML = `
-                <div style="display:flex;gap:24px;margin-bottom:24px">
-                    <div style="flex:1;min-width:0">
-                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">📝 Genel Bakış</h3>
-                        <p style="font-size:13px;line-height:1.8;color:rgba(255,255,255,.75);margin-bottom:20px">${data.fullDesc}</p>
-                        
-                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">💻 Sistem Gereksinimleri</h3>
-                        <div style="background:rgba(0,0,0,.3);padding:16px;border-radius:12px;margin-bottom:20px">
-                            <div style="display:grid;gap:10px">
-                                <div style="display:flex;justify-content:space-between">
-                                    <span style="color:rgba(255,255,255,.6);font-size:13px">RAM:</span>
-                                    <span style="color:#fff;font-size:13px;font-weight:600">${data.requirements.ram}</span>
-                                </div>
-                                <div style="display:flex;justify-content:space-between">
-                                    <span style="color:rgba(255,255,255,.6);font-size:13px">Ekran Kartı:</span>
-                                    <span style="color:#fff;font-size:13px;font-weight:600">${data.requirements.gpu}</span>
-                                </div>
-                                <div style="display:flex;justify-content:space-between">
-                                    <span style="color:rgba(255,255,255,.6);font-size:13px">İşlemci:</span>
-                                    <span style="color:#fff;font-size:13px;font-weight:600">${data.requirements.cpu}</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        ${data.modGroups.length > 0 ? `
-                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">📦 Mod Grupları</h3>
-                        <div style="display:grid;gap:10px;margin-bottom:20px">
-                            ${data.modGroups.map(g => `
-                                <div style="background:rgba(255,255,255,.05);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.1)">
-                                    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-                                        <span style="font-weight:600;font-size:13px;color:#fff">${g.name}</span>
-                                        <span style="font-size:12px;color:rgba(255,255,255,.5)">${g.count} mod</span>
-                                    </div>
-                                    <p style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;margin:0">${g.desc}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                        ` : ''}
-                        
-                        ${data.featured.length > 0 ? `
-                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">⭐ Öne Çıkan Modlar</h3>
-                        <div style="display:grid;gap:12px;margin-bottom:20px">
-                            ${data.featured.map(f => `
-                                <div style="background:rgba(255,255,255,.08);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.15)">
-                                    <h4 style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">${f.name}</h4>
-                                    <p style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;margin:0">${f.desc}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                        ` : ''}
-                        
-                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">🎯 Kimler İçin Uygun?</h3>
-                        <p style="font-size:13px;line-height:1.8;color:rgba(255,255,255,.75);background:rgba(255,255,255,.05);padding:14px;border-radius:10px;margin-bottom:20px">${data.idealFor}</p>
-                        
-                        ${data.totalMods > 0 ? `
-                        <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:#fff">📋 Tüm Modlar (${data.totalMods})</h3>
-                        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:8px">Mod ismine tıklayarak Modrinth sayfasına gidebilirsiniz</div>
-                        <div style="background:rgba(0,0,0,.3);padding:14px;border-radius:10px;max-height:300px;overflow-y:auto" id="modList">
-                            <div style="color:rgba(255,255,255,.6);font-size:12px">Mod listesi yükleniyor...</div>
-                        </div>
-                        ` : ''}
-                    </div>
+        function showPackageChoice(){
+            const choice = document.createElement('div');
+            choice.style.cssText = 'position:fixed;inset:20px;z-index:1001;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));backdrop-filter:blur(40px);border:1.5px solid rgba(255,255,255,.25);border-radius:24px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px';
+            choice.innerHTML = `
+                <h2 style="font-size:24px;font-weight:700;text-align:center;color:#fff;margin-bottom:10px">Hangi Sunucu İçin?</h2>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:500px">
+                    <button onclick="nav('compare_vanilla');document.body.removeChild(this.parentElement.parentElement.parentElement)" style="background:linear-gradient(135deg,rgba(60,176,67,.3),rgba(60,176,67,.1));backdrop-filter:blur(20px);border:1px solid rgba(60,176,67,.4);border-radius:16px;padding:30px 20px;cursor:pointer;transition:all .3s;display:flex;flex-direction:column;align-items:center;gap:12px;color:#fff;font:600 16px 'Inter'">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillalogo.png" style="width:60px;height:60px;border-radius:12px">
+                        Vanilla+
+                    </button>
+                    <button onclick="nav('compare_create');document.body.removeChild(this.parentElement.parentElement.parentElement)" style="background:linear-gradient(135deg,rgba(215,107,0,.3),rgba(215,107,0,.1));backdrop-filter:blur(20px);border:1px solid rgba(215,107,0,.4);border-radius:16px;padding:30px 20px;cursor:pointer;transition:all .3s;display:flex;flex-direction:column;align-items:center;gap:12px;color:#fff;font:600 16px 'Inter'">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/createlogo.png" style="width:60px;height:60px;border-radius:12px">
+                        Create
+                    </button>
                 </div>
+                <button onclick="document.body.removeChild(this.parentElement.parentElement)" style="margin-top:10px;padding:12px 24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;font:600 14px 'Inter';cursor:pointer;transition:all .3s">İptal</button>
             `;
-            
-            document.getElementById('expandedContent').innerHTML = contentHTML;
-            
-            if (data.totalMods > 0 && (id === 'demir' || id === 'elmas')) {
-                fetch(id === 'demir' ? 'demir.txt' : 'elmas.txt')
-                    .then(r => r.text())
-                    .then(text => {
-                        const mods = [];
-                        const lines = text.split('\n');
-                        let currentMod = {};
-                        
-                        lines.forEach(line => {
-                            if (line.startsWith('ID: ')) {
-                                if (currentMod.id) mods.push(currentMod);
-                                currentMod = {id: line.substring(4).trim()};
-                            } else if (line.startsWith('Name: ')) {
-                                currentMod.name = line.substring(6).trim();
-                            }
-                        });
-                        if (currentMod.id) mods.push(currentMod);
-                        
-                        const modListHTML = mods.map(m => 
-                            `<a href="https://modrinth.com/mod/${m.id}" target="_blank" style="display:inline-block;padding:6px 10px;margin:3px;background:rgba(255,255,255,.08);border-radius:6px;color:rgba(255,255,255,.8);text-decoration:none;font-size:11px;transition:all .2s;border:1px solid rgba(255,255,255,.1)" 
-                            onmouseover="this.style.background='rgba(255,255,255,.15)';this.style.borderColor='rgba(255,255,255,.25)'" 
-                            onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.borderColor='rgba(255,255,255,.1)'">${m.name}</a>`
-                        ).join('');
-                        
-                        document.getElementById('modList').innerHTML = modListHTML;
-                    })
-                    .catch(() => {
-                        document.getElementById('modList').innerHTML = '<div style="color:rgba(255,255,255,.5);font-size:12px">Mod listesi yüklenemedi</div>';
-                    });
-            }
-            
-            document.getElementById('overlay').classList.add('active');
-            document.getElementById('cardExpanded').classList.add('active');
-        }
-        
-        function closeInfo(){
-            document.getElementById('overlay').classList.remove('active');
-            document.getElementById('cardExpanded').classList.remove('active');
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:1000';
+            overlay.onclick = ()=>document.body.removeChild(overlay);
+            overlay.appendChild(choice);
+            document.body.appendChild(overlay);
         }
         
         document.addEventListener('keydown',e=>{
             if(e.key==='Escape'){
-                if(document.getElementById('cardExpanded').classList.contains('active')){
-                    closeInfo();
-                }else if(expandsOpen){
+                if(expandsOpen){
                     closeAllExpands();
                 }else if(document.querySelector('.screen.active').id!=='home'){
                     nav('home');
