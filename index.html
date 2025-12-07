@@ -98,7 +98,8 @@
         .comparison-card:hover::before{opacity:.3}
         .comparison-card img{width:80px;height:80px;border-radius:12px;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .comparison-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
-        .comparison-card .short-desc{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.4}.comparison-detail{text-align:left;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+        .comparison-card .short-desc{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.4}
+        .comparison-detail{text-align:left;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
         .comparison-detail-item{display:flex;justify-content:space-between;margin:8px 0;font-size:12px}
         .comparison-detail-item .label{color:rgba(255,255,255,.5)}
         .comparison-detail-item .value{color:#fff;font-weight:600}
@@ -144,8 +145,7 @@
         }
     </style>
 </head>
-<body>
-    <div class="screen active" id="home">
+<body><div class="screen active" id="home">
         <div class="wrap">
             <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/menutitle.png" alt="AgalarMC">
             <div class="glass">
@@ -317,40 +317,54 @@
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
                 </div>
+                
+                <div style="background:rgba(52,152,219,.15);border:1px solid rgba(52,152,219,.4);padding:18px;border-radius:12px;margin-bottom:20px;text-align:center">
+                    <h4 style="font-size:15px;font-weight:700;margin-bottom:6px;color:#5dade2">⏱️ Kurulum Süresi</h4>
+                    <p style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6">Sunucumuza katılmadan önce birkaç dakikanızı alacak basit bir kurulum yapmanız gerekiyor. Aşağıdaki adımları takip ederek kolayca başlayabilirsiniz!</p>
+                </div>
+
                 <div class="guide-content">
-                    <h4>🔍 Yazılı Rehber</h4>
+                    <h4>📝 Yazılı Rehber</h4>
                     <ol>
-                        <li><strong>Launcher'ı İndirin:</strong> Ana menüden Modrinth veya Prism Launcher'ı indirin. Yeni başlayanlar için Modrinth önerilir.</li>
-                        <li><strong>Launcher'ı Kurun:</strong> İndirdiğiniz dosyayı çalıştırın ve kurulum adımlarını takip edin.</li>
-                        <li><strong>Minecraft Hesabınızı Bağlayın:</strong> Launcher'ı açın ve Microsoft/Mojang hesabınız ile giriş yapın.</li>
-                        <li><strong>Modpack'i Seçin:</strong> Ana sayfamızda Vanilla+ veya Create sunucusu için uygun modpack'i seçin (Demir, Altın veya Elmas).</li>
-                        <li><strong>İndirme Linkine Tıklayın:</strong> Seçtiğiniz modpack'in indirme butonuna tıklayarak .mrpack dosyasını indirin.</li>
-                        <li><strong>Modpack'i İçe Aktarın:</strong> Launcher'da "Import" veya "İçe Aktar" butonuna tıklayın ve indirdiğiniz .mrpack dosyasını seçin.</li>
-                        <li><strong>Kurulumu Tamamlayın:</strong> Launcher otomatik olarak tüm modları ve bağımlılıkları indirecektir. Bu işlem internet hızınıza bağlı olarak 5-15 dakika sürebilir.</li>
-                        <li><strong>Oyunu Başlatın:</strong> Kurulum tamamlandıktan sonra "Play" butonuna tıklayarak oyunu başlatın.</li>
-                        <li><strong>Sunucuya Bağlanın:</strong> Minecraft'ı açtıktan sonra "Multiplayer" seçeneğine tıklayın ve sunucu IP'sini girin:<br>• Vanilla+ için: <strong>oyna.agalarmc.com</strong>
-                            <br>• Create için: <strong>create.agalarmc.com</strong>
+                        <li><strong>Launcher Seçin ve İndirin:</strong> Eğer Minecraft hesabınız varsa <strong>Modrinth</strong>, yoksa <strong>Prism Launcher</strong>'ı indirin ve kurun.</li>
+                        <li><strong>Hesap Bağlantısı:</strong>
+                            <br>• <strong>Modrinth Launcher:</strong> "Ev" sekmesinden sağ menünün üstünden "Playing as > Select account" seçeneğinden Minecraft hesabınıza bağlanın.
+                            <br>• <strong>Prism Launcher:</strong> Sağ üstten "Hesaplar > Hesapları yönet > Çevrimdışı ekle" seçeneğinden kullanıcı adınızı girin.
                         </li>
-                        <li><strong>Oyunun Tadını Çıkarın!</strong> Artık sunucumuza bağlanabilir ve oyunun keyfini çıkarabilirsiniz!</li>
+                        <li><strong>Modpack'i İndirin:</strong> Ana sayfamızdan kendinize uygun modpaketi seçin ve indirin (Elmas paket önerilir).</li>
+                        <li><strong>Modpack'i İçe Aktarın:</strong>
+                            <br>• <strong>Modrinth Launcher:</strong> Sol menüden artı (+) sembolüne basın, yukarıdan "From file > Import from file"ı seçtikten sonra modpaketi dosyasını seçin.
+                            <br>• <strong>Prism Launcher:</strong> Sol üstten "Profil ekle"yi ve sonra sol menüden "Zip'ten içeri aktar"ı seçtikten sonra modpaketi dosyasını seçin.
+                            <br>• Sistemin modpaketi yüklemesini bekleyin.
+                        </li>
+                        <li><strong>RAM Ayarlarını Yapın:</strong>
+                            <br>• <strong>Modrinth Launcher:</strong> Modpaketin "Play" düğmesinin sağındaki ayarlar düğmesinden "Java and memory > Memory allocated" ayarından "Custom memory allocation"ı açın ve <strong>minimum 4GB (4096MB), maksimum 8GB (8192MB)</strong> hafıza verin.
+                            <br>• <strong>Prism Launcher:</strong> Modpakete sağ tıklayıp "Düzenle > Ayarlar > Java > Hafıza" seçeneğini açın ve en düşük/en yüksek hafıza atamasının ikisi için de aynı hafıza değerini girin: <strong>minimum 4GB (4096MB), maksimum 8GB (8192MB)</strong>.
+                        </li>
+                        <li><strong>Oyunu Başlatın:</strong> "Play" butonuna tıklayarak oyunu başlatın. İlk açılış biraz zaman alabilir, sabırlı olun!</li>
+                        <li><strong>Sunucuya Bağlanın:</strong> Minecraft'ı açtıktan sonra "Multiplayer" seçeneğine tıklayın ve sunucu IP'sini girin:
+                            <br>• <strong>Vanilla+ için:</strong> oyna.agalarmc.com
+                            <br>• <strong>Create için:</strong> create.agalarmc.com
+                        </li>
+                        <li><strong>Hesap Güvenliği (Minecraft hesabı olmayanlar için):</strong> Sunucuya girdiğinizde <code>/register şifre şifre</code> komutuyla kayıt olun ve <code>/login şifre</code> ile hesabınızı teyit edin. Minecraft hesabı olan oyuncular direkt katılabilir.</li>
                     </ol>
                 </div>
                 
                 <div style="background:rgba(255,200,0,.15);border:1px solid rgba(255,200,0,.3);padding:16px;border-radius:12px;margin-top:16px">
-                    <h4 style="font-size:14px;font-weight:700;margin-bottom:8px;color:#ffc800">⚠️ Önemli Notlar</h4>
+                    <h4 style="font-size:14px;font-weight:700;margin-bottom:8px;color:#ffc800">⚠️ Önemli Notlar ve Uyarılar</h4>
                     <ul style="margin-left:20px;color:rgba(255,255,255,.8);font-size:12px;line-height:1.8">
-                        <li>En az 6GB RAM ayrılması önerilir (Launcher ayarlarından yapılandırılabilir)</li>
-                        <li>Java 21 veya üzeri gereklidir (Launcher otomatik olarak indirebilir)</li>
-                        <li>İlk açılış daha uzun sürebilir, sabırlı olun</li>
-                        <li>Sorun yaşarsanız Discord sunucumuzdan destek alabilirsiniz</li>
+                        <li><strong>RAM Önerisi:</strong> En az 4GB, ideal kullanım için 8GB RAM ayrılması önerilir</li>
+                        <li><strong>Java Sürümü:</strong> Java 21 yüklü olmalıdır. Yoksa launcher otomatik indirebilir veya manuel olarak indirin</li>
+                        <li><strong>İlk Açılış:</strong> Oyun ilk açılırken ve bazen sonraki açılışlarda yavaş yüklenebilir. Eğer oyun başlatılıyor görünüyorsa fakat açılmıyorsa sadece bekleyin, arkaplanda yükleniyor olabilir</li>
+                        <li><strong>Sorun Giderme:</strong> Eğer önceki adımları eksiksiz uyguladıysanız oyun sorunsuz açılmalı. Herhangi bir problem olursa oyunu ve Launcher'ı kapatıp tekrar açın - genelde bu sorunu çözecektir</li>
+                        <li><strong>Destek:</strong> Bu rehberdeki hiçbir adım yardımcı olamadıysa Discord sunucumuzdan yardım isteyebilirsiniz</li>
                     </ul>
                 </div>
                 
                 <button class="btn back" onclick="nav('help')">← Yardım Menüsüne Dön</button>
             </div>
         </div>
-    </div>
-    
-    <div class="screen" id="compare_vanilla">
+    </div><div class="screen" id="compare_vanilla">
         <div class="wrap wide">
             <img class="logo" src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/vanillatitle.png" alt="Vanilla+">
             <div class="glass">
@@ -512,7 +526,8 @@
                             <div class="comparison-detail-item">
                                 <span class="label">RAM İhtiyacı:</span>
                                 <span class="value">8-12GB</span>
-                            </div><div class="comparison-detail-item">
+                            </div>
+                            <div class="comparison-detail-item">
                                 <span class="label">Ekran Kartı:</span>
                                 <span class="value">GTX 1060 / RX 580+</span>
                             </div>
