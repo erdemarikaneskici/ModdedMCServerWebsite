@@ -58,6 +58,9 @@
         .card img{width:80px;height:80px;border-radius:12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .card-title{font:700 15px 'Inter';margin-bottom:6px}
         .card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:12px}
+        .card.recommended{transform:scale(1.1);border:2px solid rgba(255,215,0,.6);box-shadow:0 0 30px rgba(255,215,0,.3)}
+        .card.recommended::after{content:'Tavsiye Edilen Paket';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ffd700,#ffed4e);color:#000;font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 12px rgba(255,215,0,.4)}
+        .card.recommended:hover{transform:scale(1.15);border-color:rgba(255,215,0,.8);box-shadow:0 0 40px rgba(255,215,0,.5)}
         .compare-info-btn{width:auto;padding:14px 24px;opacity:1;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;gap:10px;margin:16px auto 0;border-radius:12px;font-size:13px;font-weight:600;color:#fff}
         .compare-info-btn img{width:20px;height:20px;filter:brightness(1.2)}
         .compare-info-btn:hover{transform:scale(1.05);background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3)}
@@ -91,18 +94,18 @@
         .help-section img{width:40px;height:40px;border-radius:8px}
         .help-section-text h3{font-size:16px;font-weight:700;margin-bottom:4px}
         .help-section-text p{font-size:12px;color:rgba(255,255,255,.6)}
-        .comparison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px}
-        .comparison-card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+        .comparison-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;align-items:start}
+        .comparison-card{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:24px 20px;text-align:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:visible;display:flex;flex-direction:column;align-items:center}
         .comparison-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
-        .comparison-card:hover{transform:translateY(-5px) scale(1.03);border-color:var(--accent);box-shadow:0 12px 40px var(--accent)}
+        .comparison-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 12px 40px var(--accent)}
         .comparison-card:hover::before{opacity:.3}
+        .comparison-card.recommended{transform:scale(1.15);border:2px solid rgba(255,215,0,.6);box-shadow:0 0 30px rgba(255,215,0,.3);z-index:10}
+        .comparison-card.recommended::after{content:'Tavsiye Edilen';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ffd700,#ffed4e);color:#000;font-size:12px;font-weight:700;padding:6px 16px;border-radius:12px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 12px rgba(255,215,0,.4);white-space:nowrap}
+        .comparison-card.recommended:hover{transform:scale(1.2) translateY(-5px);border-color:rgba(255,215,0,.8);box-shadow:0 0 40px rgba(255,215,0,.5)}
         .comparison-card img{width:80px;height:80px;border-radius:12px;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
         .comparison-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
-        .comparison-card .short-desc{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.4}
-        .comparison-detail{text-align:left;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
-        .comparison-detail-item{display:flex;justify-content:space-between;margin:8px 0;font-size:12px}
-        .comparison-detail-item .label{color:rgba(255,255,255,.5)}
-        .comparison-detail-item .value{color:#fff;font-weight:600}
+        .comparison-card .short-desc{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px;line-height:1.5;font-weight:500}
+        .comparison-card .full-desc{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;text-align:left;padding:16px;background:rgba(0,0,0,.3);border-radius:12px;margin-top:12px}
         .video-container{position:relative;width:100%;padding-bottom:56.25%;border-radius:16px;overflow:hidden;margin:20px 0}
         .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
         .guide-content{background:rgba(0,0,0,.3);padding:20px;border-radius:12px;margin:16px 0}
@@ -135,11 +138,15 @@
             .card img{width:60px;height:60px;margin-bottom:8px}
             .card-title{font-size:12px}
             .card-desc{font-size:11px}
+            .card.recommended{transform:scale(1.05)}
+            .card.recommended:hover{transform:scale(1.1)}
             .title{font-size:11px;margin:12px auto 6px}
             .comparison-grid{grid-template-columns:1fr;gap:12px}
             .comparison-card{padding:16px}
             .comparison-card img{width:60px;height:60px}
             .comparison-card h3{font-size:16px}
+            .comparison-card.recommended{transform:scale(1);margin:20px 0}
+            .comparison-card.recommended:hover{transform:scale(1.05)}
             .server-choice-grid{grid-template-columns:1fr;gap:12px}
             footer{margin-top:15px;font-size:10px}
         }
@@ -198,17 +205,17 @@
                         <div class="card tier-iron">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
                             <div class="card-title">Demir</div>
-                            <div class="card-desc">Sadece temel modlar, saf performans için</div>
+                            <div class="card-desc">Çok düşük sistemler için, sadece temel modlar.</div>
                         </div>
-                        <div class="card tier-gold">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
-                            <div class="card-title">Altın</div>
-                            <div class="card-desc">Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için</div>
-                        </div>
-                        <div class="card tier-diamond">
+                        <div class="card tier-diamond recommended">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
-                            <div class="card-desc">Ortalama ve üstü sistemler için tavsiye edilen paket</div>
+                            <div class="card-desc">Birçok sistem için en ideal paket.</div>
+                        </div>
+                        <div class="card tier-netherite">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/netherite.png" alt="Netherite">
+                            <div class="card-title">Netherite</div>
+                            <div class="card-desc">Üst düzey sistemler için, fps uğruna görsel şölen yaşayın.</div>
                         </div>
                     </div>
                     <button class="compare-info-btn" onclick="nav('compare_vanilla')">
@@ -244,15 +251,15 @@
                 </button>
                 <div id="mc2" class="expand">
                     <div class="grid grid-2">
-                        <div class="card tier-diamond">
+                        <div class="card tier-iron">
+                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
+                            <div class="card-title">Demir</div>
+                            <div class="card-desc">Çok düşük sistemler için, sadece temel modlar.</div>
+                        </div>
+                        <div class="card tier-diamond recommended">
                             <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                             <div class="card-title">Elmas</div>
-                            <div class="card-desc">Ortalama ve üstü sistemler için tavsiye edilen paket</div>
-                        </div>
-                        <div class="card tier-gold">
-                            <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
-                            <div class="card-title">Altın</div>
-                            <div class="card-desc">Görsel iyileştirmelerin bir kısmı dahil, ortalamanın altında sistemler için</div>
+                            <div class="card-desc">Birçok sistem için en ideal paket.</div>
                         </div>
                     </div>
                     <button class="compare-info-btn" onclick="nav('compare_create')">
@@ -375,96 +382,27 @@
                     <div class="comparison-card">
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
                         <h3>Demir</h3>
-                        <p class="short-desc">Saf performans odaklı, minimalist paket</p>
-                        <div class="comparison-detail">
-                            <div class="comparison-detail-item">
-                                <span class="label">Toplam Mod:</span>
-                                <span class="value">~35</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">RAM İhtiyacı:</span>
-                                <span class="value">4-6GB</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Ekran Kartı:</span>
-                                <span class="value">İntegre GPU</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Görsel Modlar:</span>
-                                <span class="value">Yok</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Shader Desteği:</span>
-                                <span class="value">Hayır</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Uygun Sistem:</span>
-                                <span class="value">Düşük</span>
-                            </div>
+                        <p class="short-desc">Çok düşük sistemler için, sadece temel modlar.</p>
+                        <div class="full-desc">
+                            Tost makinesi veya kablo bağlanmış bir patatesten oynuyorsanız bu paketi seçin. 100'e yakın performans ve hata düzeltici mod ve birkaç yeni mekanik ekleyen modlar haricinde hiçbir mod yok. Cihazınız kötü değilse bile eğer vanilla Minecraft dışına gram çıkmam diyorsanız yine bu paketi seçebilirsiniz.
                         </div>
                     </div>
                     
-                    <div class="comparison-card">
-                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
-                        <h3>Altın</h3>
-                        <p class="short-desc">Dengeli performans ve görsellik</p>
-                        <div class="comparison-detail">
-                            <div class="comparison-detail-item">
-                                <span class="label">Toplam Mod:</span>
-                                <span class="value">Yakında</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">RAM İhtiyacı:</span>
-                                <span class="value">6-8GB</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Ekran Kartı:</span>
-                                <span class="value">GTX 960 / RX 560</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Görsel Modlar:</span>
-                                <span class="value">Orta</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Shader Desteği:</span>
-                                <span class="value">Hafif</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Uygun Sistem:</span>
-                                <span class="value">Orta-Alt</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="comparison-card">
+                    <div class="comparison-card recommended">
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                         <h3>Elmas</h3>
-                        <p class="short-desc">Premium deneyim, maksimum görsellik</p>
-                        <div class="comparison-detail">
-                            <div class="comparison-detail-item">
-                                <span class="label">Toplam Mod:</span>
-                                <span class="value">~205</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">RAM İhtiyacı:</span>
-                                <span class="value">8-12GB</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Ekran Kartı:</span>
-                                <span class="value">GTX 1060 / RX 580+</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Görsel Modlar:</span>
-                                <span class="value">Maksimum</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Shader Desteği:</span>
-                                <span class="value">Evet + LOD</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Uygun Sistem:</span>
-                                <span class="value">Orta-Üst</span>
-                            </div>
+                        <p class="short-desc">Birçok sistem için en ideal paket.</p>
+                        <div class="full-desc">
+                            Demir paketindeki tüm modlara ek olarak Distant Horizons (uzak chunk görüntüleme), Iris Shaders (shader desteği), Sodium (performans optimizasyonu) ve daha birçok QoL (quality of life), ses ve görsel iyileştirme modu içerir. Bu modpaketin en büyük özelliği her düzeyde cihaza adapte edilebilmesidir - ayarları düşürdüğünüzde zayıf sistemlerde bile sorunsuz çalışırken, yükselttikçe güçlü sistemlerde muhteşem bir görsel deneyim sunar. Bu esneklik sayesinde en ideal pakettir.
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-card">
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/netherite.png" alt="Netherite">
+                        <h3>Netherite</h3>
+                        <p class="short-desc">Üst düzey sistemler için, fps uğruna görsel şölen yaşayın.</p>
+                        <div class="full-desc">
+                            Elmas paketin tüm özelliklerine ek olarak çok güçlü bir sistem gerektiren gelişmiş görsel modlar içerir. Gelişmiş ışıklandırma, yüksek kalite gölgeler, dinamik dokular ve daha fazlası ile Minecraft'ı bambaşka bir oyuna dönüştürür. <strong>Uyarı:</strong> Gerçekten güçlü bir bilgisayarda çalıştırılmazsa oyununuz bir PowerPoint sunumuna dönüşecektir! Yüksek FPS garantisi yoktur, öncelik tamamen görselliktedir.
                         </div>
                     </div>
                 </div>
@@ -481,68 +419,22 @@
                 <h2 style="font-size:22px;font-weight:700;text-align:center;margin-bottom:8px">Hangi Paketi Seçmeliyim?</h2>
                 <p style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;margin-bottom:24px">Sistemine ve ihtiyaçlarına göre en uygun modpack'i seç</p>
                 
-                <div class="comparison-grid">
+                <div class="comparison-grid" style="grid-template-columns:1fr 1fr;max-width:700px;margin:20px auto">
                     <div class="comparison-card">
-                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/gold.png" alt="Altın">
-                        <h3>Altın</h3>
-                        <p class="short-desc">Create için optimize edilmiş temel paket</p>
-                        <div class="comparison-detail">
-                            <div class="comparison-detail-item">
-                                <span class="label">Toplam Mod:</span>
-                                <span class="value">Yakında</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">RAM İhtiyacı:</span>
-                                <span class="value">6-8GB</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Ekran Kartı:</span>
-                                <span class="value">GTX 960 / RX 560</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Create Eklentileri:</span>
-                                <span class="value">Temel</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Görsel İyileştirmeler:</span>
-                                <span class="value">Orta</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Uygun Sistem:</span>
-                                <span class="value">Orta-Alt</span>
-                            </div>
+                        <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/iron.png" alt="Demir">
+                        <h3>Demir</h3>
+                        <p class="short-desc">Çok düşük sistemler için, sadece temel modlar.</p>
+                        <div class="full-desc">
+                            Tost makinesi veya kablo bağlanmış bir patatesten oynuyorsanız bu paketi seçin. Create modu ve gerekli bağımlılıkları ile birlikte 100'e yakın performans ve hata düzeltici mod içerir. Görsel iyileştirmeler minimum düzeyde tutulmuştur, öncelik performanstır.
                         </div>
                     </div>
                     
-                    <div class="comparison-card">
+                    <div class="comparison-card recommended">
                         <img src="https://raw.githubusercontent.com/erdemarikaneskici/ModdedMCServerWebsite/main/images/diamond.png" alt="Elmas">
                         <h3>Elmas</h3>
-                        <p class="short-desc">Tüm Create eklentileri ve görsel iyileştirmeler</p>
-                        <div class="comparison-detail">
-                            <div class="comparison-detail-item">
-                                <span class="label">Toplam Mod:</span>
-                                <span class="value">Yakında</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">RAM İhtiyacı:</span>
-                                <span class="value">8-12GB</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Ekran Kartı:</span>
-                                <span class="value">GTX 1060 / RX 580+</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Create Eklentileri:</span>
-                                <span class="value">Tümü</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Görsel İyileştirmeler:</span>
-                                <span class="value">Maksimum</span>
-                            </div>
-                            <div class="comparison-detail-item">
-                                <span class="label">Uygun Sistem:</span>
-                                <span class="value">Orta-Üst</span>
-                            </div>
+                        <p class="short-desc">Birçok sistem için en ideal paket.</p>
+                        <div class="full-desc">
+                            Demir paketindeki tüm modlara ek olarak Distant Horizons (uzak chunk görüntüleme), Iris Shaders (shader desteği), Sodium (performans optimizasyonu) ve daha birçok QoL (quality of life), ses ve görsel iyileştirme modu içerir. Bu modpaketin en büyük özelliği her düzeyde cihaza adapte edilebilmesidir - ayarları düşürdüğünüzde zayıf sistemlerde bile sorunsuz çalışırken, yükselttikçe güçlü sistemlerde muhteşem bir görsel deneyim sunar. Bu esneklik sayesinde en ideal pakettir.
                         </div>
                     </div>
                 </div>
